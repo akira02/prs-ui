@@ -17,9 +17,11 @@ export class RequireToken extends React.Component<Props, void> {
         if (auth.token == null) {
             const dest = {
                 pathname: '/login',
-                search: `?nextPage=${encodeURIComponent(history.location.pathname)}`
+                state: {
+                    goBack: true
+                }
             }
-            return <Redirect to={dest}></Redirect>
+            return <Redirect push to={dest}></Redirect>
         } else {
             return children as React.ReactElement<any>
         }

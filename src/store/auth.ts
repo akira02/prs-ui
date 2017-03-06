@@ -11,12 +11,11 @@ export class Auth {
 
     @observable remember: boolean = false
 
-    @observable nextPage: string = qs.parse(history.location.search).nextPage || '/'
-
     @action
     login (formData: FormData) {
         setTimeout(() => {
             this.updateToken('student', 'GOOD_TOKEN')
+            this.gotoNextPage()
         }, 500)
     }
 
@@ -24,24 +23,28 @@ export class Auth {
     private updateToken (state, token) {
         this.state = state
         this.token = token
-        this.gotoNextPage()
     }
 
-    @computed
-    get token (): string {
-        return this.storage.getItem(Auth.STORAGE_KEY)
+    get token (): string | null {
+        return sessionStorage.getItem(Auth.STORAGE_KEY) || localStorage.getItem(Auth.STORAGE_KEY)
     }
 
-    set token (value: string) {
-        this.storage.setItem(Auth.STORAGE_KEY, value)
-    }
+    set token (value: string | null) {
+        sessionStorage.removeItem(Auth.STORAGE_KEY)
+        localStorage.removeItem(Auth.STORAGE_KEY)
 
-    @computed
-    private get storage () {
-        return this.remember ? localStorage : sessionStorage
+        if (value != null) {      
+            const storage = this.remember ? localStorage : sessionStorage
+            storage.setItem(Auth.STORAGE_KEY, value)
+        }
     }
 
     gotoNextPage () {
-        window.location.href = this.nextPage
+        const {goBack=false, nextPage='/'} = history.location.state
+        if (goBack) {
+            history.goBack()
+        } else {
+            history.replace(nextPage)
+        }
     }
 }
