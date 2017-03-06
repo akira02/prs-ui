@@ -1,10 +1,12 @@
-var path = require('path');
+const path = require('path');
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
 
 module.exports = {
   entry: ['whatwg-fetch', './src/main.tsx'],
   output: {
     filename: 'bundle.js',
-    path: './static'
+    path: path.resolve(__dirname, 'dist/static')
   },
   devtool: 'source-map',
   resolve: {
@@ -17,5 +19,12 @@ module.exports = {
         loader: 'awesome-typescript-loader'
       }
     ]
-  }
+  },
+  plugins: [
+    new CleanWebpackPlugin(['dist']),
+    new CopyWebpackPlugin([
+      { from: './assets', to: path.resolve(__dirname, 'dist/static') },
+      { from: './index.html', to: path.resolve(__dirname, 'dist/index.html') }
+    ])
+  ]
 }

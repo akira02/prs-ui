@@ -2,7 +2,7 @@ const http = require('http')
 const static = require('node-static')
 const url = require('url')
 
-const fileServer = new static.Server('.', { cache: 0 })
+const fileServer = new static.Server('./dist', { cache: 0 })
 
 const server = http.createServer((req, res) => {
     const {pathname} = url.parse(req.url)
