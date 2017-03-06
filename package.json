@@ -7,7 +7,7 @@
     "postinstall": "typings install",
     "prebuild": "npm run clean",
     "build": "npm run build-assets && npm run build-script",
-    "build-script": "tsc && webpack",
+    "build-script": "webpack",
     "build-assets": "ncp ./assets ./static",
     "clean": "rimraf ./lib ./static",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -38,6 +38,7 @@
     "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
+    "awesome-typescript-loader": "^3.0.8",
     "ncp": "^2.0.0",
     "node-static": "^0.7.9",
     "rimraf": "^2.6.1",
