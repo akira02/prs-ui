@@ -4,11 +4,11 @@ import {auth} from './store/auth'
 export class PrsApi {
     static readonly BASE = 'http://prs-node.herokuapp.com'
 
-    get (pathname, params) {
+    get (pathname: string, params: object) {
         return fetch(`${PrsApi.BASE}${pathname}?${qs.stringify(params)}`)
     }
 
-    post (pathname, params, body) {
+    post (pathname: string, params: object, body: FormData) {
         return fetch(`${PrsApi.BASE}${pathname}?${qs.stringify(params)}`, {
             method: 'POST',
             body
