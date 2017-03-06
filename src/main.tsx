@@ -8,6 +8,7 @@ import { App } from './components/App'
 import { auth } from './store/auth'
 import { history } from './store/history'
 
+import { api } from './api'
 
 const stores = { auth, history }
 
@@ -22,3 +23,4 @@ render(
 
 // for debug purpose
 window['stores'] = stores
+window['api'] = api

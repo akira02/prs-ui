@@ -19,23 +19,34 @@ export class LoginPage extends React.Component<Props, void> {
     onSubmit (event) {
         event.preventDefault()
         const formData = new FormData(event.target)
-        this.props.auth.login(formData)
+        this.props.auth.login()
     }
     @autobind
     onCheck (event, checked) {
-        event.preventDefault()
-        this.props.auth.remember = !this.props.auth.remember
+        this.props.auth.remember = checked
+    }
+    @autobind
+    handleName (event, value) {
+        this.props.auth.name = value
+    }
+    @autobind
+    handlePassword (event, value) {
+        this.props.auth.password = value
     }
     render () {
         const {auth} = this.props
         return <Page>
             <form id="login" onSubmit={this.onSubmit}>
-                <TextField type="text" name="username"
+                <TextField type="text"
+                    value={auth.name}
+                    onChange={this.handleName}
                     hintText="Username Field"
                     floatingLabelText="Username" />
                 <br />
-                <TextField type="password" name="password"
-                    hintText="Username Field"
+                <TextField type="password"
+                    value={auth.password}
+                    onChange={this.handlePassword}
+                    hintText="Password Field"
                     floatingLabelText="Password" />
                 <br />
                 <Checkbox label="Remember Me" checked={auth.remember} onCheck={this.onCheck}/>

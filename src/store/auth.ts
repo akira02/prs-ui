@@ -1,28 +1,26 @@
 import { observable, action, computed } from 'mobx'
 import qs from 'query-string'
+import { api } from '../api'
 import { history } from './history'
 
-export type AuthState = 'teacher' | 'student' | 'none'
 
 export class Auth {
     private static STORAGE_KEY: string = 'auth'
 
-    @observable state: AuthState = 'none'
+    @observable name: string
+    @observable password: string
 
     @observable remember: boolean = false
 
     @action
-    login (formData: FormData) {
-        setTimeout(() => {
-            this.updateToken('student', 'GOOD_TOKEN')
-            this.gotoNextPage()
-        }, 500)
-    }
+    async login () {
+        const {token} = await api.post('/users/login', {
+            name: this.name,
+            password: this.password
+        })
 
-    @action
-    private updateToken (state, token) {
-        this.state = state
         this.token = token
+        this.gotoNextPage()
     }
 
     get token (): string | null {
@@ -40,7 +38,7 @@ export class Auth {
     }
 
     gotoNextPage () {
-        const {goBack=false, nextPage='/'} = history.location.state
+        const {goBack=false, nextPage='/'} = history.location.state || {}
         if (goBack) {
             history.goBack()
         } else {
