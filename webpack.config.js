@@ -6,6 +6,7 @@ module.exports = {
     filename: 'bundle.js',
     path: './static'
   },
+  devtool: 'source-map',
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx']
   },
