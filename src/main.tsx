@@ -5,11 +5,11 @@ import injectTapEventPlugin from 'react-tap-event-plugin'
 
 import { App } from './components/App'
 
-import { Auth } from './store/auth'
+import { auth } from './store/auth'
 import { history } from './store/history'
 
 
-const stores = { auth: new Auth(), history }
+const stores = { auth, history }
 
 injectTapEventPlugin()
 
