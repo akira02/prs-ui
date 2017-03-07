@@ -10,20 +10,27 @@ export class Auth {
     @observable name: string = ''
     @observable password: string = ''
 
-    @observable remember: boolean = false
-
-    @observable token: string =
-        sessionStorage.getItem(Auth.STORAGE_KEY) ||
-        localStorage.getItem(Auth.STORAGE_KEY)
+    @observable remember: boolean
+    @observable token: string
 
     constructor () {
+        const data = JSON.parse(sessionStorage.getItem(Auth.STORAGE_KEY) ||
+            localStorage.getItem(Auth.STORAGE_KEY)) ||
+            {remember: false, token: null}
+
+        this.remember = data.remember
+        this.token = data.token
+
         autorun(() => {
             sessionStorage.removeItem(Auth.STORAGE_KEY)
             localStorage.removeItem(Auth.STORAGE_KEY)
 
             if (this.token != null) {      
                 const storage = this.remember ? localStorage : sessionStorage
-                storage.setItem(Auth.STORAGE_KEY, this.token)
+                storage.setItem(Auth.STORAGE_KEY, JSON.stringify({
+                    token: this.token,
+                    remember: this.remember
+                }))
             }
         })
     }
