@@ -59,7 +59,7 @@ export class Auth {
         if (goBack) {
             history.goBack()
         } else {
-            history.replace(nextPage)
+            history.push(nextPage)
         }
     }
 }
