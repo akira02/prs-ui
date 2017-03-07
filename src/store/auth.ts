@@ -56,6 +56,11 @@ export class Auth {
 
         this.token = response.token
     }
+
+    @action
+    logout () {
+        this.token = null
+    }
 }
 
 export const auth = new Auth()
