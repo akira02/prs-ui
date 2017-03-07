@@ -4,9 +4,9 @@ import {Page} from './Page'
 import RaisedButton from 'material-ui/RaisedButton';
 
 export const IndexPage = () =>
-        <Page id="index">
-            <div>
-                <p>Welcome to use PRS</p>
-                <Link to="/login"><RaisedButton>GoGo!</RaisedButton></Link>
-            </div>
-        </Page>
+    <Page id="index">
+        <div>
+            <p>Welcome to use PRS</p>
+            <Link to="/login"><RaisedButton>GoGo!</RaisedButton></Link>
+        </div>
+    </Page>
