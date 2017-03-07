@@ -21,7 +21,6 @@ export class LoginPage extends React.Component<Props, void> {
     @autobind
     onSubmit (event) {
         event.preventDefault()
-        const formData = new FormData(event.target)
         this.props.auth.login()
     }
     @autobind
