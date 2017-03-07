@@ -6,7 +6,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 export const IndexPage = () =>
         <Page id="index">
             <div>
-                <p>尼毫</p>
+                <p>Welcome to use PRS</p>
                 <Link to="/login"><RaisedButton>GoGo!</RaisedButton></Link>
             </div>
         </Page>

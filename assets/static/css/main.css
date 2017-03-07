@@ -57,6 +57,7 @@ body {
 #index p {
     font-size: 5em;
     color: white;
+    text-shadow: 1px 1px 1px #000;
 }
 
 #index div {
