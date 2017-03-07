@@ -19,20 +19,20 @@ interface Props {
 @inject('auth', 'history') @observer
 export class LoginPage extends React.Component<Props, void> {
     @autobind
-    onSubmit (event) {
+    onSubmit (event: React.SyntheticEvent) {
         event.preventDefault()
         this.props.auth.login()
     }
     @autobind
-    onCheck (event, checked) {
+    onCheck (event, checked: boolean) {
         this.props.auth.remember = checked
     }
     @autobind
-    handleName (event, value) {
+    handleName (event, value: string) {
         this.props.auth.name = value
     }
     @autobind
-    handlePassword (event, value) {
+    handlePassword (event, value: string) {
         this.props.auth.password = value
     }
     gotoNextPage () {
