@@ -14,10 +14,10 @@ export class Auth {
 
     @action
     async login () {
-        const {token} = await api.post('/users/login', {
+        const {token} = await api.post<{ token: string }>('users/login', {
             name: this.name,
             password: this.password
-        })
+        }, { auth: false })
 
         this.token = token
         this.gotoNextPage()
