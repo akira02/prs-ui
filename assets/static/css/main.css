@@ -12,14 +12,19 @@ body {
     height: 100%;
     position: absolute;
     background-color: white;
+    background-image: url("../pic/index-bg.jpg");
+    background-position: center;
+    background-size: cover;
 }
 
 .slide-push-leave {
     z-index: -1;
 }
-.slide-push-enter  {
+
+.slide-push-enter {
     transform: translateX(100%);
 }
+
 .slide-push-enter.slide-push-enter-active {
     transform: translateX(0);
     transition: transform .5s ease-out;
@@ -28,11 +33,22 @@ body {
 .slide-pop-leave {
     transform: translateX(0);
 }
+
 .slide-pop-leave.slide-pop-leave-active {
     transform: translateX(100%);
     transition: transform .5s ease-out;
 }
+
 .slide-pop-enter {
     z-index: -1;
 }
 
+
+/*indexpage*/
+
+.page #index {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
