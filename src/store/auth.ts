@@ -1,4 +1,4 @@
-import { observable, action, computed } from 'mobx'
+import { observable, action, computed, autorun } from 'mobx'
 import qs from 'query-string'
 import { api } from '../api'
 import { history } from './history'
@@ -7,10 +7,26 @@ import { history } from './history'
 export class Auth {
     private static STORAGE_KEY: string = 'auth'
 
-    @observable name: string
-    @observable password: string
+    @observable name: string = ''
+    @observable password: string = ''
 
     @observable remember: boolean = false
+
+    @observable token: string =
+        sessionStorage.getItem(Auth.STORAGE_KEY) ||
+        localStorage.getItem(Auth.STORAGE_KEY)
+
+    constructor () {
+        autorun(() => {
+            sessionStorage.removeItem(Auth.STORAGE_KEY)
+            localStorage.removeItem(Auth.STORAGE_KEY)
+
+            if (this.token != null) {      
+                const storage = this.remember ? localStorage : sessionStorage
+                storage.setItem(Auth.STORAGE_KEY, this.token)
+            }
+        })
+    }
 
     @action
     async login () {
@@ -21,20 +37,6 @@ export class Auth {
 
         this.token = token
         this.gotoNextPage()
-    }
-
-    get token (): string | null {
-        return sessionStorage.getItem(Auth.STORAGE_KEY) || localStorage.getItem(Auth.STORAGE_KEY)
-    }
-
-    set token (value: string | null) {
-        sessionStorage.removeItem(Auth.STORAGE_KEY)
-        localStorage.removeItem(Auth.STORAGE_KEY)
-
-        if (value != null) {      
-            const storage = this.remember ? localStorage : sessionStorage
-            storage.setItem(Auth.STORAGE_KEY, value)
-        }
     }
 
     gotoNextPage () {
