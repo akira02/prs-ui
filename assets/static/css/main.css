@@ -12,9 +12,6 @@ body {
     height: 100%;
     position: absolute;
     background-color: white;
-    background-image: url("../pic/index-bg.jpg");
-    background-position: center;
-    background-size: cover;
 }
 
 .slide-push-leave {
@@ -44,10 +41,34 @@ body {
 }
 
 
-/*indexpage*/
+/*IndexPage*/
 
-.page #index {
+#index {
+    color: white;
+    background-color: white;
+    background-image: url("../pic/index-bg.jpg");
+    background-position: center;
+    background-size: cover;
     position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#index p {
+    font-size: 5em;
+    color: white;
+}
+
+#index div {
+    display: inline-block;
+    text-align: center;
+}
+
+
+/*LoginPage*/
+
+#login-wrapper {
     display: flex;
     align-items: center;
     justify-content: center;

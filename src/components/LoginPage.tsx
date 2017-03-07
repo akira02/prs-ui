@@ -35,7 +35,7 @@ export class LoginPage extends React.Component<Props, void> {
     }
     render () {
         const {auth} = this.props
-        return <Page>
+        return <Page id="login-wrapper">
             <form id="login" onSubmit={this.onSubmit}>
                 <TextField type="text"
                     value={auth.name}
