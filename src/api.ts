@@ -8,14 +8,14 @@ export interface Options extends RequestInit {
 export class PrsApi {
     static readonly BASE = 'http://prs-node.herokuapp.com/'
 
-    get<T> (pathname: string, params: object, { auth=true, ...options }: Partial<Options> = {}): Promise<T> {
+    get<T> (pathname: string, params: object = {}, { auth=true, ...options }: Partial<Options> = {}): Promise<T> {
         if (auth) {
             params = { ...params, token: this.token }
         }
         return this.request<T>(`${pathname}?${qs.stringify(params)}`, options)
     }
 
-    post<T> (pathname: string, params: object, { auth=true, ...options }: Partial<Options> = {}): Promise<T> {
+    post<T> (pathname: string, params: object = {}, { auth=true, ...options }: Partial<Options> = {}): Promise<T> {
         if (auth) {
             params = { ...params, token: this.token }
         }
