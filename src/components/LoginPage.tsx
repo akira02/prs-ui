@@ -49,7 +49,7 @@ export class LoginPage extends React.Component<Props, void> {
                     hintText="Password Field"
                     floatingLabelText="Password" />
                 <br />
-                <Checkbox label="Remember Me" checked={auth.remember} onCheck={this.onCheck}/>
+                <Checkbox label="Remember Me" checked={auth.remember} onCheck={this.onCheck} />
                 <RaisedButton type="submit">Login</RaisedButton>
             </form>
         </Page>
