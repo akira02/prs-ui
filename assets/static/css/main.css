@@ -3,7 +3,20 @@ body {
 }
 
 .app {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
     overflow: hidden;
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.page-container {
+    position: relative;
+    flex-shrink: 1;
+    width: 100%;
+    height: 100%;
 }
 
 .page {
@@ -48,7 +61,6 @@ body {
     background-image: url("../pic/index-bg.jpg");
     background-position: center;
     background-size: cover;
-    position: fixed;
     display: flex;
     align-items: center;
     justify-content: center;

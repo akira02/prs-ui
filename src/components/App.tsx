@@ -21,9 +21,11 @@ export const App = inject('history')(observer<Props>(({history}) =>
         <Router history={history.inner}>
             <div className="app">
                 <SideMenu />
-                <SlideRoute exact path="/" component={IndexPage} />
-                <SlideRoute path="/login" component={LoginPage} />
-                <SlideRoute path="/good" component={GoodPage} />
+                <div className="page-container">
+                    <SlideRoute exact path="/" component={IndexPage} />
+                    <SlideRoute path="/login" component={LoginPage} />
+                    <SlideRoute path="/good" component={GoodPage} />
+                </div>
             </div>
         </Router>
     </MuiThemeProvider>

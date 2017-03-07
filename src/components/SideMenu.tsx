@@ -11,7 +11,8 @@ import {History} from '../store/history'
 const SelectableList = makeSelectable(List)
 
 interface Props {
-    history?: History
+    history?: History,
+    [prop: string]: any
 }
 
 @inject('history') @observer
@@ -21,9 +22,9 @@ export class SideMenu extends React.Component<Props, void> {
         this.props.history.push(pathname)
     }
     render () {
-        const {pathname} = this.props.history.location
-        return <Drawer docked={true}>
-            <SelectableList value={pathname} onChange={this.handleChange}>
+        const {history, ...rest} = this.props
+        return <Drawer docked={true} containerStyle={{position: 'relative'}} {...rest}>
+            <SelectableList value={history.location.pathname} onChange={this.handleChange}>
                 <ListItem value="/" primaryText="IndexPage" />
                 <ListItem value="/good" primaryText="GoodPage" />
             </SelectableList>
