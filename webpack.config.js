@@ -23,8 +23,7 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(['dist']),
     new CopyWebpackPlugin([
-      { from: './assets', to: path.resolve(__dirname, 'dist/static') },
-      { from: './index.html', to: path.resolve(__dirname, 'dist/index.html') }
+      { from: './assets', to: path.resolve(__dirname, 'dist') },
     ])
   ]
 }
