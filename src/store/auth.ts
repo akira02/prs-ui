@@ -1,4 +1,4 @@
-import { observable, action, computed, autorun } from 'mobx'
+import { observable, action, computed, autorun, runInAction } from 'mobx'
 import qs from 'query-string'
 import { api } from '../api'
 import { history } from './history'
@@ -12,6 +12,10 @@ export class Auth {
 
     @observable remember: boolean
     @observable token: string
+
+    @computed get isLoggedIn (): boolean {
+        return this.token != null
+    }
 
     constructor () {
         const data = JSON.parse(sessionStorage.getItem(Auth.STORAGE_KEY) ||
@@ -36,7 +40,7 @@ export class Auth {
     }
 
     @action
-    async login () {
+    async login (): Promise<void> {
         interface Response {
             success: number,
             token?: string,
@@ -51,16 +55,6 @@ export class Auth {
         if (!response.success) throw new Error(response.message)
 
         this.token = response.token
-        this.gotoNextPage()
-    }
-
-    gotoNextPage () {
-        const {goBack=false, nextPage='/'} = history.location.state || {}
-        if (goBack) {
-            history.goBack()
-        } else {
-            history.push(nextPage)
-        }
     }
 }
 

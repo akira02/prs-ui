@@ -7,13 +7,16 @@ import RaisedButton from 'material-ui/RaisedButton'
 import Checkbox from 'material-ui/Checkbox'
 
 import {Auth} from '../store/auth'
+import {History} from '../store/history'
+
 import {Page} from './Page'
 
 interface Props {
     auth?: Auth
+    history?: History
 }
 
-@inject('auth') @observer
+@inject('auth', 'history') @observer
 export class LoginPage extends React.Component<Props, void> {
     @autobind
     onSubmit (event) {
@@ -33,8 +36,20 @@ export class LoginPage extends React.Component<Props, void> {
     handlePassword (event, value) {
         this.props.auth.password = value
     }
+    gotoNextPage () {
+        const {history} = this.props
+        const {goBack=false, nextPage='/'} = history.location.state || {}
+        if (goBack) {
+            history.goBack()
+        } else {
+            history.push(nextPage)
+        }
+    }
     render () {
         const {auth} = this.props
+        if (auth.isLoggedIn) {
+            this.gotoNextPage()
+        }
         return <Page id="login-wrapper">
             <form id="login" onSubmit={this.onSubmit}>
                 <TextField type="text"

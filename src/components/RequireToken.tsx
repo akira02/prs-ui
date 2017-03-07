@@ -14,7 +14,7 @@ interface Props {
 export class RequireToken extends React.Component<Props, void> {
     render () {
         const {auth, history, children} = this.props
-        if (auth.token == null) {
+        if (!auth.isLoggedIn) {
             const dest = {
                 pathname: '/login',
                 state: {
