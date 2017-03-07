@@ -6,6 +6,7 @@
   "scripts": {
     "postinstall": "typings install",
     "build": "webpack",
+    "start": "node ./tools/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
