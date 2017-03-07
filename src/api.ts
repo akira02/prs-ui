@@ -31,11 +31,11 @@ export class PrsApi {
 
     request<T> (path: string, options: RequestInit): Promise<T> {
         return fetch(`${PrsApi.BASE}${path}`, options)
-            .then<any>(res => res.json())
-            .then(data => {
-                if (!data.success) throw new Error(data.message)
-                return data
+            .then(response => {
+                if (response.status >= 400) throw new Error(response.toString())
+                return response
             })
+            .then<any>(res => res.json())
     }
 
     get token (): string {

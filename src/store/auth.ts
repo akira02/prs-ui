@@ -30,12 +30,20 @@ export class Auth {
 
     @action
     async login () {
-        const {token} = await api.post<{ token: string }>('users/login', {
+        interface Response {
+            success: number,
+            token?: string,
+            message?: string
+        }
+
+        const response = await api.post<Response>('users/login', {
             name: this.name,
             password: this.password
         }, { auth: false })
 
-        this.token = token
+        if (!response.success) throw new Error(response.message)
+
+        this.token = response.token
         this.gotoNextPage()
     }
 
