@@ -16,7 +16,7 @@ interface Props {
 
 export const App = inject('history')(observer<Props>(({history}) =>
     <MuiThemeProvider>
-        <Router history={history}>
+        <Router history={history.inner}>
             <div className="app">
                 <SlideRoute exact path="/" component={IndexPage} />
                 <SlideRoute path="/login" component={LoginPage} />
