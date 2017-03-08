@@ -25,7 +25,7 @@ export class Location {
 export class History {
     inner = createHistory()
     @observable action: string
-    readonly location: Location
+    readonly location: Readonly<Location>
 
     constructor () {
         this.action = this.inner.action
@@ -50,4 +50,4 @@ export class History {
     }
 }
 
-export const history: History = new History()
+export const history: Readonly<History> = new History()
