@@ -50,7 +50,7 @@ export class Auth {
         const response = await api.post<Response>('users/login', {
             name: this.name,
             password: this.password
-        }, { auth: false })
+        })
 
         if (!response.success) throw new Error(response.message)
 
