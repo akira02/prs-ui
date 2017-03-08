@@ -9,8 +9,7 @@
     "build-production": "cross-env NODE_ENV=production webpack -p",
     "start": "node ./tools/server.js",
     "predeploy": "npm run build-production",
-    "deploy": "rsync -avz --checksum --progress --delete -e ssh ./dist aki@work.maid.cat:/var/www/prs-ui",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "deploy": "rsync -avz --checksum --progress --delete -e ssh ./dist aki@work.maid.cat:/var/www/prs-ui"
   },
   "repository": {
     "type": "git",
