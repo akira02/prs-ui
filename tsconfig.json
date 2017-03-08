@@ -18,8 +18,5 @@
     ],
     "files": [
         "typings/index.d.ts"
-    ],
-    "awesomeTypescriptLoaderOptions": {
-        "transpileOnly": false
-    }
+    ]
 }

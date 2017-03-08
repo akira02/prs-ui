@@ -2,6 +2,8 @@ const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 
+const isProduction = process.env.NODE_ENV == 'production'
+
 module.exports = {
   entry: ['whatwg-fetch', './src/main.tsx'],
   output: {
@@ -16,7 +18,11 @@ module.exports = {
     loaders: [
       {
         test: /\.tsx?$/,
-        loader: 'awesome-typescript-loader'
+        loader: 'awesome-typescript-loader',
+        options: {
+          transpileOnly: isProduction,
+          useTranspileModule: isProduction
+        }
       }
     ]
   },
