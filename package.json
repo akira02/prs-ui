@@ -7,6 +7,7 @@
     "postinstall": "typings install",
     "build": "webpack",
     "start": "node ./tools/server.js",
+    "deploy": "webpack -p && rsync -avz --progress --delete -e ssh ./dist aki@work.maid.cat:/var/www/prs-ui",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
