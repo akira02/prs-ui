@@ -6,25 +6,29 @@ import {Route} from 'react-router-dom'
 import Drawer from 'material-ui/Drawer'
 import {List, ListItem, makeSelectable} from 'material-ui/List'
 
-import {History} from '../store/history'
+import {SideMenuStore} from '../store/sideMenu'
 
 const SelectableList = makeSelectable(List)
 
 interface Props {
-    history?: History,
+    sideMenu?: SideMenuStore,
     [prop: string]: any
 }
 
-@inject('history') @observer
+@inject('sideMenu') @observer
 export class SideMenu extends React.Component<Props, void> {
     @autobind
-    handleChange (event, pathname: string) {
-        this.props.history.push(pathname)
+    handleChange (event, path: string) {
+        this.props.sideMenu.path = path
     }
     render () {
-        const {history, ...rest} = this.props
-        return <Drawer docked={true} containerStyle={{position: 'relative'}} {...rest}>
-            <SelectableList value={history.location.pathname} onChange={this.handleChange}>
+        const {sideMenu, ...rest} = this.props
+        return <Drawer
+                docked={sideMenu.docked}
+                open={sideMenu.docked ? null : sideMenu.open}
+                containerStyle={{position: 'relative'}}
+                {...rest}>
+            <SelectableList value={sideMenu.path} onChange={this.handleChange}>
                 <ListItem value="/" primaryText="IndexPage" />
                 <ListItem value="/good" primaryText="GoodPage" />
             </SelectableList>

@@ -24,6 +24,7 @@
     "classnames": "^2.2.5",
     "history": "^4.5.1",
     "material-ui": "^0.17.0",
+    "mobile-detect": "^1.3.5",
     "mobx": "^3.1.2",
     "mobx-react": "^4.1.1",
     "query-string": "^4.3.2",
