@@ -1,0 +1,10 @@
+language: node_js
+node_js:
+  - '7.7'
+script: npm run build
+deploy:
+  provider: script
+  script: npm run deploy
+  on:
+    branch: master
+
