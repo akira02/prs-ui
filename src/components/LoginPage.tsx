@@ -1,4 +1,5 @@
 import * as React from 'react'
+import {untracked} from 'mobx'
 import {observer, inject} from 'mobx-react'
 import autobind from 'autobind-decorator'
 
@@ -18,6 +19,12 @@ interface Props {
 
 @inject('auth', 'history') @observer
 export class LoginPage extends React.Component<Props, void> {
+    constructor (props, context) {
+        super(props, context)
+        autorun(() => {
+            
+        })
+    }
     @autobind
     onSubmit (event: React.SyntheticEvent) {
         event.preventDefault()
@@ -37,7 +44,7 @@ export class LoginPage extends React.Component<Props, void> {
     }
     gotoNextPage () {
         const {history} = this.props
-        const {goBack=false, nextPage='/'} = history.location.state || {}
+        const {goBack=false, nextPage='/'} = untracked(() => history.location.state) || {}
         if (goBack) {
             history.goBack()
         } else {
