@@ -8,10 +8,11 @@ import { App } from './components/App'
 import { auth } from './store/auth'
 import { history } from './store/history'
 import { sideMenu } from './store/sideMenu'
+import { assignmentList } from './store/assignmentList'
 
 import { api } from './api'
 
-const stores = { auth, history, sideMenu }
+const stores = { auth, history, sideMenu, assignmentList }
 
 injectTapEventPlugin()
 

@@ -38,6 +38,7 @@ export class SideMenu extends React.Component<Props, void> {
             <SelectableList value={sideMenu.path} onChange={this.handlePathChange}>
                 <ListItem value="/" primaryText="IndexPage" />
                 <ListItem value="/good" primaryText="GoodPage" />
+                <ListItem value="/assignments" primaryText="AssignmentsPage" />
             </SelectableList>
         </Drawer>
     }
