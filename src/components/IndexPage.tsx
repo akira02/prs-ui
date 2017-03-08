@@ -7,6 +7,6 @@ export const IndexPage = () =>
     <Page id="index">
         <div>
             <p>Welcome to use PRS</p>
-            <Link to="/login"><RaisedButton>GoGo!</RaisedButton></Link>
+            <Link to="/good"><RaisedButton>GoGo!</RaisedButton></Link>
         </div>
     </Page>
