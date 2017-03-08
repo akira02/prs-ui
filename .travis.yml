@@ -8,4 +8,5 @@ deploy:
   script: npm run deploy
   on:
     branch: master
-
+addons:
+  ssh_known_hosts: work.maid.cat
