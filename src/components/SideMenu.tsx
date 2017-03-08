@@ -26,7 +26,7 @@ export class SideMenu extends React.Component<Props, void> {
         return <Drawer
                 docked={sideMenu.docked}
                 open={sideMenu.docked ? null : sideMenu.open}
-                containerStyle={{position: 'relative'}}
+                containerStyle={sideMenu.docked ? {position: 'relative'} : null}
                 {...rest}>
             <SelectableList value={sideMenu.path} onChange={this.handleChange}>
                 <ListItem value="/" primaryText="IndexPage" />
