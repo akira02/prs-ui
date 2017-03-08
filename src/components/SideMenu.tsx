@@ -18,17 +18,24 @@ interface Props {
 @inject('sideMenu') @observer
 export class SideMenu extends React.Component<Props, void> {
     @autobind
-    handleChange (event, path: string) {
+    handlePathChange (event, path: string) {
+        this.props.sideMenu.open = false
         this.props.sideMenu.path = path
+    }
+    @autobind
+    handleOpenStateChange (state: boolean, reason: string) {
+        this.props.sideMenu.open = state
     }
     render () {
         const {sideMenu, ...rest} = this.props
         return <Drawer
                 docked={sideMenu.docked}
                 open={sideMenu.docked ? null : sideMenu.open}
+                onRequestChange={this.handleOpenStateChange}
+                style={{height: '100%'}}
                 containerStyle={sideMenu.docked ? {position: 'relative'} : null}
                 {...rest}>
-            <SelectableList value={sideMenu.path} onChange={this.handleChange}>
+            <SelectableList value={sideMenu.path} onChange={this.handlePathChange}>
                 <ListItem value="/" primaryText="IndexPage" />
                 <ListItem value="/good" primaryText="GoodPage" />
             </SelectableList>
