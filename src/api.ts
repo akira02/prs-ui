@@ -1,34 +1,19 @@
 import qs from 'query-string'
-import {auth} from './store/auth'
-
-export interface Options extends RequestInit {
-    auth: boolean
-}
-
-const defaultOptions: Options = {
-    auth: true
-}
 
 export class PrsApi {
     static readonly BASE = 'http://prs-node.herokuapp.com/'
 
-    get<T> (pathname: string, params: object = {}, options: Partial<Options> = {}): Promise<T> {
-        const {auth=true, ...rest} = options
-        if (auth) {
-            params = { ...params, token: this.token }
-        }
-        return this.request<T>(`${pathname}?${qs.stringify(params)}`, rest)
+    get<T> (pathname: string, params: object = {}, options: RequestInit = {}): Promise<T> {
+        return this.request<T>(`${pathname}?${qs.stringify(params)}`, options)
     }
 
-    post<T> (pathname: string, params: object = {}, options: Partial<Options> = {}): Promise<T> {
-        const {auth=true, ...rest} = options
-        if (auth) {
-            params = { ...params, token: this.token }
-        }
+    post<T> (pathname: string, params: object = {}, options: RequestInit = {}): Promise<T> {
+        const {headers=null, ...rest} = options
         return this.request<T>(pathname, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
+                'Content-Type': 'application/x-www-form-urlencoded',
+                ...headers
             },
             body: qs.stringify(params),
             ...rest
@@ -42,10 +27,6 @@ export class PrsApi {
                 return response
             })
             .then<any>(res => res.json())
-    }
-
-    get token (): string {
-        return auth.token
     }
 }
 
