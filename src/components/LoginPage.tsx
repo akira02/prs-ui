@@ -19,12 +19,6 @@ interface Props {
 
 @inject('auth', 'history') @observer
 export class LoginPage extends React.Component<Props, void> {
-    constructor (props, context) {
-        super(props, context)
-        autorun(() => {
-            
-        })
-    }
     @autobind
     onSubmit (event: React.SyntheticEvent) {
         event.preventDefault()
