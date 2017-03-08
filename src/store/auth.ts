@@ -1,5 +1,4 @@
-import { observable, action, computed, autorun, runInAction } from 'mobx'
-import qs from 'query-string'
+import { observable, action, computed, autorun } from 'mobx'
 import { api } from '../api'
 
 export class Auth {
