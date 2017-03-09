@@ -52,6 +52,11 @@ body {
     z-index: -1;
 }
 
+.page .button-fixed {
+    position: absolute;
+    bottom: 23px;
+    right: 23px;
+}
 
 /*IndexPage*/
 
