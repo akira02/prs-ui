@@ -47,7 +47,7 @@ export class LoginPage extends React.Component<Props, void> {
     @action.bound
     gotoNextPage () {
         const {history} = this.props
-        const {goBack=false, nextPage='/'} = untracked(() => history.location.state) || {}
+        const {goBack=false, nextPage='/'} = history.location.state || {}
         if (goBack) {
             history.goBack()
         } else {
