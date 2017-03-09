@@ -90,3 +90,8 @@ body {
     align-items: center;
     justify-content: center;
 }
+
+/* AssignmentsPage */
+.assignment {
+    margin: 8px;
+}
