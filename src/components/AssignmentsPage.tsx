@@ -1,4 +1,5 @@
 import * as React from 'react'
+import {action} from 'mobx'
 import {inject, observer} from 'mobx-react'
 
 import {RequireToken} from './RequireToken'
@@ -13,13 +14,13 @@ export interface Props {
 
 @inject('assignmentList') @observer
 export class AssignmentsPage extends React.Component<Props, void> {
-    constructor (props, context) {
-        super(props, context)
+    @action.bound
+    handleLoggedIn () {
         this.props.assignmentList.fetch()
     }
     render () {
         const {assignments} = this.props.assignmentList
-        return <RequireToken>
+        return <RequireToken onLoggedIn={this.handleLoggedIn}>
             <Page>
                 {
                     assignments.map(assignment => 
