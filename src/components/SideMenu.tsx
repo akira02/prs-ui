@@ -1,6 +1,6 @@
 import * as React from 'react'
+import {action} from 'mobx'
 import {inject, observer} from 'mobx-react'
-import autobind from 'autobind-decorator'
 
 import {Route} from 'react-router-dom'
 import Drawer from 'material-ui/Drawer'
@@ -17,12 +17,12 @@ interface Props {
 
 @inject('sideMenu') @observer
 export class SideMenu extends React.Component<Props, void> {
-    @autobind
+    @action.bound
     handlePathChange (event, path: string) {
         this.props.sideMenu.open = false
         this.props.sideMenu.path = path
     }
-    @autobind
+    @action.bound
     handleOpenStateChange (state: boolean, reason: string) {
         this.props.sideMenu.open = state
     }

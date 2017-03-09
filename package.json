@@ -22,7 +22,6 @@
   },
   "homepage": "https://github.com/akira02/prs-ui#readme",
   "dependencies": {
-    "autobind-decorator": "^1.3.4",
     "classnames": "^2.2.5",
     "history": "^4.5.1",
     "material-ui": "^0.17.0",
