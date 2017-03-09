@@ -3,6 +3,7 @@
         "target": "es5",
         "module": "es6",
         "moduleResolution": "node",
+        "alwaysStrict": true,
         "experimentalDecorators": true,
         "importHelpers": true,
         "jsx": "react",
