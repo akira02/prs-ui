@@ -6,16 +6,17 @@ import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import Checkbox from 'material-ui/Checkbox'
 
-import {Auth, History} from '../stores'
+import {Auth, History, Message} from '../stores'
 
 import {Page} from './Page'
 
 interface Props {
     auth?: Auth
     history?: History
+    message?: Message
 }
 
-@inject('auth', 'history') @observer
+@inject('auth', 'history', 'message') @observer
 export class LoginPage extends React.Component<Props, void> {
     private dispose: () => void
     constructor (props: Props) {
@@ -27,9 +28,13 @@ export class LoginPage extends React.Component<Props, void> {
         this.dispose()
     }
     @action.bound
-    onSubmit (event: React.SyntheticEvent) {
+    async onSubmit (event: React.SyntheticEvent) {
         event.preventDefault()
-        this.props.auth.login()
+        try {
+            await this.props.auth.login()
+        } catch (err) {
+            this.props.message.error('Login failed. Please try again')
+        }
     }
     @action.bound
     onCheck (event, checked: boolean) {
@@ -60,12 +65,14 @@ export class LoginPage extends React.Component<Props, void> {
                 <TextField type="text"
                     value={auth.name}
                     onChange={this.handleName}
+                    required={true}
                     hintText="Username Field"
                     floatingLabelText="Username" />
                 <br />
                 <TextField type="password"
                     value={auth.password}
                     onChange={this.handlePassword}
+                    required={true}
                     hintText="Password Field"
                     floatingLabelText="Password" />
                 <br />
