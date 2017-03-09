@@ -11,6 +11,8 @@ import { GoodPage } from './GoodPage'
 import { IndexPage } from './IndexPage'
 import { AssignmentsPage } from './AssignmentsPage'
 
+import { MessageBar } from './MessageBar'
+
 import { History } from '../stores'
 
 interface Props {
@@ -28,6 +30,7 @@ export const App = inject('history')(observer<Props>(({history}) =>
                     <SlideRoute path="/good" component={GoodPage} />
                     <SlideRoute path="/assignments" component={AssignmentsPage} />
                 </div>
+                <MessageBar />
             </div>
         </Router>
     </MuiThemeProvider>
