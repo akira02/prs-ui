@@ -1,7 +1,6 @@
 import * as React from 'react'
-import {untracked} from 'mobx'
+import {action, when} from 'mobx'
 import {observer, inject} from 'mobx-react'
-import autobind from 'autobind-decorator'
 
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
@@ -19,23 +18,33 @@ interface Props {
 
 @inject('auth', 'history') @observer
 export class LoginPage extends React.Component<Props, void> {
-    @autobind
+    private dispose: () => void
+    constructor (props: Props) {
+        super(props)
+        const disposer = when('loggedIn', () => props.auth.isLoggedIn, this.gotoNextPage)
+        this.dispose = disposer
+    }
+    componentWillUnmount () {
+        this.dispose()
+    }
+    @action.bound
     onSubmit (event: React.SyntheticEvent) {
         event.preventDefault()
         this.props.auth.login()
     }
-    @autobind
+    @action.bound
     onCheck (event, checked: boolean) {
         this.props.auth.remember = checked
     }
-    @autobind
+    @action.bound
     handleName (event, value: string) {
         this.props.auth.name = value
     }
-    @autobind
+    @action.bound
     handlePassword (event, value: string) {
         this.props.auth.password = value
     }
+    @action.bound
     gotoNextPage () {
         const {history} = this.props
         const {goBack=false, nextPage='/'} = untracked(() => history.location.state) || {}
@@ -47,9 +56,6 @@ export class LoginPage extends React.Component<Props, void> {
     }
     render () {
         const {auth} = this.props
-        if (auth.isLoggedIn) {
-            this.gotoNextPage()
-        }
         return <Page id="login-wrapper">
             <form id="login" onSubmit={this.onSubmit}>
                 <TextField type="text"
