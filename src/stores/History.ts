@@ -49,5 +49,3 @@ export class History {
         this.inner.goBack()
     }
 }
-
-export const history: Readonly<History> = new History()

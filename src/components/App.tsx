@@ -11,7 +11,7 @@ import { GoodPage } from './GoodPage'
 import { IndexPage } from './IndexPage'
 import { AssignmentsPage } from './AssignmentsPage'
 
-import { History } from '../store/history'
+import { History } from '../stores'
 
 interface Props {
     history?: History

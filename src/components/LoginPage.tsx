@@ -6,8 +6,7 @@ import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import Checkbox from 'material-ui/Checkbox'
 
-import {Auth} from '../store/auth'
-import {History} from '../store/history'
+import {Auth, History} from '../stores'
 
 import {Page} from './Page'
 

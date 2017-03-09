@@ -59,5 +59,3 @@ export class Auth {
         this.token = null
     }
 }
-
-export const auth = new Auth()

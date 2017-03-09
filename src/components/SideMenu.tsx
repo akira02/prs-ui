@@ -6,7 +6,7 @@ import {Route} from 'react-router-dom'
 import Drawer from 'material-ui/Drawer'
 import {List, ListItem, makeSelectable} from 'material-ui/List'
 
-import {SideMenuStore} from '../store/sideMenu'
+import {SideMenuStore} from '../stores'
 
 const SelectableList = makeSelectable(List)
 

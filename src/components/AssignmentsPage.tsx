@@ -5,7 +5,7 @@ import {RequireToken} from './RequireToken'
 import {Page} from './Page'
 import {AssignmentCard} from './AssignmentCard'
 
-import {AssignmentList} from '../store/assignmentList'
+import {AssignmentList} from '../stores'
 
 export interface Props {
     assignmentList: AssignmentList

@@ -2,8 +2,7 @@ import * as React from 'react'
 import { inject, observer } from 'mobx-react'
 import { Redirect } from 'react-router-dom'
 
-import { Auth } from '../store/auth'
-import { History } from '../store/history'
+import { Auth, History } from '../stores'
 
 interface Props {
     auth?: Auth,

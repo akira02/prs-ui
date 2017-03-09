@@ -5,16 +5,13 @@ import injectTapEventPlugin from 'react-tap-event-plugin'
 
 import { App } from './components/App'
 
-import { auth } from './store/auth'
-import { history } from './store/history'
-import { sideMenu } from './store/sideMenu'
-import { assignmentList } from './store/assignmentList'
+import { Stores } from './stores'
 
 import { api } from './api'
 
-const stores = { auth, history, sideMenu, assignmentList }
-
 injectTapEventPlugin()
+
+const stores = new Stores()
 
 render(
     <Provider {...stores}>
