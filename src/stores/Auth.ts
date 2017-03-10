@@ -59,7 +59,7 @@ export class Auth {
     logout () {
         this.token = null
     }
-    @computed
+    
     plugin: Plugin = ({path, options}: Request) => {
         const {headers, ...rest} = options
         return {
