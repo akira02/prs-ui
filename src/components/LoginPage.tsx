@@ -6,6 +6,7 @@ import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import Checkbox from 'material-ui/Checkbox'
 
+import {StatusCodeError} from '../api'
 import {Auth, History, Message} from '../stores'
 
 import {Page} from './Page'
@@ -32,8 +33,12 @@ export class LoginPage extends React.Component<Props, void> {
         event.preventDefault()
         try {
             await this.props.auth.login()
-        } catch (err) {
-            this.props.message.error('Login failed. Please try again')
+        } catch (error) {
+            if (error instanceof StatusCodeError && error.status == 403) {
+                this.props.message.error('Incorrect username or password. Please try again')
+            } else {
+                this.props.message.error('Login failed. Please try again')
+            }
         }
     }
     @action.bound
@@ -41,8 +46,8 @@ export class LoginPage extends React.Component<Props, void> {
         this.props.auth.remember = checked
     }
     @action.bound
-    handleName (event, value: string) {
-        this.props.auth.name = value
+    handleUserame (event, value: string) {
+        this.props.auth.username = value
     }
     @action.bound
     handlePassword (event, value: string) {
@@ -63,8 +68,8 @@ export class LoginPage extends React.Component<Props, void> {
         return <Page id="login-wrapper">
             <form id="login" onSubmit={this.onSubmit}>
                 <TextField type="text"
-                    value={auth.name}
-                    onChange={this.handleName}
+                    value={auth.username}
+                    onChange={this.handleUserame}
                     required={true}
                     hintText="Username Field"
                     floatingLabelText="Username" />

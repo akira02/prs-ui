@@ -4,7 +4,7 @@ import { api } from '../api'
 export class Auth {
     private static STORAGE_KEY: string = 'auth'
 
-    @observable name: string = ''
+    @observable username: string = ''
     @observable password: string = ''
 
     @observable remember: boolean
@@ -39,17 +39,13 @@ export class Auth {
     @action
     async login (): Promise<void> {
         interface Response {
-            success: number,
-            token?: string,
-            message?: string
+            token: string
         }
 
-        const response = await api.post<Response>('users/login', {
-            name: this.name,
+        const response = await api.post<Response>('tokens', {
+            username: this.username,
             password: this.password
         })
-
-        if (!response.success) throw new Error(response.message)
 
         this.token = response.token
     }
