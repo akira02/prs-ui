@@ -25,15 +25,13 @@ export class PrsApi {
     }
 
     post<T> (pathname: string, params: object = {}, options: RequestInit = {}): Promise<T> {
-        const {headers=null, ...rest} = options
+        const headers = new Headers(options.headers)
+        headers.append('Content-Type', 'application/x-www-form-urlencoded')
         return this.request<T>(pathname, {
+            ...options,
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                ...headers
-            },
             body: qs.stringify(params),
-            ...rest
+            headers
         })
     }
 
