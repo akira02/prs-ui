@@ -7,7 +7,7 @@ import { App } from './components/App'
 
 import { Stores } from './stores'
 
-import { api } from './api'
+import * as api from './api'
 
 injectTapEventPlugin()
 

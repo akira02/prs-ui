@@ -9,41 +9,55 @@ export class StatusCodeError extends Error {
     }
 }
 
-export type Plugin = (request: Request) => Request
+export const API_BASE: string = 'http://prs-node.herokuapp.com/'
 
-export class PrsApi {
-    static readonly BASE = 'http://prs-node.herokuapp.com/'
+export interface ApiRequest {
+    readonly method: 'GET' | 'POST'
+    readonly pathname: string
+    readonly headers: Headers
+    readonly data: object
+}
 
-    private readonly plugin?: Plugin
-
-    constructor (plugin: Plugin = null) {
-        this.plugin = plugin
+export class Builder {
+    constructor (public readonly request: ApiRequest) {
     }
-
-    get<T> (pathname: string, params: object = {}, options: RequestInit = {}): Promise<T> {
-        return this.request<T>(`${pathname}?${qs.stringify(params)}`, options)
+    get (data?: object): Builder {
+        return new Builder({...this.request, method: 'GET'}).params(data)
     }
-
-    post<T> (pathname: string, params: object = {}, options: RequestInit = {}): Promise<T> {
-        const headers = new Headers(options.headers)
-        headers.append('Content-Type', 'application/x-www-form-urlencoded')
-        return this.request<T>(pathname, {
-            ...options,
-            method: 'POST',
-            body: qs.stringify(params),
-            headers
-        })
+    post (data?: object): Builder {
+        return new Builder({...this.request, method: 'POST'}).params(data)
     }
-
-    use (plugin: Plugin): PrsApi {
-        return (this.plugin == null)
-            ? new PrsApi(plugin)
-            : new PrsApi(request => plugin(this.plugin(request)))
+    path (pathname: string): Builder {
+        return new Builder({...this.request, pathname})
     }
-
-    request<T> (path: string, options: RequestInit): Promise<T> {
-        const request = new Request(`${PrsApi.BASE}${path}`, options)
-        return fetch(this.plugin != null ? this.plugin(request) : request)
+    auth (token: string): Builder {
+        const headers = new Headers(this.request.headers)
+        headers.set('Authorization', token)
+        return new Builder({...this.request, headers})
+    }
+    params (data?: object): Builder {
+        return new Builder({...this.request, data: {...this.request.data, ...data}})
+    }
+    build (): Request {
+        const options: RequestInit = {
+            method: this.request.method,
+            headers: this.request.headers
+        }
+        let url = API_BASE + this.request.pathname
+        switch (options.method) {
+            case 'GET':
+                url += '?' + qs.stringify(this.request.data)
+                break
+            case 'POST':
+                options.headers = new Headers(options.headers)
+                options.headers.set('Content-Type', 'application/x-www-form-urlencoded')
+                options.body = qs.stringify(this.request.data)
+                break
+        }
+        return new Request(url, options)
+    }
+    fetch<T> (): Promise<T> {
+        return fetch(this.build())
             .then(response => {
                 if (response.status >= 400) {
                     throw new StatusCodeError(response.status)
@@ -54,4 +68,18 @@ export class PrsApi {
     }
 }
 
-export const api = new PrsApi()
+function endpoint (pathname: string) {
+    return new Builder({
+        method: 'GET',
+        pathname,
+        headers: new Headers(),
+        data: {}
+    })
+}
+
+export const tokens = endpoint('tokens')
+export const lessons = endpoint('lessons')
+export const assignments = endpoint('assignments')
+export const submissions = endpoint('submissions')
+export const responses = endpoint('responses')
+export const reply = endpoint('reply')

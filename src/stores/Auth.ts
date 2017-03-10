@@ -1,5 +1,5 @@
 import { observable, action, computed, reaction } from 'mobx'
-import { api, Plugin } from '../api'
+import { tokens } from '../api'
 
 export class Auth {
     private static STORAGE_KEY: string = 'auth'
@@ -47,11 +47,12 @@ export class Auth {
         interface Response {
             token: string
         }
-
-        const response = await api.post<Response>('tokens', {
-            username: this.username,
-            password: this.password
-        })
+        const response = await tokens
+            .post({
+                username: this.username,
+                password: this.password
+            })
+            .fetch<Response>()
 
         this.token = response.token
     }
@@ -59,10 +60,4 @@ export class Auth {
     logout () {
         this.token = null
     }
-    
-    plugin: Plugin = (request: Request) => {
-        const headers = new Headers(request.headers)
-        headers.append('Authorization', this.token)
-        return new Request(request, { headers })
-   }
 }

@@ -1,5 +1,5 @@
 import { observable, IObservableArray } from 'mobx'
-import { api } from '../api'
+import { assignments } from '../api'
 import { Auth } from './Auth'
 import { Assignment } from '../models/Assignment'
 
@@ -12,15 +12,13 @@ export class AssignmentList {
         this.auth = auth
     }
 
-    async post (name: string, data_link: string) {
-        await api.post<void>('assignments', {name, data_link, token: this.auth.token})
-        await this.fetch()
-    }
-
     async fetch () {
         this.loading = true
-        const assignments = await api.get<Assignment[]>('assignments', {token: this.auth.token})
-        this.assignments.replace(assignments)
+        const response = await assignments
+            .get()
+            .auth(this.auth.token)
+            .fetch<Assignment[]>()
+        this.assignments.replace(response)
         this.loading = false
     }
 }
