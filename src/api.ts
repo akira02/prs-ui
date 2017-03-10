@@ -9,11 +9,6 @@ export class StatusCodeError extends Error {
     }
 }
 
-export interface Request {
-    path: string,
-    options: RequestInit
-}
-
 export type Plugin = (request: Request) => Request
 
 export class PrsApi {
@@ -49,8 +44,9 @@ export class PrsApi {
     }
 
     request<T> (path: string, options: RequestInit): Promise<T> {
+        let request = new Request(path, options)
         if (this.plugin != null) {
-            ({path, options} = this.plugin({path, options}))
+            request = this.plugin(request)
         }
         return fetch(`${PrsApi.BASE}${path}`, options)
             .then(response => {
