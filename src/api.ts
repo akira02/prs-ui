@@ -1,5 +1,13 @@
 import qs from 'query-string'
 
+export class StatusCodeError extends Error {
+    constructor (
+            public readonly status: number,
+            message?: string) {
+        super(message)
+    }
+}
+
 export class PrsApi {
     static readonly BASE = 'http://prs-node.herokuapp.com/'
 
@@ -23,7 +31,9 @@ export class PrsApi {
     request<T> (path: string, options: RequestInit): Promise<T> {
         return fetch(`${PrsApi.BASE}${path}`, options)
             .then(response => {
-                if (response.status >= 400) throw new Error(response.toString())
+                if (response.status >= 400) {
+                    throw new StatusCodeError(response.status)
+                }
                 return response
             })
             .then<any>(res => res.json())
