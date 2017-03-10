@@ -44,11 +44,8 @@ export class PrsApi {
     }
 
     request<T> (path: string, options: RequestInit): Promise<T> {
-        let request = new Request(path, options)
-        if (this.plugin != null) {
-            request = this.plugin(request)
-        }
-        return fetch(`${PrsApi.BASE}${path}`, options)
+        const request = new Request(`${PrsApi.BASE}${path}`, options)
+        return fetch(this.plugin != null ? this.plugin(request) : request)
             .then(response => {
                 if (response.status >= 400) {
                     throw new StatusCodeError(response.status)
