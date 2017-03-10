@@ -1,5 +1,5 @@
 import { observable, action, computed, reaction } from 'mobx'
-import { api } from '../api'
+import { api, Plugin, Request } from '../api'
 
 export class Auth {
     private static STORAGE_KEY: string = 'auth'
@@ -55,9 +55,22 @@ export class Auth {
 
         this.token = response.token
     }
-
     @action
     logout () {
         this.token = null
     }
+    @computed
+    plugin: Plugin = ({path, options}: Request) => {
+        const {headers, ...rest} = options
+        return {
+            path,
+            options: {
+                headers: {
+                    Authorization: this.token,
+                    ...headers
+                },
+                ...rest
+            }
+        }
+   }
 }
