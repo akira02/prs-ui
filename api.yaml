@@ -1,0 +1,78 @@
+# types
+
+# token string
+Token: stirng
+
+# date string in ISO format
+Date: string 
+
+T[]: array of type T
+T?: value of type T or null
+
+Lesson:
+  id: string
+  name: string
+  teacher:
+    id: string
+    name: string
+  # TODO ... add more fields
+
+Assignment:
+  id: string
+  assigned: Date
+  due: Date
+  submitted: Date? # null if not submitted yet
+  lesson:
+    id: string
+    name: string
+  # TODO ... add more fields
+
+# api 
+/tokens:
+  GET:
+    # ...token info?
+  POST:
+    params:
+      username: string
+      password: string
+    responses:
+      200:
+        token: string
+        expire: Date
+      403: # when username/password is wrong
+        message: string # error message
+
+/lessons:
+  GET: # list lessons taken by user
+    header:
+      Authorization: Token
+    responses:
+      200: Lesson[]
+      403: # bad token
+        message: string
+
+/assignments:
+  GET: # list assignments of a lesson
+    header:
+      Authorization: Token
+    params:
+      # id of a lesson (optional)
+      # if provided, list only assignments which belong to the lesson
+      # otherwise, list all assignments assigned to the user
+      lesson_id: string?
+    responses:
+      200: Assignment[] # assignments sorted by date assigned
+      403: # bad token
+        message: string
+
+/submissions:
+  POST:
+    header:
+      Authorization: Token
+    params:
+      # id of assignment
+      assignment_id: string
+    responses:
+      200: Assignment[] # assignments sorted by date
+      403: # bad token
+        message: string

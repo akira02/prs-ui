@@ -1,4 +1,4 @@
-import { observable, action, computed, autorun } from 'mobx'
+import { observable, action, computed, reaction } from 'mobx'
 import { api } from '../api'
 
 export class Auth {
@@ -7,35 +7,41 @@ export class Auth {
     @observable username: string = ''
     @observable password: string = ''
 
-    @observable remember: boolean
-    @observable token: string
+    @observable remember: boolean = false
+    @observable token: string = null
 
     @computed get isLoggedIn (): boolean {
         return this.token != null
     }
 
     constructor () {
-        const data = JSON.parse(sessionStorage.getItem(Auth.STORAGE_KEY) ||
-            localStorage.getItem(Auth.STORAGE_KEY)) ||
-            {remember: false, token: null}
+        this.hydrate()
 
-        this.remember = data.remember
-        this.token = data.token
-
-        autorun(() => {
-            sessionStorage.removeItem(Auth.STORAGE_KEY)
-            localStorage.removeItem(Auth.STORAGE_KEY)
-
-            if (this.token != null) {      
-                const storage = this.remember ? localStorage : sessionStorage
-                storage.setItem(Auth.STORAGE_KEY, JSON.stringify({
+        reaction(
+            () => ({
+                storage: this.remember ? localStorage : sessionStorage,
+                data: {
                     token: this.token,
                     remember: this.remember
-                }))
-            }
-        })
+                }
+            }),
+            this.store)
     }
+    @action
+    private hydrate () {
+        const json = sessionStorage.getItem(Auth.STORAGE_KEY) || localStorage.getItem(Auth.STORAGE_KEY)
 
+        if (json == null) return
+
+        const {remember, token} = JSON.parse(json)
+
+        this.remember = remember
+        this.token = token
+    }
+    @action.bound
+    private store ({storage, data}: {storage: Storage, data: any}) {
+        storage.setItem(Auth.STORAGE_KEY, JSON.stringify(data))
+    }
     @action
     async login (): Promise<void> {
         interface Response {
