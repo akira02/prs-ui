@@ -21,12 +21,6 @@ export interface ApiRequest {
 export class Builder {
     constructor (public readonly request: ApiRequest) {
     }
-    get (data?: object): Builder {
-        return new Builder({...this.request, method: 'GET'}).params(data)
-    }
-    post (data?: object): Builder {
-        return new Builder({...this.request, method: 'POST'}).params(data)
-    }
     path (pathname: string): Builder {
         return new Builder({...this.request, pathname})
     }
@@ -68,7 +62,7 @@ export class Builder {
     }
 }
 
-function endpoint (pathname: string) {
+function get (pathname: string): Builder {
     return new Builder({
         method: 'GET',
         pathname,
@@ -77,9 +71,30 @@ function endpoint (pathname: string) {
     })
 }
 
-export const tokens = endpoint('tokens')
-export const lessons = endpoint('lessons')
-export const assignments = endpoint('assignments')
-export const submissions = endpoint('submissions')
-export const responses = endpoint('responses')
-export const reply = endpoint('reply')
+function post (pathname: string): Builder {
+    return new Builder({
+        method: 'POST',
+        pathname,
+        headers: new Headers(),
+        data: {}
+    })
+}
+
+export const tokens = {
+    post: post('tokens')
+}
+export const lessons = {
+    get:　get('lessons')
+}
+export const assignments = {
+    get: get('assignments')
+}
+export const submissions = {
+    post: post('submissions')
+}
+export const responses = {
+    get: get('responses')
+}
+export const reply = {
+    post: post('reply')
+}

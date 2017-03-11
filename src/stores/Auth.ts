@@ -47,8 +47,8 @@ export class Auth {
         interface Response {
             token: string
         }
-        const response = await tokens
-            .post({
+        const response = await tokens.post
+            .params({
                 username: this.username,
                 password: this.password
             })
