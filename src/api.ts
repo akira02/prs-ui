@@ -1,5 +1,5 @@
 import {observable} from 'mobx'
-import qs from 'query-string'
+import {stringify} from 'query-string'
 
 import {Assignment} from './models/Assignment'
 import {Lesson} from './models/Lesson'
@@ -41,12 +41,12 @@ export class Builder<T> {
         let url = API_BASE + this.request.pathname
         switch (options.method) {
             case 'GET':
-                url += '?' + qs.stringify(this.request.data)
+                url += '?' + stringify(this.request.data)
                 break
             case 'POST':
                 options.headers = new Headers(options.headers)
                 options.headers.set('Content-Type', 'application/x-www-form-urlencoded')
-                options.body = qs.stringify(this.request.data)
+                options.body = stringify(this.request.data)
                 break
         }
         return new Request(url, options)
