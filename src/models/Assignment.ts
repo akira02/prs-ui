@@ -1,5 +1,11 @@
 export interface Assignment {
-    readonly _id: string
-    readonly name: string
-    readonly data_link: string
+    id: string
+    assigned: string
+    due: string
+    submitted?: string
+    lesson: {
+        id: string
+        name: string
+    }
 }
+
