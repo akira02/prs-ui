@@ -1,6 +1,10 @@
 import {observable} from 'mobx'
 import qs from 'query-string'
 
+import {Assignment} from './models/Assignment'
+import {Lesson} from './models/Lesson'
+import {Submission} from './models/Submission'
+
 export class StatusCodeError extends Error {
     constructor (
             public readonly status: number,
@@ -18,15 +22,15 @@ export interface ApiRequest {
     readonly data: object
 }
 
-export class Builder {
+export class Builder<T> {
     constructor (public readonly request: ApiRequest) {
     }
-    auth (token: string): Builder {
+    auth (token: string): Builder<T> {
         const headers = new Headers(this.request.headers)
         headers.set('Authorization', token)
         return new Builder({...this.request, headers})
     }
-    params (data?: object): Builder {
+    params (data?: object): Builder<T> {
         return new Builder({...this.request, data: {...this.request.data, ...data}})
     }
     build (): Request {
@@ -47,7 +51,7 @@ export class Builder {
         }
         return new Request(url, options)
     }
-    fetch<T> (): Promise<T> {
+    fetch (): Promise<T> {
         return fetch(this.build())
             .then(response => {
                 if (response.status >= 400) {
@@ -59,7 +63,7 @@ export class Builder {
     }
 }
 
-function get (pathname: string): Builder {
+function get<T> (pathname: string): Builder<T> {
     return new Builder({
         method: 'GET',
         pathname,
@@ -68,7 +72,7 @@ function get (pathname: string): Builder {
     })
 }
 
-function post (pathname: string): Builder {
+function post<T> (pathname: string): Builder<T> {
     return new Builder({
         method: 'POST',
         pathname,
@@ -78,20 +82,20 @@ function post (pathname: string): Builder {
 }
 
 export const tokens = {
-    post: post('tokens')
+    post: post<{token: string}>('tokens')
 }
 export const lessons = {
-    get:　get('lessons')
+    get:　get<Lesson[]>('lessons')
 }
 export const assignments = {
-    get: get('assignments')
+    get: get<Assignment[]>('assignments')
 }
 export const submissions = {
-    post: post('submissions')
+    post: post<{success: boolean}>('submissions')
 }
 export const responses = {
-    get: get('responses')
+    get: get<Submission[]>('responses')
 }
 export const reply = {
-    post: post('reply')
+    post: post<{success: boolean}>('reply')
 }

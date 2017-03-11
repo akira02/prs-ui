@@ -44,15 +44,12 @@ export class Auth {
     }
     @action
     async login (): Promise<void> {
-        interface Response {
-            token: string
-        }
         const response = await tokens.post
             .params({
                 username: this.username,
                 password: this.password
             })
-            .fetch<Response>()
+            .fetch()
 
         this.token = response.token
     }
