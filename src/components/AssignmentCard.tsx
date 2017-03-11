@@ -5,6 +5,6 @@ import {Assignment} from '../models/Assignment'
 
 export const AssignmentCard = ({assignment}: {assignment: Assignment}) =>
     <Card className="assignment-card">
-        <CardHeader title={assignment.name} />
-        <CardText>{assignment.data_link}</CardText>
+        <CardHeader title={assignment.id} />
+        <CardText>{assignment.due}</CardText>
     </Card>

@@ -31,7 +31,7 @@ export class AssignmentsPage extends React.Component<Props, void> {
             <Page>
                 {
                     assignments.map(assignment =>
-                        <AssignmentCard key={assignment._id} assignment={assignment}/>
+                        <AssignmentCard key={assignment.id} assignment={assignment}/>
                     )
                 }
                 <FloatingActionButton className="button-fixed" onTouchTap={this.handleAdd}>
