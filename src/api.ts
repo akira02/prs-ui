@@ -21,9 +21,6 @@ export interface ApiRequest {
 export class Builder {
     constructor (public readonly request: ApiRequest) {
     }
-    path (pathname: string): Builder {
-        return new Builder({...this.request, pathname})
-    }
     auth (token: string): Builder {
         const headers = new Headers(this.request.headers)
         headers.set('Authorization', token)
