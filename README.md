@@ -28,7 +28,7 @@ npm install
 
 `npm start`
 
-* **site server** `http://localhost:8000/`
+* **site server** `http://localhost:8080/`
 
 * **fake api server** `http://localhost:3000/`
 
