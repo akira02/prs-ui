@@ -13,7 +13,6 @@ export class StatusCodeError extends Error {
     }
 }
 
-export const API_BASE: string = 'http://prs-node.herokuapp.com/'
 
 export interface ApiRequest {
     readonly method: 'GET' | 'POST'

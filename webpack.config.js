@@ -1,8 +1,11 @@
 const path = require('path');
+const {DefinePlugin} = require('webpack')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 
 const isProduction = process.env.NODE_ENV == 'production'
+
+
 
 module.exports = {
   entry: ['whatwg-fetch', './src/main.tsx'],
@@ -30,6 +33,11 @@ module.exports = {
     new CleanWebpackPlugin(['dist']),
     new CopyWebpackPlugin([
       { from: './assets', to: path.resolve(__dirname, 'dist') },
-    ])
+    ]),
+    new DefinePlugin({
+      API_BASE: isProduction
+        ? JSON.stringify('http://prs-node.herokuapp.com/')
+        : JSON.stringify('http://localhost:3000/')
+    })
   ]
 }
