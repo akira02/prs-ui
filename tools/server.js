@@ -9,7 +9,7 @@ fileServer = new static.Server('./dist', { cache: 0 })
 const server = http.createServer((req, res) => {
     const {pathname} = url.parse(req.url)
     if (pathname === '/favicon.ico') {
-        res.statusCode = 404
+        res.writeHead(404)
         res.end()
     } else if (pathname.startsWith('/static')) {
         fileServer.serve(req, res).on('error', console.error)
