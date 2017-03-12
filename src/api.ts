@@ -70,7 +70,7 @@ function get<T> (pathname: string): Builder<T> {
         method: 'GET',
         pathname,
         headers: new Headers(),
-        data: {}
+        data: null
     })
 }
 
