@@ -19,7 +19,7 @@ export interface ApiRequest {
     readonly method: 'GET' | 'POST'
     readonly pathname: string
     readonly headers: Headers
-    readonly data: object
+    readonly data?: object
 }
 
 export class Builder<T> {
@@ -39,15 +39,17 @@ export class Builder<T> {
             headers: this.request.headers
         }
         let url = API_BASE + this.request.pathname
-        switch (options.method) {
-            case 'GET':
-                url += '?' + stringify(this.request.data)
-                break
-            case 'POST':
-                options.headers = new Headers(options.headers)
-                options.headers.set('Content-Type', 'application/x-www-form-urlencoded')
-                options.body = stringify(this.request.data)
-                break
+        if (this.request.data != null) {
+            switch (options.method) {
+                case 'GET':
+                    url += '?' + stringify(this.request.data)
+                    break
+                case 'POST':
+                    options.headers = new Headers(options.headers)
+                    options.headers.set('Content-Type', 'application/x-www-form-urlencoded')
+                    options.body = stringify(this.request.data)
+                    break
+            }
         }
         return new Request(url, options)
     }
@@ -77,7 +79,7 @@ function post<T> (pathname: string): Builder<T> {
         method: 'POST',
         pathname,
         headers: new Headers(),
-        data: {}
+        data: null
     })
 }
 
