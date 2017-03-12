@@ -42,7 +42,6 @@
     "clean-webpack-plugin": "^0.1.15",
     "copy-webpack-plugin": "^4.0.1",
     "cross-env": "^3.2.3",
-    "fetch-mock": "^5.9.4",
     "node-static": "^0.7.9",
     "typescript": "^2.2.1",
     "typings": "^2.1.0",
