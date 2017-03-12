@@ -18,16 +18,19 @@ npm install
 ```
 
 ### Build
-* debug build: `npm run build`
-* production build: `npm run build-production`
+* **debug build**
+  * `npm run build`
+  * or `⌘-Shift-B` in vscode
+* **production build**
+  * `npm run build-production`
 
 ### Running Local Development Web Servers
 
 `npm start`
 
-site server:　http://localhost:8000/
+* **site server** `http://localhost:8000/`
 
-fake api server: http://localhost:3000/
+* **fake api server** `http://localhost:3000/`
 
 ### Deploy
 `npm run deploy`
