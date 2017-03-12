@@ -5,8 +5,6 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 
 const isProduction = process.env.NODE_ENV == 'production'
 
-
-
 module.exports = {
   entry: ['whatwg-fetch', './src/main.tsx'],
   output: {
