@@ -6,16 +6,17 @@ import {Route} from 'react-router-dom'
 import Drawer from 'material-ui/Drawer'
 import {List, ListItem, makeSelectable} from 'material-ui/List'
 
-import {SideMenuStore} from '../stores'
+import {Auth, SideMenuStore} from '../stores'
 
 const SelectableList = makeSelectable(List)
 
 interface Props {
     sideMenu?: SideMenuStore,
+    auth?: Auth
     [prop: string]: any
 }
 
-@inject('sideMenu') @observer
+@inject('sideMenu', 'auth') @observer
 export class SideMenu extends React.Component<Props, void> {
     @action.bound
     handlePathChange (event, path: string) {
@@ -41,6 +42,9 @@ export class SideMenu extends React.Component<Props, void> {
                 <ListItem value="/assignments" primaryText="AssignmentsPage" />
                 <ListItem value="/lessons" primaryText="LessonsPage" />
             </SelectableList>
+            <List>
+                <ListItem primaryText="Logout" onTouchTap={this.props.auth.logout} />
+            </List>
         </Drawer>
     }
 }
