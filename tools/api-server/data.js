@@ -10,7 +10,17 @@ exports.db = {
 }
 
 function generateLessons () {
-    return []
+    return [
+        {
+            id: 'Lesson-ID-1',
+            name: 'Lesson1',
+            semester: '105-2',
+            teacher: {
+                id: 'Teacher-ID-1',
+                name: 'Teacher1'
+            }
+        }
+    ]
 }
 
 function generateAssignments () {

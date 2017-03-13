@@ -25,6 +25,12 @@ server.use((req, res, next) => {
     }
 })
 
+server.use((req, res, next) => {
+    req.query['lesson.id'] = req.query.lesson_id
+    console.log(req.query['lesson.id'])
+    next()
+})
+
 server.use(router)
 
 module.exports = server

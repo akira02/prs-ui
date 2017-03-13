@@ -39,6 +39,7 @@ export class SideMenu extends React.Component<Props, void> {
                 <ListItem value="/" primaryText="IndexPage" />
                 <ListItem value="/good" primaryText="GoodPage" />
                 <ListItem value="/assignments" primaryText="AssignmentsPage" />
+                <ListItem value="/lessons" primaryText="LessonsPage" />
             </SelectableList>
         </Drawer>
     }
