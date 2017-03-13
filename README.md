@@ -12,7 +12,7 @@ Required tools
 * git
 * yarn
 
-<img src="https://yarnpkg.com/assets/feature-speed.png" width="250">
+[<img src="https://yarnpkg.com/assets/feature-speed.png" width="250">](https://yarnpkg.com)
 
 ```bash
 git clone https://github.com/akira02/prs-ui
