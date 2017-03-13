@@ -20,12 +20,12 @@ export class LessonsPage extends React.Component<Props, void> {
         this.props.lessonList.fetch()
     }
     render () {
-        const {lessons} = this.props.lessonList
+        const {stores} = this.props.lessonList
         return <RequireToken onLoggedIn={this.handleLoggedIn}>
             <Page>
                 {
-                    lessons.entries().map(([lessonId, store]) =>
-                        <LessonCard key={lessonId} store={store}/>
+                    stores.map(store =>
+                        <LessonCard key={store.lesson.id} store={store}/>
                     )
                 }
             </Page>
