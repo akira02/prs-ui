@@ -42,7 +42,7 @@ export class Auth {
     private store ({storage, data}: {storage: Storage, data: any}) {
         storage.setItem(Auth.STORAGE_KEY, JSON.stringify(data))
     }
-    @action
+    @action.bound
     async login (): Promise<void> {
         const response = await tokens.post
             .params({
@@ -53,7 +53,7 @@ export class Auth {
 
         this.token = response.token
     }
-    @action
+    @action.bound
     logout () {
         this.token = null
     }
