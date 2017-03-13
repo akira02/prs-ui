@@ -8,8 +8,6 @@ deploy:
   script: npm run deploy
   on:
     branch: master
-cache:
-  directories:
-    - node_modules
+cache: yarn
 addons:
   ssh_known_hosts: work.maid.cat

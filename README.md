@@ -10,11 +10,12 @@ Dev Guide
 Required tools
 * node
 * git
+* yarn
 
 ```bash
 git clone https://github.com/akira02/prs-ui
 cd prs-ui
-npm install
+yarn
 ```
 
 ### Build
