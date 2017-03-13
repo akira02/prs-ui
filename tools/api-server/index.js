@@ -8,6 +8,7 @@ const router = jsonServer.router(db)
 server.use(jsonServer.defaults())
 server.use(jsonServer.bodyParser)
 
+// handle login request
 server.post('/tokens', (req, res) => {
     const {username, password} = req.body
     if (username === auth.username && password === auth.password) {
@@ -17,6 +18,7 @@ server.post('/tokens', (req, res) => {
     }
 })
 
+// handle authorization
 server.use((req, res, next) => {
     if (req.headers.authorization === auth.TOKEN) {
         next()
@@ -25,6 +27,7 @@ server.use((req, res, next) => {
     }
 })
 
+// convert filter params
 server.use((req, res, next) => {
     if (req.query.lesson_id != null) {
         req.query['lesson.id'] = req.query.lesson_id
