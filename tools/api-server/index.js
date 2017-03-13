@@ -26,7 +26,9 @@ server.use((req, res, next) => {
 })
 
 server.use((req, res, next) => {
-    req.query['lesson.id'] = req.query.lesson_id
+    if (req.query.lesson_id != null) {
+        req.query['lesson.id'] = req.query.lesson_id
+    }
     next()
 })
 
