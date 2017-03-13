@@ -12,6 +12,8 @@ Required tools
 * git
 * yarn
 
+<img src="https://yarnpkg.com/assets/feature-speed.png" width="250">
+
 ```bash
 git clone https://github.com/akira02/prs-ui
 cd prs-ui
