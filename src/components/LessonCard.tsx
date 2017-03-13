@@ -15,14 +15,16 @@ export interface Props {
 export class LessonCard extends React.Component<Props, void> {
     @action.bound
     handleExpandChange (newExpandedState: boolean) {
+        this.props.store.expanded = newExpandedState
         if (newExpandedState === true) {
             this.props.store.fetchAssignments()
         }
     }
     render () {
-        const {lesson, assignments} = this.props.store
+        const {lesson, assignments, expanded} = this.props.store
         return <Card
             className="card"
+            expanded={expanded}
             onExpandChange={this.handleExpandChange}>
             <CardHeader
                 title={lesson.name}

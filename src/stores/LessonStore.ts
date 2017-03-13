@@ -8,6 +8,7 @@ import { Lesson } from '../models/Lesson'
 export class LessonStore {
     private readonly auth: Auth
     @observable lesson: Lesson
+    @observable expanded: boolean = false
     @observable loading: boolean = false
     @observable assignments: IObservableArray<Assignment> = observable<Assignment>([])
     constructor (auth: Auth, lesson: Lesson) {
