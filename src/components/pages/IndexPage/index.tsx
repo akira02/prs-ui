@@ -1,7 +1,10 @@
 import * as React from 'react'
-import {Link} from 'react-router-dom'
-import {Page} from './Page'
+import { Link } from 'react-router-dom'
 import RaisedButton from 'material-ui/RaisedButton';
+
+import { Page } from '../Page'
+
+import './style.css'
 
 export const IndexPage = () =>
     <Page id="index">

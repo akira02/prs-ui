@@ -2,6 +2,8 @@ import * as React from 'react'
 import * as ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import {Route} from 'react-router-dom'
 
+import './style.css'
+
 export const SlideRoute = ({component: Component, ...rest}) =>
     <Route {...rest} children={({match, history, location}) =>
         <ReactCSSTransitionGroup

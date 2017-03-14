@@ -13,7 +13,10 @@ module.exports = {
   },
   devtool: 'source-map',
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx']
+    extensions: ['.ts', '.tsx', '.js', '.jsx'],
+    alias: {
+      'prs-ui': path.resolve(__dirname, './src')
+    }
   },
   module: {
     loaders: [
@@ -24,7 +27,11 @@ module.exports = {
           transpileOnly: isProduction,
           useTranspileModule: isProduction
         }
-      }
+      },
+      {
+        test: /\.css$/,
+        use: [ 'style-loader', 'css-loader' ]
+      },
     ]
   },
   plugins: [

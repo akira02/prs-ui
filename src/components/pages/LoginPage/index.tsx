@@ -1,15 +1,16 @@
 import * as React from 'react'
-import {action, when} from 'mobx'
-import {observer, inject} from 'mobx-react'
+import { action, when } from 'mobx'
+import { observer, inject } from 'mobx-react'
 
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import Checkbox from 'material-ui/Checkbox'
+import { Page } from '../Page'
 
-import {StatusCodeError} from '../api'
-import {Auth, History, Message} from '../stores'
+import { StatusCodeError } from 'prs-ui/api'
+import { Auth, History, Message } from 'prs-ui/stores'
 
-import {Page} from './Page'
+import './style.css'
 
 interface Props {
     auth?: Auth

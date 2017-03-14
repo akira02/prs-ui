@@ -1,7 +1,7 @@
 import * as React from 'react'
-import {Card, CardHeader, CardText} from 'material-ui/Card'
+import { Card, CardHeader, CardText } from 'material-ui/Card'
 
-import {Assignment} from '../models/Assignment'
+import { Assignment } from 'prs-ui/models/Assignment'
 
 export const AssignmentCard = ({assignment}: {assignment: Assignment}) =>
     <Card className="card">

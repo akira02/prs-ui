@@ -1,6 +1,9 @@
 import * as React from 'react'
 import classNames from 'classnames'
+
 import Paper from 'material-ui/Paper'
+
+import './style.css'
 
 export const Page = (props: any) => {
     const {className=null, ...rest} = props || {}

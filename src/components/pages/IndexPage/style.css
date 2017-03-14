@@ -1,0 +1,19 @@
+#index {
+    color: white;
+    background-color: white;
+    background-image: url(/static/pic/index-bg.jpg);
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#index p {
+    font-size: 5em;
+    color: white;
+}
+
+#index div {
+    text-align: center;
+}

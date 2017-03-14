@@ -2,12 +2,11 @@ import * as React from 'react'
 import {action} from 'mobx'
 import {inject, observer} from 'mobx-react'
 
-import {LessonList} from '../stores'
-
-import {RequireToken} from './RequireToken'
-import {Page} from './Page'
+import {RequireToken} from 'prs-ui/components/RequireToken'
+import {Page} from '../Page'
 import {LessonCard} from './LessonCard'
 
+import {LessonList} from 'prs-ui/stores'
 
 export interface Props {
     lessonList: LessonList

@@ -6,7 +6,7 @@ import {Route} from 'react-router-dom'
 import Drawer from 'material-ui/Drawer'
 import {List, ListItem, makeSelectable} from 'material-ui/List'
 
-import {Auth, SideMenuStore} from '../stores'
+import {Auth, SideMenuStore} from 'prs-ui/stores'
 
 const SelectableList = makeSelectable(List)
 
@@ -38,7 +38,6 @@ export class SideMenu extends React.Component<Props, void> {
                 {...rest}>
             <SelectableList value={sideMenu.path} onChange={this.handlePathChange}>
                 <ListItem value="/" primaryText="IndexPage" />
-                <ListItem value="/good" primaryText="GoodPage" />
                 <ListItem value="/assignments" primaryText="AssignmentsPage" />
                 <ListItem value="/lessons" primaryText="LessonsPage" />
             </SelectableList>

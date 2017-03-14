@@ -5,7 +5,7 @@ import classNames from 'classnames'
 
 import Snackbar from 'material-ui/Snackbar'
 
-import {Message} from '../stores'
+import {Message} from 'prs-ui/stores'
 
 interface Props {
     message?: Message

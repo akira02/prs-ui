@@ -3,7 +3,7 @@ import { autorun } from 'mobx'
 import { inject, observer } from 'mobx-react'
 import { Redirect } from 'react-router-dom'
 
-import { Auth, History } from '../stores'
+import { Auth, History } from 'prs-ui/stores'
 
 interface Props {
     auth?: Auth,

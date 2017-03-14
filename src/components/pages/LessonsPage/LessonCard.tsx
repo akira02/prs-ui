@@ -1,11 +1,11 @@
 import * as React from 'react'
-import {action} from 'mobx'
-import {observer} from 'mobx-react' 
+import { action } from 'mobx'
+import { observer } from 'mobx-react' 
 
-import {LessonStore} from '../stores/LessonStore'
+import { Card, CardHeader, CardMedia } from 'material-ui/Card'
+import { List, ListItem } from 'material-ui/List'
 
-import {Card, CardHeader, CardMedia} from 'material-ui/Card'
-import {List, ListItem} from 'material-ui/List';
+import { LessonStore } from 'prs-ui/stores/LessonStore'
 
 export interface Props {
     store: LessonStore

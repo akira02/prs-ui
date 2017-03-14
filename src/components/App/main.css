@@ -1,0 +1,15 @@
+body {
+    margin: 0;
+}
+
+/* cards */
+.page .card {
+    margin: 8px;
+}
+
+/* fixed buttons */
+.button-fixed {
+    position: fixed;
+    bottom: 23px;
+    right: 23px;
+}

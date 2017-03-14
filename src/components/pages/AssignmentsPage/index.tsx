@@ -1,15 +1,14 @@
 import * as React from 'react'
-import {action} from 'mobx'
-import {inject, observer} from 'mobx-react'
+import { action } from 'mobx'
+import { inject, observer } from 'mobx-react'
 
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 import ContentAdd from 'material-ui/svg-icons/content/add'
+import { RequireToken } from 'prs-ui/components/RequireToken'
+import { Page } from '../Page'
+import { AssignmentCard } from './AssignmentCard'
 
-import {RequireToken} from './RequireToken'
-import {Page} from './Page'
-import {AssignmentCard} from './AssignmentCard'
-
-import {AssignmentList} from '../stores'
+import { AssignmentList } from 'prs-ui/stores'
 
 export interface Props {
     assignmentList: AssignmentList
