@@ -1,5 +1,6 @@
 import {observable} from 'mobx'
 import {stringify} from 'query-string'
+import {deserialize} from 'serializr'
 
 import {Assignment} from './models/Assignment'
 import {Lesson} from './models/Lesson'
@@ -13,16 +14,16 @@ export class StatusCodeError extends Error {
     }
 }
 
-
-export interface ApiRequest {
+export interface ApiRequest<T> {
     readonly method: 'GET' | 'POST'
     readonly pathname: string
     readonly headers: Headers
     readonly data?: object
+    readonly deserializer: (value: any) => T
 }
 
 export class Builder<T> {
-    constructor (public readonly request: ApiRequest) {
+    constructor (public readonly request: ApiRequest<T>) {
     }
     auth (token: string): Builder<T> {
         const headers = new Headers(this.request.headers)
@@ -61,24 +62,31 @@ export class Builder<T> {
                 return response
             })
             .then<any>(res => res.json())
+            .then<T>(json => this.request.deserializer(json))
     }
 }
 
-function get<T> (pathname: string): Builder<T> {
+function get<T> (pathname: string, schema?): Builder<T> {
     return new Builder({
         method: 'GET',
         pathname,
         headers: new Headers(),
-        data: null
+        data: null,
+        deserializer: schema != null
+            ? value => deserialize<T>(schema, value) as any as T
+            : value => value as T
     })
 }
 
-function post<T> (pathname: string): Builder<T> {
+function post<T> (pathname: string, schema?): Builder<T> {
     return new Builder({
         method: 'POST',
         pathname,
         headers: new Headers(),
-        data: null
+        data: null,
+        deserializer: schema != null
+            ? value => deserialize<T>(schema, value) as any as T
+            : value => value as T
     })
 }
 
@@ -86,13 +94,13 @@ export const tokens = {
     post: post<{token: string}>('tokens')
 }
 export const lessons = {
-    get:　get<Lesson[]>('lessons')
+    get:　get<Lesson[]>('lessons', Lesson)
 }
 export const assignments = {
-    get: get<Assignment[]>('assignments')
+    get: get<Assignment[]>('assignments', Assignment)
 }
 export const submissions = {
-    post: post<{success: boolean}>('submissions')
+    post: post<{success: boolean}>('submissions', Submission)
 }
 export const responses = {
     get: get<Submission[]>('responses')

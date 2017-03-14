@@ -1,8 +1,22 @@
-export interface Assignment {
+import {serializable, createSimpleSchema, object} from 'serializr'
+import {isoDate} from './iso-date'
+
+const lesson = createSimpleSchema({ id: true, name: true })
+
+export class Assignment {
+    @serializable
     id: string
-    assigned: string
-    due: string
-    submitted?: string
+
+    @serializable(isoDate)
+    assigned: Date
+
+    @serializable(isoDate)
+    due: Date
+
+    @serializable(isoDate)
+    submitted?: Date
+
+    @serializable(object(lesson))
     lesson: {
         id: string
         name: string
