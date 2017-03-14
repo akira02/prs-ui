@@ -24,7 +24,8 @@ yarn
 ### Build
 * **debug build**
   * `npm run build`
-  * or `⌘-Shift-B` in vscode
+  * or `Ctrl+Shift+B` in vscode
+
 * **production build**
   * `npm run build-production`
 
