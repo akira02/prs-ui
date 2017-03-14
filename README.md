@@ -10,6 +10,7 @@ Dev Guide
 Required tools
 * node
 * git
+* rsync (for deployment)
 * yarn
 
 [<img src="https://yarnpkg.com/assets/feature-speed.png" width="250">](https://yarnpkg.com)
