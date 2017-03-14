@@ -1,6 +1,6 @@
 import {observable} from 'mobx'
 import {stringify} from 'query-string'
-import {deserialize} from 'serializr'
+import {deserialize, ClazzOrModelSchema} from 'serializr'
 
 import {Assignment} from './models/Assignment'
 import {Lesson} from './models/Lesson'
@@ -66,7 +66,7 @@ export class Builder<T> {
     }
 }
 
-function get<T> (pathname: string, schema?): Builder<T> {
+function get<T> (pathname: string, schema?: ClazzOrModelSchema<T | any>): Builder<T> {
     return new Builder({
         method: 'GET',
         pathname,
@@ -78,7 +78,7 @@ function get<T> (pathname: string, schema?): Builder<T> {
     })
 }
 
-function post<T> (pathname: string, schema?): Builder<T> {
+function post<T> (pathname: string, schema?: ClazzOrModelSchema<T | any>): Builder<T> {
     return new Builder({
         method: 'POST',
         pathname,
@@ -100,10 +100,10 @@ export const assignments = {
     get: get<Assignment[]>('assignments', Assignment)
 }
 export const submissions = {
-    post: post<{success: boolean}>('submissions', Submission)
+    post: post<{success: boolean}>('submissions')
 }
 export const responses = {
-    get: get<Submission[]>('responses')
+    get: get<Submission[]>('responses', Submission)
 }
 export const reply = {
     post: post<{success: boolean}>('reply')
