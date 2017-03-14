@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { inject, observer } from 'mobx-react'
-import { Router } from 'react-router-dom'
+import { Switch, Router } from 'react-router-dom'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { SideMenu } from '../SideMenu'
@@ -9,6 +9,7 @@ import { LoginPage } from '../pages/LoginPage'
 import { IndexPage } from '../pages/IndexPage'
 import { AssignmentsPage } from '../pages/AssignmentsPage'
 import { LessonsPage } from '../pages/LessonsPage'
+import { NotFoundPage } from '../pages/NotFoundPage'
 import { MessageBar } from '../MessageBar'
 
 import { History } from 'prs-ui/stores'
@@ -26,10 +27,13 @@ export const App = inject('history')(observer<Props>(({history}) =>
             <div className="app">
                 <SideMenu />
                 <div className="page-container">
-                    <SlideRoute exact path="/" component={IndexPage} />
-                    <SlideRoute path="/login" component={LoginPage} />
-                    <SlideRoute path="/assignments" component={AssignmentsPage} />
-                    <SlideRoute path="/lessons" component={LessonsPage} />
+                    <Switch>
+                        <SlideRoute exact path="/" component={IndexPage} />
+                        <SlideRoute path="/login" component={LoginPage} />
+                        <SlideRoute path="/assignments" component={AssignmentsPage} />
+                        <SlideRoute path="/lessons" component={LessonsPage} />
+                        <SlideRoute path="*" component={NotFoundPage} />
+                    </Switch>
                 </div>
                 <MessageBar />
             </div>

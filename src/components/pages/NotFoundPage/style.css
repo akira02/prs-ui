@@ -1,0 +1,8 @@
+#not-found-page {
+    background-color: black !important;
+    background-image: url(https://http.cat/404);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
