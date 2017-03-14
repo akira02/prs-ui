@@ -1,5 +1,5 @@
 import {serializable, createSimpleSchema, object} from 'serializr'
-import {isoDate} from './iso-date'
+import {isoDate} from './helpers'
 
 const lesson = createSimpleSchema({ id: true, name: true })
 

@@ -1,5 +1,5 @@
 import {serializable} from 'serializr'
-import {isoDate} from './iso-date'
+import {isoDate} from './helpers'
 
 export class Submission {
     @serializable    
