@@ -19,8 +19,11 @@
             "es2015.promise"
         ]
     },
+    "include": [
+        "src/**/*.ts",
+        "src/**/*.tsx"
+    ],
     "files": [
-        "src/defines.d.ts",
         "typings/index.d.ts"
     ]
 }
