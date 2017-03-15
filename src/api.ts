@@ -7,10 +7,10 @@ import {Lesson} from './models/Lesson'
 import {Submission} from './models/Submission'
 
 export class StatusCodeError extends Error {
-    constructor (
-            public readonly status: number,
-            message?: string) {
+    public readonly status: number
+    constructor (status, message?: string) {
         super(message)
+        this.status = status
     }
 }
 
