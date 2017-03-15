@@ -67,7 +67,7 @@ export class Builder<T> {
 }
 function get<T extends any[]> (pathname: string, schema?: ClazzOrModelSchema<T[0]>): Builder<T>
 function get<T> (pathname: string, schema?: ClazzOrModelSchema<T>): Builder<T>
-function get (pathname: string, schema?: ClazzOrModelSchema<any>): Builder<any> {
+function get<T> (pathname: string, schema?: ClazzOrModelSchema<any>): Builder<T> {
     return new Builder({
         method: 'GET',
         pathname,
@@ -81,7 +81,7 @@ function get (pathname: string, schema?: ClazzOrModelSchema<any>): Builder<any> 
 
 function post<T extends any[]> (pathname: string, schema?: ClazzOrModelSchema<T[0]>): Builder<T>
 function post<T> (pathname: string, schema?: ClazzOrModelSchema<T>): Builder<T>
-function post (pathname: string, schema?: ClazzOrModelSchema<any>): Builder<any> {
+function post<T> (pathname: string, schema?: ClazzOrModelSchema<any>): Builder<T> {
     return new Builder({
         method: 'POST',
         pathname,
