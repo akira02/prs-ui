@@ -6,6 +6,25 @@ import {Assignment} from './models/Assignment'
 import {Course} from './models/Course'
 import {Submission} from './models/Submission'
 
+export const tokens = {
+    post: post<{token: string}>('tokens')
+}
+export const courses = {
+    get:　get<Course[]>('courses', Course)
+}
+export const assignments = {
+    get: get<Assignment[]>('assignments', Assignment)
+}
+export const submissions = {
+    post: post<{success: boolean}>('submissions')
+}
+export const responses = {
+    get: get<Submission[]>('responses', Submission)
+}
+export const reply = {
+    post: post<{success: boolean}>('reply')
+}
+
 export class StatusCodeError extends Error {
     public readonly status: number
     constructor (status, message?: string) {
@@ -67,6 +86,7 @@ export class Builder<T> {
         return new Request(url, options)
     }
 }
+
 function get<T extends any[]> (pathname: string, schema?: ClazzOrModelSchema<T[0]>): Builder<T>
 function get<T> (pathname: string, schema?: ClazzOrModelSchema<T>): Builder<T>
 function get<T> (pathname: string, schema?: ClazzOrModelSchema<any>): Builder<T> {
@@ -91,21 +111,3 @@ function post<T> (pathname: string, schema?: ClazzOrModelSchema<any>): Builder<T
     })
 }
 
-export const tokens = {
-    post: post<{token: string}>('tokens')
-}
-export const courses = {
-    get:　get<Course[]>('courses', Course)
-}
-export const assignments = {
-    get: get<Assignment[]>('assignments', Assignment)
-}
-export const submissions = {
-    post: post<{success: boolean}>('submissions')
-}
-export const responses = {
-    get: get<Submission[]>('responses', Submission)
-}
-export const reply = {
-    post: post<{success: boolean}>('reply')
-}
