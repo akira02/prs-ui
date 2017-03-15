@@ -65,7 +65,8 @@ export class Builder<T> {
             .then<T>(json => this.request.deserializer(json))
     }
 }
-function get<T, A extends T[]> (pathname: string, schema?: ClazzOrModelSchema<T>): Builder<A>
+function get<T extends any[]> (pathname: string, schema?: ClazzOrModelSchema<T[0]>): Builder<T>
+function get<T> (pathname: string, schema?: ClazzOrModelSchema<T>): Builder<T>
 function get (pathname: string, schema?: ClazzOrModelSchema<any>): Builder<any> {
     return new Builder({
         method: 'GET',
@@ -78,7 +79,7 @@ function get (pathname: string, schema?: ClazzOrModelSchema<any>): Builder<any> 
     })
 }
 
-function post<T, A extends T[]> (pathname: string, schema?: ClazzOrModelSchema<T>): Builder<A>
+function post<T extends any[]> (pathname: string, schema?: ClazzOrModelSchema<T[0]>): Builder<T>
 function post<T> (pathname: string, schema?: ClazzOrModelSchema<T>): Builder<T>
 function post (pathname: string, schema?: ClazzOrModelSchema<any>): Builder<any> {
     return new Builder({
@@ -96,16 +97,16 @@ export const tokens = {
     post: post<{token: string}>('tokens')
 }
 export const lessons = {
-    get:　get<Lesson, Lesson[]>('lessons', Lesson)
+    get:　get<Lesson[]>('lessons', Lesson)
 }
 export const assignments = {
-    get: get<Assignment, Assignment[]>('assignments', Assignment)
+    get: get<Assignment[]>('assignments', Assignment)
 }
 export const submissions = {
     post: post<{success: boolean}>('submissions')
 }
 export const responses = {
-    get: get<Submission, Submission[]>('responses', Submission)
+    get: get<Submission[]>('responses', Submission)
 }
 export const reply = {
     post: post<{success: boolean}>('reply')
