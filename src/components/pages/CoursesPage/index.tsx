@@ -4,27 +4,27 @@ import {inject, observer} from 'mobx-react'
 
 import {RequireToken} from 'prs-ui/components/RequireToken'
 import {Page} from '../Page'
-import {LessonCard} from './LessonCard'
+import {CourseCard} from './CourseCard'
 
-import {LessonList} from 'prs-ui/stores'
+import {CourseList} from 'prs-ui/stores'
 
 export interface Props {
-    lessonList: LessonList
+    courseList: CourseList
 }
 
-@inject('lessonList') @observer
-export class LessonsPage extends React.Component<Props, void> {
+@inject('courseList') @observer
+export class CoursesPage extends React.Component<Props, void> {
     @action.bound
     handleLoggedIn () {
-        this.props.lessonList.fetch()
+        this.props.courseList.fetch()
     }
     render () {
-        const {stores} = this.props.lessonList
+        const {stores} = this.props.courseList
         return <RequireToken onLoggedIn={this.handleLoggedIn}>
             <Page>
                 {
                     stores.map(store =>
-                        <LessonCard key={store.lesson.id} store={store}/>
+                        <CourseCard key={store.course.id} store={store}/>
                     )
                 }
             </Page>

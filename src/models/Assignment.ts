@@ -1,7 +1,7 @@
 import {serializable, createSimpleSchema, object} from 'serializr'
 import {isoDate} from './helpers'
 
-const lesson = createSimpleSchema({ id: true, name: true })
+const course = createSimpleSchema({ id: true, name: true })
 
 export class Assignment {
     @serializable
@@ -16,8 +16,8 @@ export class Assignment {
     @serializable(isoDate)
     submitted?: Date
 
-    @serializable(object(lesson))
-    lesson: {
+    @serializable(object(course))
+    course: {
         id: string
         name: string
     }

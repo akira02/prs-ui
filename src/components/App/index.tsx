@@ -8,7 +8,7 @@ import { SlideRoute } from '../SlideRoute'
 import { LoginPage } from '../pages/LoginPage'
 import { IndexPage } from '../pages/IndexPage'
 import { AssignmentsPage } from '../pages/AssignmentsPage'
-import { LessonsPage } from '../pages/LessonsPage'
+import { CoursesPage } from '../pages/CoursesPage'
 import { NotFoundPage } from '../pages/NotFoundPage'
 import { MessageBar } from '../MessageBar'
 
@@ -31,7 +31,7 @@ export const App = inject('history')(observer<Props>(({history}) =>
                         <SlideRoute exact path="/" component={IndexPage} />
                         <SlideRoute path="/login" component={LoginPage} />
                         <SlideRoute path="/assignments" component={AssignmentsPage} />
-                        <SlideRoute path="/lessons" component={LessonsPage} />
+                        <SlideRoute path="/courses" component={CoursesPage} />
                         <SlideRoute path="*" component={NotFoundPage} />
                     </Switch>
                 </div>

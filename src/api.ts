@@ -3,7 +3,7 @@ import {stringify} from 'query-string'
 import {deserialize, ClazzOrModelSchema} from 'serializr'
 
 import {Assignment} from './models/Assignment'
-import {Lesson} from './models/Lesson'
+import {Course} from './models/Course'
 import {Submission} from './models/Submission'
 
 export class StatusCodeError extends Error {
@@ -94,8 +94,8 @@ function post<T> (pathname: string, schema?: ClazzOrModelSchema<any>): Builder<T
 export const tokens = {
     post: post<{token: string}>('tokens')
 }
-export const lessons = {
-    get:　get<Lesson[]>('lessons', Lesson)
+export const courses = {
+    get:　get<Course[]>('courses', Course)
 }
 export const assignments = {
     get: get<Assignment[]>('assignments', Assignment)

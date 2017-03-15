@@ -5,14 +5,14 @@ import { observer } from 'mobx-react'
 import { Card, CardHeader, CardMedia } from 'material-ui/Card'
 import { List, ListItem } from 'material-ui/List'
 
-import { LessonStore } from 'prs-ui/stores/LessonStore'
+import { CourseStore } from 'prs-ui/stores/CourseStore'
 
 export interface Props {
-    store: LessonStore
+    store: CourseStore
 }
 
 @observer
-export class LessonCard extends React.Component<Props, void> {
+export class CourseCard extends React.Component<Props, void> {
     @action.bound
     handleExpandChange (newExpandedState: boolean) {
         this.props.store.expanded = newExpandedState
@@ -21,14 +21,14 @@ export class LessonCard extends React.Component<Props, void> {
         }
     }
     render () {
-        const {lesson, assignments, expanded} = this.props.store
+        const {course, assignments, expanded} = this.props.store
         return <Card
             className="card"
             expanded={expanded}
             onExpandChange={this.handleExpandChange}>
             <CardHeader
-                title={lesson.name}
-                subtitle={lesson.teacher.name}
+                title={course.name}
+                subtitle={course.teacher.name}
                 actAsExpander={true}
                 showExpandableButton={true} />
             

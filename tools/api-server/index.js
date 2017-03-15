@@ -29,8 +29,8 @@ server.use((req, res, next) => {
 
 // convert filter params
 server.use((req, res, next) => {
-    if (req.query.lesson_id != null) {
-        req.query['lesson.id'] = req.query.lesson_id
+    if (req.query.course_id != null) {
+        req.query['course.id'] = req.query.course_id
     }
     next()
 })

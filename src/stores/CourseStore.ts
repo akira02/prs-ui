@@ -2,24 +2,24 @@ import { observable, action, IObservableArray } from 'mobx'
 import { assignments } from '../api'
 import { Auth } from './Auth'
 import { Assignment } from '../models/Assignment'
-import { Lesson } from '../models/Lesson'
+import { Course } from '../models/Course'
 
 
-export class LessonStore {
+export class CourseStore {
     private readonly auth: Auth
-    @observable lesson: Lesson
+    @observable course: Course
     @observable expanded: boolean = false
     @observable loading: boolean = false
     @observable assignments: IObservableArray<Assignment> = observable<Assignment>([])
-    constructor (auth: Auth, lesson: Lesson) {
+    constructor (auth: Auth, course: Course) {
         this.auth = auth
-        this.lesson = lesson
+        this.course = course
     }
     @action
     async fetchAssignments () {
         this.loading = true
         const response = await assignments.get
-            .params({ lesson_id: this.lesson.id })
+            .params({ course_id: this.course.id })
             .auth(this.auth.token)
             .fetch()
         this.assignments.replace(response)

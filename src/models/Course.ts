@@ -2,7 +2,7 @@ import {serializable, createSimpleSchema, object} from 'serializr'
 
 const teacher = createSimpleSchema({ id: true, name: true })
 
-export class Lesson {
+export class Course {
     @serializable
     id: string
 

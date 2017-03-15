@@ -39,7 +39,7 @@ export class SideMenu extends React.Component<Props, void> {
             <SelectableList value={sideMenu.path} onChange={this.handlePathChange}>
                 <ListItem value="/" primaryText="IndexPage" />
                 <ListItem value="/assignments" primaryText="AssignmentsPage" />
-                <ListItem value="/lessons" primaryText="LessonsPage" />
+                <ListItem value="/courses" primaryText="CoursesPage" />
             </SelectableList>
             <List>
                 <ListItem primaryText="Logout" onTouchTap={this.props.auth.logout} />

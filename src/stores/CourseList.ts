@@ -1,11 +1,11 @@
 import { observable, action, IObservableArray } from 'mobx'
-import { lessons } from '../api'
+import { courses } from '../api'
 import { Auth } from './Auth'
-import { LessonStore } from './LessonStore'
+import { CourseStore } from './CourseStore'
 
-export class LessonList {
+export class CourseList {
     private readonly auth: Auth
-    @observable stores: IObservableArray<LessonStore> = observable<LessonStore>([])
+    @observable stores: IObservableArray<CourseStore> = observable<CourseStore>([])
     @observable loading: boolean = false
 
     constructor (auth: Auth) {
@@ -15,10 +15,10 @@ export class LessonList {
     @action
     async fetch () {
         this.loading = true
-        const response = await lessons.get
+        const response = await courses.get
             .auth(this.auth.token)
             .fetch()
-        const stores = response.map(lesson => new LessonStore(this.auth, lesson))
+        const stores = response.map(course => new CourseStore(this.auth, course))
         this.stores.replace(stores)
         this.loading = false
     }
