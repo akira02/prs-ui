@@ -1,3 +1,8 @@
 // Compile time constants
 // see webpack.config.js
-declare var API_BASE: string
+declare const API_BASE: string
+declare const process: Readonly<{
+    env: Readonly<{
+        NODE_ENV: string
+    }>
+}>
