@@ -19,7 +19,7 @@ export interface ApiRequest<T> {
     readonly pathname: string
     readonly headers: Headers
     readonly data?: object
-    readonly deserializer: (value: any) => T
+    readonly deserializer?: (value: any) => T
 }
 
 export class Builder<T> {
@@ -33,7 +33,20 @@ export class Builder<T> {
     params (data?: object): Builder<T> {
         return new Builder({...this.request, data: {...this.request.data, ...data}})
     }
-    build (): Request {
+    async fetch (): Promise<T> {
+        const response = await fetch(this.build())
+        if (response.status >= 400) {
+            throw new StatusCodeError(response.status)
+        }
+        const data = await response.json()
+
+        if (this.request.deserializer == null) {
+            return data as T
+        } else {
+            return this.request.deserializer(data)
+        }
+    }
+    private build (): Request {
         const options: RequestInit = {
             method: this.request.method,
             headers: this.request.headers
@@ -53,17 +66,6 @@ export class Builder<T> {
         }
         return new Request(url, options)
     }
-    fetch (): Promise<T> {
-        return fetch(this.build())
-            .then(response => {
-                if (response.status >= 400) {
-                    throw new StatusCodeError(response.status)
-                }
-                return response
-            })
-            .then<any>(res => res.json())
-            .then<T>(json => this.request.deserializer(json))
-    }
 }
 function get<T extends any[]> (pathname: string, schema?: ClazzOrModelSchema<T[0]>): Builder<T>
 function get<T> (pathname: string, schema?: ClazzOrModelSchema<T>): Builder<T>
@@ -73,9 +75,7 @@ function get<T> (pathname: string, schema?: ClazzOrModelSchema<any>): Builder<T>
         pathname,
         headers: new Headers(),
         data: null,
-        deserializer: schema != null
-            ? value => deserialize<any>(schema, value)
-            : value => value
+        deserializer: schema && (value => deserialize<any>(schema, value))
     })
 }
 
@@ -87,9 +87,7 @@ function post<T> (pathname: string, schema?: ClazzOrModelSchema<any>): Builder<T
         pathname,
         headers: new Headers(),
         data: null,
-        deserializer: schema != null
-            ? value => deserialize<any>(schema, value)
-            : value => value
+        deserializer: schema && (value => deserialize<any>(schema, value))
     })
 }
 
