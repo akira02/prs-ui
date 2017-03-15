@@ -18,11 +18,14 @@ export class CourseStore {
     @action
     async fetchAssignments () {
         this.loading = true
-        const response = await assignments.get
-            .params({ course_id: this.course.id })
-            .auth(this.auth.token)
-            .fetch()
-        this.assignments.replace(response)
-        this.loading = false
+        try {
+            const response = await assignments.get
+                .params({ course_id: this.course.id })
+                .auth(this.auth.token)
+                .fetch()
+            this.assignments.replace(response)
+        } finally {
+            this.loading = false
+        }
     }
 }

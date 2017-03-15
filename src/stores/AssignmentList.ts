@@ -15,10 +15,13 @@ export class AssignmentList {
     @action
     async fetch () {
         this.loading = true
-        const response = await assignments.get
-            .auth(this.auth.token)
-            .fetch()
-        this.assignments.replace(response)
-        this.loading = false
+        try {
+            const response = await assignments.get
+                .auth(this.auth.token)
+                .fetch()
+            this.assignments.replace(response)
+        } finally {
+            this.loading = false
+        }
     }
 }
