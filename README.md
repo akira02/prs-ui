@@ -44,10 +44,10 @@ yarn
 
 #### Directories
 
-* `src/` - Source code. Mainly TypeScript. Compiled to `bundle.js` by webpack.
+* `src/` - Source code. Compiled to `bundle.js` by webpack.
   * `components/` - React UI components
   * `models/` - Data types
   * `stores/` - Observable storage classes
-* `assets` - Static files. Files will be recursively copied to `dist/` during build.
+* `assets/` - Static files. Files will be recursively copied to `dist/` during build.
 * `tools/` - Development tools.
-* `dist/` - Build output. ***changes will be discarded***
+* `dist/` - Build output. ***Changes will be discarded!***
