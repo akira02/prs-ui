@@ -40,6 +40,14 @@ yarn
 ### Deploy
 `npm run deploy`
 
+### Project Overview
 
+#### Directories
 
-  
+* `src/` - Source code. Mainly TypeScript. Compiled to `bundle.js` by webpack.
+  * `components/` - React UI components
+  * `models/` - Data types
+  * `stores/` - Observable storage classes
+* `assets` - Static files. Files will be recursively copied to `dist/` during build.
+* `tools/` - Development tools.
+* `dist/` - Build output. _**changes will be discarded**_
