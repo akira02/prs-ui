@@ -50,4 +50,4 @@ yarn
   * `stores/` - Observable storage classes
 * `assets` - Static files. Files will be recursively copied to `dist/` during build.
 * `tools/` - Development tools.
-* `dist/` - Build output. _**changes will be discarded**_
+* `dist/` - Build output. ***changes will be discarded***
