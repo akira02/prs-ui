@@ -3,6 +3,8 @@ prs-ui
 
 [![Build Status](https://travis-ci.com/akira02/prs-ui.svg?token=Wm6zWbJKuWzhqTz1zW43&branch=master)](https://travis-ci.com/akira02/prs-ui)
 
+UI of PRS (Peer-review System). Much react. So Material. Wow. http://work.maid.cat
+
 Table of Contents
 -----------------
 * [Dev Guide](#dev-guide)
