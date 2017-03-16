@@ -6,14 +6,31 @@ prs-ui
 Table of Contents
 -----------------
 * [Dev Guide](#dev-guide)
+  * [Project Overview](#project-overview)
   * [Install Dependencies](#install-dependencies)
   * [Build](#build)
   * [Running Local Development Web Servers](#running-local-development-web-servers)
   * [Deploy](#deploy)
-  * [Project Overview](#project-overview)
+
 
 Dev Guide
 ---------
+
+### Project Overview
+This is a single page app which uses [React] to render the UI, and [MobX] to hold the application state.
+
+Source codes were written in [TypeScript].
+
+#### Directories
+* `src/` - Source code. Compiled to `bundle.js` by webpack.
+  * `components/` - React UI components
+  * `models/` - Data types
+  * `stores/` - Observable storage classes
+* `assets/` - Static files. Files will be recursively copied to `dist/` during build.
+* `tools/` - Development tools.
+* `dist/` - Build output. ***Changes will be discarded!***
+
+
 ### Install Dependencies
 Required tools
 * node
@@ -47,22 +64,6 @@ yarn
 
 ### Deploy
 `npm run deploy` - runs `build-production` and uploads `dist/`.
-
-### Project Overview
-
-This is a single page app which uses [React] to render the UI, and [MobX] to hold the application state.
-
-Source codes were written in [TypeScript].
-
-#### Directories
-
-* `src/` - Source code. Compiled to `bundle.js` by webpack.
-  * `components/` - React UI components
-  * `models/` - Data types
-  * `stores/` - Observable storage classes
-* `assets/` - Static files. Files will be recursively copied to `dist/` during build.
-* `tools/` - Development tools.
-* `dist/` - Build output. ***Changes will be discarded!***
 
 [React]: https://facebook.github.io/react/
 [MobX]: https://mobx.js.org
