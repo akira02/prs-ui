@@ -9,9 +9,9 @@ server.use(jsonServer.defaults())
 server.use(jsonServer.bodyParser)
 
 // handle login request
-server.post('/tokens', (req, res) => {
-    const {username, password} = req.body
-    if (username === auth.username && password === auth.password) {
+server.post('/users/login', (req, res) => {
+    const {name, password} = req.body
+    if (name === auth.username && password === auth.password) {
         res.send({ token: auth.TOKEN })
     } else {
         res.status(403).send({ message: 'bad username or password!' })

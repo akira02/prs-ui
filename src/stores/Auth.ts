@@ -1,5 +1,5 @@
 import { observable, action, computed, reaction } from 'mobx'
-import { tokens } from '../api'
+import { users } from '../api'
 
 export class Auth {
     private static STORAGE_KEY: string = 'auth'
@@ -44,9 +44,9 @@ export class Auth {
     }
     @action.bound
     async login (): Promise<void> {
-        const response = await tokens.post
+        const response = await users.login.post
             .params({
-                username: this.username,
+                name: this.username,
                 password: this.password
             })
             .fetch()

@@ -91,8 +91,10 @@ function post<T> (pathname: string, schema?: ClazzOrModelSchema<any>): Builder<T
     })
 }
 
-export const tokens = {
-    post: post<{token: string}>('tokens')
+export const users = {
+    login: {
+        post: post<{token: string}>('users/login')
+    }
 }
 export const courses = {
     get:　get<Course[]>('courses', Course)
