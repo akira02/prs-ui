@@ -1,19 +1,20 @@
+import {observable} from 'mobx'
 import {serializable, createSimpleSchema, object} from 'serializr'
 
 const teacher = createSimpleSchema({ id: true, name: true })
 
 export class Course {
     @serializable
-    id: string
+    @observable id: string
 
     @serializable
-    name: string
+    @observable name: string
 
     @serializable
-    semester: string
+    @observable semester: string
 
     @serializable(object(teacher))
-    teacher: {
+    @observable teacher: {
         id: string
         name: string
     }

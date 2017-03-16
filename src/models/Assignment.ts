@@ -1,3 +1,4 @@
+import {observable} from 'mobx'
 import {serializable, createSimpleSchema, object} from 'serializr'
 import {isoDate} from './helpers'
 
@@ -5,19 +6,19 @@ const course = createSimpleSchema({ id: true, name: true })
 
 export class Assignment {
     @serializable
-    id: string
+    @observable id: string
 
     @serializable(isoDate)
-    assigned: Date
+    @observable assigned: Date
 
     @serializable(isoDate)
-    due: Date
+    @observable due: Date
 
     @serializable(isoDate)
-    submitted?: Date
+    @observable submitted?: Date
 
     @serializable(object(course))
-    course: {
+    @observable course: {
         id: string
         name: string
     }
