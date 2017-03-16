@@ -38,7 +38,7 @@ yarn
 * **fake api server** `http://localhost:3000/`
 
 ### Deploy
-`npm run deploy`
+`npm run deploy` - runs `build-production` and uploads `dist/`.
 
 ### Project Overview
 
