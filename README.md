@@ -42,7 +42,9 @@ yarn
 
 ### Project Overview
 
-This is a single page app which uses [React] to render the UI, and [MobX] to hold the application state. Source codes were written in [TypeScript].
+This is a single page app which uses [React] to render the UI, and [MobX] to hold the application state.
+
+Source codes were written in [TypeScript].
 
 #### Directories
 
