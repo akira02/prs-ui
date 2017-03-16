@@ -27,7 +27,7 @@ Source codes were written in [TypeScript].
 * `src/` - Source code. Compiled to `bundle.js` by webpack.
   * `components/` - React UI components
   * `models/` - Data types
-  * `stores/` - Observable storage classes
+  * `stores/` - MobX Observable stores
 * `assets/` - Static files. Files will be recursively copied to `dist/` during build.
 * `tools/` - Development tools.
 * `dist/` - Build output. ***Changes will be discarded!***
