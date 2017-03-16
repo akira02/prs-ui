@@ -42,6 +42,8 @@ yarn
 
 ### Project Overview
 
+This is a single page app which uses _React_ to render the UI, and _MobX_ to hold the application state. Source codes were written in _TypeScript_.
+
 #### Directories
 
 * `src/` - Source code. Compiled to `bundle.js` by webpack.
