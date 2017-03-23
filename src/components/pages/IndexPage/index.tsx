@@ -10,6 +10,6 @@ export const IndexPage = () =>
     <Page id="index">
         <div>
             <p>ピア・レビュー・システム</p>
-            <Link to="/good"><RaisedButton>GoGo!</RaisedButton></Link>
+            <Link to="/AssignmentPage"><RaisedButton>GoGo!</RaisedButton></Link>
         </div>
     </Page>
