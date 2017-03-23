@@ -11,5 +11,5 @@ export const AssignmentCard = ({assignment}: {assignment: Assignment}) =>
             actAsExpander={true}
             showExpandableButton={true}
              />
-        <CardText expandable={true}>{assignment.data_link}<br />{assignment.created_date}</CardText>
+        <CardText expandable={true}>{assignment.data_link}<br />{assignment.description}</CardText>
     </Card>

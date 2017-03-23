@@ -15,6 +15,9 @@ export class Assignment {
     @observable data_link: string
 
     @serializable
+    @observable description: string
+
+    @serializable
     @observable created_date: string
 
     @serializable(isoDate)
