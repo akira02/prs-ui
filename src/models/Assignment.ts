@@ -11,6 +11,12 @@ export class Assignment {
     @serializable
     @observable name: string
 
+    @serializable
+    @observable data_link: string
+
+    @serializable
+    @observable created_date: string
+
     @serializable(isoDate)
     @observable assigned: Date
 
