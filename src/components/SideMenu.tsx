@@ -40,6 +40,7 @@ export class SideMenu extends React.Component<Props, void> {
                 <ListItem value="/" primaryText="IndexPage" />
                 <ListItem value="/assignments" primaryText="AssignmentsPage" />
                 <ListItem value="/courses" primaryText="CoursesPage" />
+                <ListItem value="/users" primaryText="UserPage" />
             </SelectableList>
             <List>
                 <ListItem primaryText="Logout" onTouchTap={this.props.auth.logout} />
