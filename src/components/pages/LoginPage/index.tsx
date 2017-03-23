@@ -72,15 +72,15 @@ export class LoginPage extends React.Component<Props, void> {
                     value={auth.username}
                     onChange={this.handleUserame}
                     required={true}
-                    hintText="Username Field"
-                    floatingLabelText="Username" />
+                    hintText="測試期間預設testtesttest"
+                    floatingLabelText="帳號" />
                 <br />
                 <TextField type="password"
                     value={auth.password}
                     onChange={this.handlePassword}
                     required={true}
-                    hintText="Password Field"
-                    floatingLabelText="Password" />
+                    hintText="測試期間預設123123"
+                    floatingLabelText="密碼" />
                 <br />
                 <Checkbox label="Remember Me" checked={auth.remember} onCheck={this.onCheck} />
                 <RaisedButton type="submit">Login</RaisedButton>
