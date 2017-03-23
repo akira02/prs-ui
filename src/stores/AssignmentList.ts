@@ -19,7 +19,7 @@ export class AssignmentList {
             const response = await assignments.get
                 .auth(this.auth.token)
                 .fetch()
-            this.assignments.replace(response)
+            this.assignments.replace(response.assignments)
         } finally {
             this.loading = false
         }

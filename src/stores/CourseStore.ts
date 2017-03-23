@@ -23,7 +23,7 @@ export class CourseStore {
                 .params({ course_id: this.course.id })
                 .auth(this.auth.token)
                 .fetch()
-            this.assignments.replace(response)
+            this.assignments.replace(response.assignments)
         } finally {
             this.loading = false
         }

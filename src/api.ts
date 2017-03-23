@@ -1,6 +1,6 @@
 import {observable} from 'mobx'
 import {stringify} from 'query-string'
-import {deserialize, ClazzOrModelSchema} from 'serializr'
+import {deserialize, createSimpleSchema, list, object, ClazzOrModelSchema} from 'serializr'
 
 import {Assignment} from './models/Assignment'
 import {Course} from './models/Course'
@@ -100,7 +100,9 @@ export const courses = {
     get:　get<Course[]>('courses', Course)
 }
 export const assignments = {
-    get: get<Assignment[]>('assignments', Assignment)
+    get: get<{ assignments: Assignment[] }>('assignments', createSimpleSchema<{ assignments: Assignment[] }>({
+        assignments: list(object(Assignment))
+    }))
 }
 export const submissions = {
     post: post<{success: boolean}>('submissions')
