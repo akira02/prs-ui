@@ -32,7 +32,6 @@ export const App = inject('history')(observer<Props>(({history}) =>
                         <SlideRoute path="/login" component={LoginPage} />
                         <SlideRoute path="/assignments" component={AssignmentsPage} />
                         <SlideRoute path="/courses" component={CoursesPage} />
-                        <SlideRoute path="/users" component={UserPage} />
                         <SlideRoute path="*" component={NotFoundPage} />
                     </Switch>
                 </div>
