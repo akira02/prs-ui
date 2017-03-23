@@ -5,6 +5,6 @@ import { Assignment } from 'prs-ui/models/Assignment'
 
 export const AssignmentCard = ({assignment}: {assignment: Assignment}) =>
     <Card className="card">
-        <CardHeader title={assignment.id} />
+        <CardHeader title={assignment.name} />
         <CardText expandable={true}>{assignment.due}</CardText>
     </Card>
