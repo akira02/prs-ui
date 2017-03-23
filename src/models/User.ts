@@ -4,7 +4,7 @@ import {isoDate} from './helpers'
 
 const course = createSimpleSchema({ id: true, name: true })
 
-export class Assignment {
+export class User {
     @serializable
     @observable id: string
 
