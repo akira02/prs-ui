@@ -3,6 +3,7 @@ import {History} from './History'
 import {SideMenuStore} from './SideMenuStore'
 import {AssignmentList} from './AssignmentList'
 import {CourseList} from './CourseList'
+import {UserList} from './UserList'
 import {Message} from './Message'
 
 export {
@@ -11,6 +12,7 @@ export {
     SideMenuStore,
     AssignmentList,
     CourseList,
+    UserList,
     Message
 }
 
@@ -20,5 +22,6 @@ export class Stores {
     readonly sideMenu = new SideMenuStore(this.history)
     readonly assignmentList = new AssignmentList(this.auth)
     readonly courseList = new CourseList(this.auth)
+    readonly userList = new UserList(this.auth)
     readonly message = new Message()
 }
