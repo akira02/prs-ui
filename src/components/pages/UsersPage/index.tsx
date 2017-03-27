@@ -3,8 +3,7 @@ import { action } from 'mobx'
 import { inject, observer } from 'mobx-react'
 
 import { RequireToken } from 'prs-ui/components/RequireToken'
-import DropDownMenu from 'material-ui/DropDownMenu'
-import MenuItem from 'material-ui/MenuItem'
+import {Tabs, Tab} from 'material-ui/Tabs'
 
 import { Page } from '../Page'
 import { UserCard } from './UserCard'
@@ -22,7 +21,7 @@ export class UsersPage extends React.Component<Props, void> {
         this.props.userList.fetch()
     }
     @action.bound
-    handleRoleChange (event, index, value) {
+    handleRoleChange (value: string) {
         this.props.userList.role = value
     }
     
@@ -30,11 +29,13 @@ export class UsersPage extends React.Component<Props, void> {
         const {users, role} = this.props.userList
         return <RequireToken onLoggedIn={this.handleLoggedIn}>
             <Page>
-                <DropDownMenu value={role} onChange={this.handleRoleChange}>
-                    <MenuItem value="all" primaryText="所有使用者" />
-                    <MenuItem value="teacher" primaryText="教師" />
-                    <MenuItem value="student" primaryText="學生" />
-                </DropDownMenu>
+                <Tabs
+                    onChange={this.handleRoleChange}
+                    value={role} >
+                    <Tab label="所有使用者" value="all" />
+                    <Tab label="教師" value="teacher" />
+                    <Tab label="學生" value="student" />
+                </Tabs>
                 {
                     users.map(user =>
                         <UserCard key={user.id} user={user}/>
