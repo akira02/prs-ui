@@ -3,6 +3,8 @@ import { inject, observer } from 'mobx-react'
 import { Switch, Router } from 'react-router-dom'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import { theme } from 'prs-ui/theme'
+
 import { SideMenu } from '../SideMenu'
 import { SlideRoute } from '../SlideRoute'
 import { LoginPage } from '../pages/LoginPage'
@@ -23,7 +25,7 @@ interface Props {
 }
 
 export const App = inject('history')(observer<Props>(({history}) =>
-    <MuiThemeProvider>
+    <MuiThemeProvider muiTheme={theme}>
         <Router history={history.inner}>
             <div className="app">
                 <SideMenu />
