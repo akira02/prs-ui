@@ -7,5 +7,8 @@ export class User {
 
     @serializable
     @observable name: string
+
+    @serializable
+    @observable role: string
 }
 
