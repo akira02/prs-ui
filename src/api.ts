@@ -97,7 +97,9 @@ export const users = {
     }
 }
 export const courses = {
-    get:　get<Course[]>('courses', Course)
+    get:　get<{ courses: Course[] }>('assignments', createSimpleSchema<{ courses: Course[] }>({
+        assignments: list(object(Course))
+    }))
 }
 export const assignments = {
     get: get<{ assignments: Assignment[] }>('assignments', createSimpleSchema<{ assignments: Assignment[] }>({
