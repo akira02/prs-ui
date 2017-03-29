@@ -3,12 +3,15 @@ import { inject, observer } from 'mobx-react'
 import { Switch, Router } from 'react-router-dom'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import { theme } from 'prs-ui/theme'
+
 import { SideMenu } from '../SideMenu'
 import { SlideRoute } from '../SlideRoute'
 import { LoginPage } from '../pages/LoginPage'
 import { IndexPage } from '../pages/IndexPage'
 import { AssignmentsPage } from '../pages/AssignmentsPage'
 import { CoursesPage } from '../pages/CoursesPage'
+import { UsersPage } from '../pages/UsersPage'
 import { NotFoundPage } from '../pages/NotFoundPage'
 import { MessageBar } from '../MessageBar'
 
@@ -22,7 +25,7 @@ interface Props {
 }
 
 export const App = inject('history')(observer<Props>(({history}) =>
-    <MuiThemeProvider>
+    <MuiThemeProvider muiTheme={theme}>
         <Router history={history.inner}>
             <div className="app">
                 <SideMenu />
@@ -32,6 +35,7 @@ export const App = inject('history')(observer<Props>(({history}) =>
                         <SlideRoute path="/login" component={LoginPage} />
                         <SlideRoute path="/assignments" component={AssignmentsPage} />
                         <SlideRoute path="/courses" component={CoursesPage} />
+                        <SlideRoute path="/users" component={UsersPage} />
                         <SlideRoute path="*" component={NotFoundPage} />
                     </Switch>
                 </div>

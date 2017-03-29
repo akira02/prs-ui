@@ -5,6 +5,7 @@ import {deserialize, createSimpleSchema, list, object, ClazzOrModelSchema} from 
 import {Assignment} from './models/Assignment'
 import {Course} from './models/Course'
 import {Submission} from './models/Submission'
+import {User} from './models/User'
 
 export class StatusCodeError extends Error {
     public readonly status: number
@@ -92,6 +93,7 @@ function post<T> (pathname: string, schema?: ClazzOrModelSchema<any>): Builder<T
 }
 
 export const users = {
+    get: get<User[]>('users', User),
     login: {
         post: post<{token: string}>('users/login')
     }
