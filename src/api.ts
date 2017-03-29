@@ -100,7 +100,7 @@ export const users = {
 }
 export const courses = {
     get:　get<{ courses: Course[] }>('courses', createSimpleSchema<{ courses: Course[] }>({
-        assignments: list(object(Course))
+        courses: list(object(Course))
     }))
 }
 export const assignments = {
