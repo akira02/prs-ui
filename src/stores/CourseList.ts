@@ -18,7 +18,7 @@ export class CourseList {
         const response = await courses.get
             .auth(this.auth.token)
             .fetch()
-        const stores = response.map(course => new CourseStore(this.auth, course))
+        const stores = response.courses.map(course => new CourseStore(this.auth, course))
         this.stores.replace(stores)
         this.loading = false
     }
