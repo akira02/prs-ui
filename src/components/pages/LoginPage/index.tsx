@@ -72,7 +72,7 @@ export class LoginPage extends React.Component<Props, void> {
                     value={auth.username}
                     onChange={this.handleUserame}
                     required={true}
-                    hintText="測試期間預設testtesttest"
+                    hintText="測試期間預設admin"
                     floatingLabelText="帳號" />
                 <br />
                 <TextField type="password"
