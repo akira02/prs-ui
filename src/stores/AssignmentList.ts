@@ -7,6 +7,9 @@ export class AssignmentList {
     private readonly auth: Auth
     @observable assignments: IObservableArray<Assignment> = observable<Assignment>([])
     @observable loading: boolean = false
+    @observable open: boolean = false
+
+    @observable assignmentName: string = ''
 
     constructor (auth: Auth) {
         this.auth = auth
