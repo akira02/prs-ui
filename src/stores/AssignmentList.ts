@@ -40,7 +40,9 @@ export class AssignmentList {
                 data_link: this.assignmentData_link
             })
             .fetch()
+    }
 
+    clearInput () {
         this.assignmentName = ''
         this.assignmentDescription = ''
         this.assignmentData_link = ''

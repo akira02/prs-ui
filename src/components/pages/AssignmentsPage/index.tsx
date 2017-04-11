@@ -33,6 +33,8 @@ export class AssignmentsPage extends React.Component<Props, void> {
         try {
             await this.props.assignmentList.submit()
             this.props.message.show('Success!!')
+            this.props.assignmentList.open = false
+            this.props.assignmentList.clearInput()
         } catch (error) {
             this.props.message.error('Failed!!')
         }
