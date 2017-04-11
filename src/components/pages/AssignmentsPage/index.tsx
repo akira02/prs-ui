@@ -101,7 +101,6 @@ export class AssignmentsPage extends React.Component<Props, void> {
                             onChange={this.handleAssignmentDescription}
                             required={true}
                             multiLine={true}
-                            rows={3}
                             fullWidth={true}
                             hintText="作業說明"
                             floatingLabelText="作業說明" />
