@@ -92,6 +92,7 @@ export class AssignmentsPage extends React.Component<Props, void> {
                             value={assignmentName}
                             onChange={this.handleAssignmentName}
                             required={true}
+                            fullWidth={true}
                             hintText="作業名稱"
                             floatingLabelText="新作業名稱" />
                         <br />
@@ -99,6 +100,9 @@ export class AssignmentsPage extends React.Component<Props, void> {
                             value={assignmentDescription}
                             onChange={this.handleAssignmentDescription}
                             required={true}
+                            multiLine={true}
+                            rows={3}
+                            fullWidth={true}
                             hintText="作業說明"
                             floatingLabelText="作業說明" />
                         <br />
@@ -106,6 +110,7 @@ export class AssignmentsPage extends React.Component<Props, void> {
                             value={assignmentData_link}
                             onChange={this.handleAssignmentData_link}
                             required={true}
+                            fullWidth={true}
                             hintText="http://example.com/"
                             floatingLabelText="參考連結" />
                         <br />
