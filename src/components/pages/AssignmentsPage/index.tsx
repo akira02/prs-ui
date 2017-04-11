@@ -11,13 +11,14 @@ import { RequireToken } from 'prs-ui/components/RequireToken'
 import { Page } from '../Page'
 import { AssignmentCard } from './AssignmentCard'
 
-import { AssignmentList } from 'prs-ui/stores'
+import { AssignmentList, Message } from 'prs-ui/stores'
 
 export interface Props {
     assignmentList: AssignmentList
+    message?: Message
 }
 
-@inject('assignmentList') @observer
+@inject('assignmentList', 'message') @observer
 export class AssignmentsPage extends React.Component<Props, void> {
     @action.bound
     handleLoggedIn () {
@@ -28,8 +29,13 @@ export class AssignmentsPage extends React.Component<Props, void> {
         this.props.assignmentList.open = true
     }
     @action.bound
-    handleSubmit () {
-        this.props.assignmentList.submit()
+    async handleSubmit () {
+        try {
+            await this.props.assignmentList.submit()
+            this.props.message.show('Success!!')
+        } catch () {
+            this.props.message.error('Failed!!')
+        }
     }
     @action.bound
     handleClose () {
