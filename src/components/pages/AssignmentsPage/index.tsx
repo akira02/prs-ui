@@ -81,13 +81,12 @@ export class AssignmentsPage extends React.Component<Props, void> {
                 </FloatingActionButton>
                 
                 <Dialog
-                    title="繳交"
+                    title="新增作業"
                     actions={actions}
                     modal={false}
                     open={open}
                     onRequestClose={this.handleClose}
                     autoScrollBodyContent={true}>
-                    <h1>新增作業</h1>
                         <TextField type="text"
                             value={assignmentName}
                             onChange={this.handleAssignmentName}
