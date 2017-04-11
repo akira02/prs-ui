@@ -29,4 +29,16 @@ export class AssignmentList {
             this.loading = false
         }
     }
+
+    @action
+    async submit () {
+        await assignments.post
+            .auth(this.auth.token)
+            .params({
+                name: this.assignmentName,
+                description: this.assignmentDescription,
+                data_link: this.assignmentData_link
+            })
+            .fetch()
+    }
 }

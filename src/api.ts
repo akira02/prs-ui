@@ -106,7 +106,8 @@ export const courses = {
 export const assignments = {
     get: get<{ assignments: Assignment[] }>('assignments', createSimpleSchema<{ assignments: Assignment[] }>({
         assignments: list(object(Assignment))
-    }))
+    })),
+    post: post<void>('assignments')
 }
 export const submissions = {
     post: post<{success: boolean}>('submissions')

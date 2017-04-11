@@ -28,6 +28,10 @@ export class AssignmentsPage extends React.Component<Props, void> {
         this.props.assignmentList.open = true
     }
     @action.bound
+    handleSubmit () {
+        this.props.assignmentList.submit()
+    }
+    @action.bound
     handleClose () {
         this.props.assignmentList.open = false
     }
@@ -63,7 +67,7 @@ export class AssignmentsPage extends React.Component<Props, void> {
                 label="Submit"
                 primary={true}
                 keyboardFocused={true}
-                onTouchTap={this.handleClose}
+                onTouchTap={this.handleSubmit}
 
             />,
         ];
