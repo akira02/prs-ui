@@ -31,12 +31,28 @@ export class AssignmentsPage extends React.Component<Props, void> {
     handleClose () {
         this.props.assignmentList.open = false
     }
+
     @action.bound
     handleAssignmentName(event, text:string){
         this.props.assignmentList.assignmentName = text
     }
+    @action.bound
+    handleAssignmentDescription(event, text:string){
+        this.props.assignmentList.assignmentDescription = text
+    }
+    @action.bound
+    handleAssignmentData_link(event, text:string){
+        this.props.assignmentList.assignmentData_link = text
+    }
+    
     render () {
-        const {assignments, open, assignmentName} = this.props.assignmentList
+        const {
+            assignments, 
+            open, 
+            assignmentName, 
+            assignmentDescription, 
+            assignmentData_link} = this.props.assignmentList
+
         const actions = [
             <FlatButton
                 label="Cancel"
@@ -70,14 +86,28 @@ export class AssignmentsPage extends React.Component<Props, void> {
                     modal={false}
                     open={open}
                     onRequestClose={this.handleClose}
-                    autoScrollBodyContent={true}
-                    >
+                    autoScrollBodyContent={true}>
+                    <h1>新增作業</h1>
                         <TextField type="text"
                             value={assignmentName}
                             onChange={this.handleAssignmentName}
                             required={true}
-                            hintText="新作業名稱"
-                            floatingLabelText="作業名稱" />
+                            hintText="作業名稱"
+                            floatingLabelText="新作業名稱" />
+                        <br />
+                        <TextField type="text"
+                            value={assignmentDescription}
+                            onChange={this.handleAssignmentDescription}
+                            required={true}
+                            hintText="作業說明"
+                            floatingLabelText="作業說明" />
+                        <br />
+                        <TextField type="text"
+                            value={assignmentData_link}
+                            onChange={this.handleAssignmentData_link}
+                            required={true}
+                            hintText="http://example.com/"
+                            floatingLabelText="參考連結" />
                         <br />
                 </Dialog>
             </Page>

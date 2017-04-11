@@ -10,6 +10,8 @@ export class AssignmentList {
     @observable open: boolean = false
 
     @observable assignmentName: string = ''
+    @observable assignmentDescription: string = ''
+    @observable assignmentData_link: string = ''
 
     constructor (auth: Auth) {
         this.auth = auth
