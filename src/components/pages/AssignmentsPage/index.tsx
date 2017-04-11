@@ -35,6 +35,8 @@ export class AssignmentsPage extends React.Component<Props, void> {
             this.props.message.show('Success!!')
             this.props.assignmentList.open = false
             this.props.assignmentList.clearInput()
+            // refresh list
+            this.props.assignmentList.fetch()
         } catch (error) {
             this.props.message.error('Failed!!')
         }
