@@ -27,6 +27,7 @@ export class AssignmentInput {
             .fetch()
     }
 
+    @action
     clear () {
         this.name = ''
         this.description = ''
