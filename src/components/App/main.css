@@ -10,7 +10,7 @@ body {
 /* fixed buttons */
 .button-fixed {
     position: fixed;
-    /* need this because material-ui sets some elements' z-index to 1 */
+    /* need this because material-ui sets z-index of some elements to 1 */
     z-index: 1;
     bottom: 23px;
     right: 23px;
