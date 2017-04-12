@@ -11,14 +11,15 @@ import { RequireToken } from 'prs-ui/components/RequireToken'
 import { Page } from '../Page'
 import { AssignmentCard } from './AssignmentCard'
 
-import { AssignmentList, Message } from 'prs-ui/stores'
+import { AssignmentList, AssignmentInput, Message } from 'prs-ui/stores'
 
 export interface Props {
-    assignmentList: AssignmentList
+    assignmentList?: AssignmentList
+    assignmentInput?: AssignmentInput
     message?: Message
 }
 
-@inject('assignmentList', 'message') @observer
+@inject('assignmentList', 'assignmentInput', 'message') @observer
 export class AssignmentsPage extends React.Component<Props, void> {
     @action.bound
     handleLoggedIn () {
@@ -26,15 +27,19 @@ export class AssignmentsPage extends React.Component<Props, void> {
     }
     @action.bound
     handleAdd () {
-        this.props.assignmentList.open = true
+        this.props.assignmentInput.open = true
     }
     @action.bound
     async handleSubmit () {
         try {
-            await this.props.assignmentList.submit()
+            await this.props.assignmentInput.submit()
+
             this.props.message.show('Success!!')
-            this.props.assignmentList.open = false
-            this.props.assignmentList.clearInput()
+            
+            // close and clear
+            this.props.assignmentInput.open = false
+            this.props.assignmentInput.clear()
+
             // refresh list
             this.props.assignmentList.fetch()
         } catch (error) {
@@ -43,29 +48,25 @@ export class AssignmentsPage extends React.Component<Props, void> {
     }
     @action.bound
     handleClose () {
-        this.props.assignmentList.open = false
+        this.props.assignmentInput.open = false
     }
 
     @action.bound
     handleAssignmentName(event, text:string){
-        this.props.assignmentList.assignmentName = text
+        this.props.assignmentInput.name = text
     }
     @action.bound
     handleAssignmentDescription(event, text:string){
-        this.props.assignmentList.assignmentDescription = text
+        this.props.assignmentInput.description = text
     }
     @action.bound
     handleAssignmentData_link(event, text:string){
-        this.props.assignmentList.assignmentData_link = text
+        this.props.assignmentInput.data_link = text
     }
     
     render () {
-        const {
-            assignments, 
-            open, 
-            assignmentName, 
-            assignmentDescription, 
-            assignmentData_link} = this.props.assignmentList
+        const {assignments} = this.props.assignmentList
+        const { open, name, description, data_link } = this.props.assignmentInput
 
         const actions = [
             <FlatButton
@@ -102,7 +103,7 @@ export class AssignmentsPage extends React.Component<Props, void> {
                     onRequestClose={this.handleClose}
                     autoScrollBodyContent={true}>
                         <TextField type="text"
-                            value={assignmentName}
+                            value={name}
                             onChange={this.handleAssignmentName}
                             required={true}
                             fullWidth={true}
@@ -110,7 +111,7 @@ export class AssignmentsPage extends React.Component<Props, void> {
                             floatingLabelText="新作業名稱" />
                         <br />
                         <TextField type="text"
-                            value={assignmentDescription}
+                            value={description}
                             onChange={this.handleAssignmentDescription}
                             required={true}
                             multiLine={true}
@@ -119,7 +120,7 @@ export class AssignmentsPage extends React.Component<Props, void> {
                             floatingLabelText="作業說明" />
                         <br />
                         <TextField type="text"
-                            value={assignmentData_link}
+                            value={data_link}
                             onChange={this.handleAssignmentData_link}
                             required={true}
                             fullWidth={true}

@@ -7,11 +7,6 @@ export class AssignmentList {
     private readonly auth: Auth
     @observable assignments: IObservableArray<Assignment> = observable<Assignment>([])
     @observable loading: boolean = false
-    @observable open: boolean = false
-
-    @observable assignmentName: string = ''
-    @observable assignmentDescription: string = ''
-    @observable assignmentData_link: string = ''
 
     constructor (auth: Auth) {
         this.auth = auth
@@ -28,23 +23,5 @@ export class AssignmentList {
         } finally {
             this.loading = false
         }
-    }
-
-    @action
-    async submit () {
-        await assignments.post
-            .auth(this.auth.token)
-            .params({
-                name: this.assignmentName,
-                description: this.assignmentDescription,
-                data_link: this.assignmentData_link
-            })
-            .fetch()
-    }
-
-    clearInput () {
-        this.assignmentName = ''
-        this.assignmentDescription = ''
-        this.assignmentData_link = ''
     }
 }
