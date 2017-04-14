@@ -1,4 +1,4 @@
-import {DateString} from './helpers'
+import {DateString} from './DateString'
 
 export interface Submission {
     id: string
