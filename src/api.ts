@@ -9,7 +9,7 @@ import * as superagent from 'superagent'
 
 export const api = {
     get (pathname: string) {
-        const request = Object.create(superagent.get(API_BASE + pathname))
+        const request = superagent.get(API_BASE + pathname)
 
         request.auth = function (token: string) {
             this.set('Authorization', token)
@@ -19,7 +19,7 @@ export const api = {
         return request
     },
     post (pathname: string) {
-        const request = Object.create(superagent.post(API_BASE + pathname))
+        const request = superagent.post(API_BASE + pathname)
 
         request.auth = function (token: string) {
             this.set('Authorization', token)
