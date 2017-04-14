@@ -2,12 +2,14 @@
   "name": "prs-ui",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "postinstall": "typings install",
+
     "build": "webpack",
     "build-production": "cross-env NODE_ENV=production webpack -p",
+
     "start": "node ./tools/server.js",
+
     "predeploy": "npm run build-production",
     "deploy": "rsync -hlrcvz --delete -e ssh ./dist aki@work.maid.cat:/var/www/prs-ui"
   },
