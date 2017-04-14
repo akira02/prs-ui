@@ -1,10 +1,3 @@
-import {stringify} from 'query-string'
-
-import {Assignment} from './models/Assignment'
-import {Course} from './models/Course'
-import {Submission} from './models/Submission'
-import {User} from './models/User'
-
 import * as superagent from 'superagent'
 
 export const api = {
