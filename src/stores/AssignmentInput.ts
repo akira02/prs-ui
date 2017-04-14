@@ -1,5 +1,5 @@
 import { observable, action } from 'mobx'
-import { assignments } from '../api'
+import { api } from '../api'
 import { Auth } from './Auth'
 import { Assignment } from '../models/Assignment'
 
@@ -17,14 +17,13 @@ export class AssignmentInput {
 
     @action
     async submit () {
-        await assignments.post
+        await api.post('assignments')
             .auth(this.auth.token)
-            .params({
+            .send({
                 name: this.name,
                 description: this.description,
                 data_link: this.data_link
             })
-            .fetch()
     }
 
     @action

@@ -1,5 +1,5 @@
 import { observable, action, IObservableArray } from 'mobx'
-import { assignments } from '../api'
+import { api } from '../api'
 import { Auth } from './Auth'
 import { Assignment } from '../models/Assignment'
 import { Course } from '../models/Course'
@@ -19,11 +19,11 @@ export class CourseStore {
     async fetchAssignments () {
         this.loading = true
         try {
-            const response = await assignments.get
-                .params({ course_id: this.course.id })
+            const response = await api.get('assignments')
+                .query({ course_id: this.course.id })
                 .auth(this.auth.token)
-                .fetch()
-            this.assignments.replace(response.assignments)
+
+            this.assignments.replace(response.body.assignments)
         } finally {
             this.loading = false
         }

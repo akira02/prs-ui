@@ -1,5 +1,5 @@
 import { observable, action, IObservableArray } from 'mobx'
-import { courses } from '../api'
+import { api } from '../api'
 import { Auth } from './Auth'
 import { CourseStore } from './CourseStore'
 
@@ -15,10 +15,10 @@ export class CourseList {
     @action
     async fetch () {
         this.loading = true
-        const response = await courses.get
+        const response = await api.get('courses')
             .auth(this.auth.token)
-            .fetch()
-        const stores = response.courses.map(course => new CourseStore(this.auth, course))
+
+        const stores = response.body.courses.map(course => new CourseStore(this.auth, course))
         this.stores.replace(stores)
         this.loading = false
     }

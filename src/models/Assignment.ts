@@ -1,36 +1,18 @@
-import {observable} from 'mobx'
-import {serializable, createSimpleSchema, object} from 'serializr'
-import {isoDate} from './helpers'
+import {DateString} from './helpers'
 
-const course = createSimpleSchema({ id: true, name: true })
+export interface Assignment {
+    id: string
+    name: string
+    data_link: string
+    description: string
+    created_date: string
 
-export class Assignment {
-    @serializable
-    @observable id: string
+    
+    assigned: DateString
+    due: DateString
+    submitted?: DateString
 
-    @serializable
-    @observable name: string
-
-    @serializable
-    @observable data_link: string
-
-    @serializable
-    @observable description: string
-
-    @serializable
-    @observable created_date: string
-
-    @serializable(isoDate)
-    @observable assigned: Date
-
-    @serializable(isoDate)
-    @observable due: Date
-
-    @serializable(isoDate)
-    @observable submitted?: Date
-
-    @serializable(object(course))
-    @observable course: {
+    course: {
         id: string
         name: string
     }

@@ -7,7 +7,6 @@ import RaisedButton from 'material-ui/RaisedButton'
 import Checkbox from 'material-ui/Checkbox'
 import { Page } from '../Page'
 
-import { StatusCodeError } from 'prs-ui/api'
 import { Auth, History, Message } from 'prs-ui/stores'
 
 import './style.css'
@@ -35,7 +34,7 @@ export class LoginPage extends React.Component<Props, void> {
         try {
             await this.props.auth.login()
         } catch (error) {
-            if (error instanceof StatusCodeError && error.status == 403) {
+            if (error && error.status == 403) {
                 this.props.message.error('Incorrect username or password. Please try again')
             } else {
                 this.props.message.error('Login failed. Please try again')

@@ -1,5 +1,5 @@
 import { observable, computed, action, IObservableArray } from 'mobx'
-import { users } from '../api'
+import { api } from '../api'
 import { Auth } from './Auth'
 
 import { User } from '../models/User'
@@ -23,10 +23,9 @@ export class UserList {
     @action
     async fetch () {
         this.loading = true
-        const response = await users.get
+        const response = await api.get('users')
             .auth(this.auth.token)
-            .fetch()
-        this.allUsers.replace(response)
+        this.allUsers.replace(response.body)
         this.loading = false
     }
 }

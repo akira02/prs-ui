@@ -1,14 +1,6 @@
-import {observable} from 'mobx'
-import {serializable, createSimpleSchema, object} from 'serializr'
-
-export class User {
-    @serializable
-    @observable id: string
-
-    @serializable
-    @observable name: string
-
-    @serializable
-    @observable role: string
+export interface User {
+    id: string
+    name: string
+    role: string
 }
 
