@@ -9,8 +9,10 @@ import { Stores } from './stores'
 
 import { api } from './api'
 
+// material-ui requires this to work properly
 injectTapEventPlugin()
 
+// root of all MobX stores
 const stores = new Stores()
 
 render(

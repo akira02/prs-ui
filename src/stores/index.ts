@@ -7,6 +7,7 @@ import {CourseList} from './CourseList'
 import {UserList} from './UserList'
 import {Message} from './Message'
 
+// re-export for convenience
 export {
     Auth,
     History,

@@ -1,6 +1,9 @@
 import {observable, action} from 'mobx'
 import createHistory from 'history/createBrowserHistory'
 
+/**
+ * Observable wrapper for Location object
+ */
 export class Location {
     @observable pathname: string
     @observable hash: string
@@ -22,6 +25,9 @@ export class Location {
     }
 }
 
+/**
+ * Observable wrapper for History object
+ */
 export class History {
     inner = createHistory()
     @observable action: string
