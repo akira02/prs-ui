@@ -28,7 +28,6 @@ export class CourseCard extends React.Component<Props, void> {
             onExpandChange={this.handleExpandChange}>
             <CardHeader
                 title={course.name}
-                subtitle={course.teacher.name}
                 actAsExpander={true}
                 showExpandableButton={true} />
             
