@@ -35,7 +35,7 @@ export class CourseCard extends React.Component<Props, void> {
                 <List>
                 {
                     assignments.map(assignment => 
-                        <ListItem key={assignment.id} primaryText={assignment.id} />
+                        <ListItem key={assignment.id} primaryText={assignment.name} />
                     )
                 }
                 </List>
