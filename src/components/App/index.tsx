@@ -12,6 +12,7 @@ import { IndexPage } from '../pages/IndexPage'
 import { AssignmentsPage } from '../pages/AssignmentsPage'
 import { CoursesPage } from '../pages/CoursesPage'
 import { UsersPage } from '../pages/UsersPage'
+import { FormsPage } from '../pages/FormsPage'
 import { NotFoundPage } from '../pages/NotFoundPage'
 import { MessageBar } from '../MessageBar'
 
@@ -36,6 +37,7 @@ export const App = inject('history')(observer<Props>(({history}) =>
                         <SlideRoute path="/assignments" component={AssignmentsPage} />
                         <SlideRoute path="/courses" component={CoursesPage} />
                         <SlideRoute path="/users" component={UsersPage} />
+                        <SlideRoute path="/forms" component={FormsPage} />
                         <SlideRoute path="*" component={NotFoundPage} />
                     </Switch>
                 </div>
