@@ -14,7 +14,6 @@ const style = {
 
 
 export const AssignmentCard = ({assignment}: {assignment: Assignment}) =>
-
     <Card className="card">
         <CardHeader 
             title={assignment.name}
@@ -26,8 +25,7 @@ export const AssignmentCard = ({assignment}: {assignment: Assignment}) =>
         <RaisedButton 
             label="Add New Form" 
             style={style}
-            href="https://github.com/callemall/material-ui"
             target="_blank"
-            onTouchTap={this.handleAdd}
+            onTouchTap={this.handleSubmit}
         />
     </Card>
