@@ -28,7 +28,7 @@ export class AssignmentCard extends React.Component<Props, void> {
             .auth(this.props.auth.token)
             .send({ assignment_id: this.props.assignment.id })
 
-        const win = window.open(result.url, '_blank')
+        const win = window.open(result.body.url, '_blank')
         win.focus()
     }
 
