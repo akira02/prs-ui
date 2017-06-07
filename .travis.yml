@@ -10,4 +10,4 @@ deploy:
     branch: master
 cache: yarn
 addons:
-  ssh_known_hosts: work.maid.cat
+  ssh_known_hosts: api.prs.ggpark.net
