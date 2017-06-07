@@ -49,7 +49,7 @@ module.exports = {
     ]),
     new DefinePlugin({
       API_BASE: isProduction
-        ? JSON.stringify('http://prs-node.herokuapp.com/')
+        ? JSON.stringify('http://api.prs.ggpark.net/')
         : JSON.stringify('http://localhost:3000/')
     })
   ]
