@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "postinstall": "typings install",
     "build": "webpack",
     "build-production": "cross-env NODE_ENV=production webpack -p",
     "start": "node ./tools/server.js",
@@ -21,6 +20,7 @@
   },
   "homepage": "https://github.com/akira02/prs-ui#readme",
   "dependencies": {
+    "@types/react": "^15.0.34",
     "classnames": "^2.2.5",
     "history": "^4.6.3",
     "material-ui": "^0.18.5",
@@ -45,7 +45,6 @@
     "node-static": "^0.7.9",
     "style-loader": "^0.18.2",
     "typescript": "^2.4.1",
-    "typings": "^2.1.1",
     "webpack": "^3.0.0"
   }
 }
