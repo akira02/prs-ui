@@ -7,11 +7,8 @@ import { api } from '../api'
 export class Auth {
     private static STORAGE_KEY: string = 'auth'
 
-    @observable username: string = ''
-    @observable password: string = ''
-
     @observable remember: boolean = false
-    @observable token: string = null
+    @observable token: string | null = null
 
     @computed get isLoggedIn (): boolean {
         return this.token != null
@@ -20,15 +17,13 @@ export class Auth {
     constructor () {
         this.hydrate()
 
-        reaction(
-            () => ({
-                storage: this.remember ? localStorage : sessionStorage,
-                data: {
-                    token: this.token,
-                    remember: this.remember
-                }
-            }),
-            this.store)
+        reaction(() => ({
+            storage: this.remember ? localStorage : sessionStorage,
+            data: {
+                token: this.token,
+                remember: this.remember
+            }
+        }), this.store)
     }
     /**
      * Save data to the browser
@@ -47,17 +42,14 @@ export class Auth {
         if (json == null) return
 
         const {remember, token} = JSON.parse(json)
-
         this.remember = remember
         this.token = token
     }
+
     @action.bound
-    async login (): Promise<void> {
+    async login (name: string, password: string): Promise<void> {
         const response = await api.post('users/login')
-            .send({
-                name: this.username,
-                password: this.password
-            })
+            .send({ name, password })
 
         this.token = response.body.token
     }

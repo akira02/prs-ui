@@ -5,7 +5,7 @@ import { observer } from 'mobx-react'
 import { Card, CardHeader, CardMedia } from 'material-ui/Card'
 import { List, ListItem } from 'material-ui/List'
 
-import { User } from 'prs-ui/models/User'
+import { User } from '../../../models/User'
 
 export interface Props {
     user: User

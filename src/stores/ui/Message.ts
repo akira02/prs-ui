@@ -6,13 +6,13 @@ export interface Action {
 }
 
 export class Message {
-    @observable action?: Action = null
+    @observable action: Action | null = null
     @observable text: string = ''
     @observable isError: boolean = false
     @observable open: boolean = false
 
     @action
-    show (text: string, action: Action = null) {
+    show (text: string, action: Action | null = null) {
         this.open = true
         this.text = text
         this.isError = false
@@ -20,7 +20,7 @@ export class Message {
     }
 
     @action
-    error (text: string, action: Action = null) {
+    error (text: string, action: Action | null = null) {
         this.open = true
         this.text = text
         this.isError = true

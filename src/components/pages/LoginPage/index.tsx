@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { action, when } from 'mobx'
+import { observable, action, when } from 'mobx'
 import { observer, inject } from 'mobx-react'
 
 import TextField from 'material-ui/TextField'
@@ -7,7 +7,9 @@ import RaisedButton from 'material-ui/RaisedButton'
 import Checkbox from 'material-ui/Checkbox'
 import { Page } from '../Page'
 
-import { Auth, History, Message } from 'prs-ui/stores'
+import { Auth } from '../../../stores/Auth'
+import { History } from '../../../stores/History'
+import { Message } from '../../../stores/ui/Message'
 
 import './style.css'
 
@@ -18,8 +20,12 @@ interface Props {
 }
 
 @inject('auth', 'history', 'message') @observer
-export class LoginPage extends React.Component<Props, void> {
+export class LoginPage extends React.Component<Props> {
     private dispose: () => void
+
+    @observable username: string
+    @observable password: string
+
     constructor (props: Props) {
         super(props)
         const disposer = when('loggedIn', () => props.auth.isLoggedIn, this.gotoNextPage)
@@ -29,10 +35,10 @@ export class LoginPage extends React.Component<Props, void> {
         this.dispose()
     }
     @action.bound
-    async onSubmit (event: React.SyntheticEvent) {
+    async onSubmit (event) {
         event.preventDefault()
         try {
-            await this.props.auth.login()
+            await this.props.auth.login(this.username, this.password)
         } catch (error) {
             if (error && error.status == 403) {
                 this.props.message.error('Incorrect username or password. Please try again')
@@ -47,11 +53,11 @@ export class LoginPage extends React.Component<Props, void> {
     }
     @action.bound
     handleUserame (event, value: string) {
-        this.props.auth.username = value
+        this.username = value
     }
     @action.bound
     handlePassword (event, value: string) {
-        this.props.auth.password = value
+        this.password = value
     }
     @action.bound
     gotoNextPage () {
@@ -68,14 +74,14 @@ export class LoginPage extends React.Component<Props, void> {
         return <Page id="login-wrapper">
             <form id="login" onSubmit={this.onSubmit}>
                 <TextField type="text"
-                    value={auth.username}
+                    value={this.username}
                     onChange={this.handleUserame}
                     required={true}
                     hintText="測試期間預設admin"
                     floatingLabelText="帳號" />
                 <br />
                 <TextField type="password"
-                    value={auth.password}
+                    value={this.password}
                     onChange={this.handlePassword}
                     required={true}
                     hintText="測試期間預設123123"

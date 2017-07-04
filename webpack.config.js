@@ -13,10 +13,7 @@ module.exports = {
   },
   devtool: 'source-map',
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx'],
-    alias: {
-      'prs-ui': path.resolve(__dirname, './src')
-    }
+    extensions: ['.ts', '.tsx', '.js', '.jsx']
   },
   module: {
     loaders: [

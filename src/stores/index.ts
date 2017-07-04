@@ -1,31 +1,15 @@
 import {Auth} from './Auth'
 import {History} from './History'
-import {SideMenuStore} from './SideMenuStore'
-import {AssignmentList} from './AssignmentList'
-import {AssignmentInput} from './AssignmentInput'
-import {CourseList} from './CourseList'
-import {UserList} from './UserList'
-import {Message} from './Message'
+import {CourseMap} from './CourseMap'
 
-// re-export for convenience
-export {
-    Auth,
-    History,
-    SideMenuStore,
-    AssignmentList,
-    AssignmentInput,
-    CourseList,
-    UserList,
-    Message
-}
+import {Message} from './ui/Message'
+import {ViewStore} from './ui/viewStore'
 
 export class Stores {
     readonly auth = new Auth()
     readonly history: Readonly<History> = new History()
-    readonly sideMenu = new SideMenuStore(this.history)
-    readonly assignmentList = new AssignmentList(this.auth)
-    readonly assignmentInput = new AssignmentInput(this.auth)
-    readonly courseList = new CourseList(this.auth)
-    readonly userList = new UserList(this.auth)
+    readonly courseMap = new CourseMap(this.auth)
+    
     readonly message = new Message()
+    readonly viewStore = new ViewStore()
 }

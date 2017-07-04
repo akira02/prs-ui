@@ -5,14 +5,14 @@ import classNames from 'classnames'
 
 import Snackbar from 'material-ui/Snackbar'
 
-import {Message} from 'prs-ui/stores'
+import {Message} from '../stores/ui/Message'
 
 interface Props {
     message?: Message
 }
 
 @inject('message') @observer
-export class MessageBar extends React.Component<Props, {}> {
+export class MessageBar extends React.Component<Props> {
     @action.bound
     handleClose () {
         this.props.message.open = false
@@ -24,14 +24,16 @@ export class MessageBar extends React.Component<Props, {}> {
     }
     render () {
         const {text, open, isError, action} = this.props.message
+        const hasAction = action != null
+
         return <Snackbar
             className={classNames('message', isError ? 'message-error' : null)}
-            autoHideDuration={action == null ? 2000 : 4000}
+            autoHideDuration={hasAction ? 4000 : 2000}
             message={text}
             open={open}
             onRequestClose={this.handleClose}
-            action={action && action.name.toUpperCase()}
-            onActionTouchTap={action && this.handleActionTouchTap}
+            action={hasAction ? action.name.toUpperCase() : null }
+            onActionTouchTap={hasAction ? this.handleActionTouchTap : null}
         />
     }
 }
