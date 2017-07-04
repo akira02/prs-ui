@@ -3,7 +3,7 @@ import {History} from './History'
 import {CourseMap} from './CourseMap'
 
 import {Message} from './ui/Message'
-import {ViewStore} from './ui/viewStore'
+import {ViewStore} from './ui/ViewStore'
 
 export class Stores {
     readonly auth = new Auth()
