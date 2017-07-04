@@ -14,11 +14,11 @@ function coolIdHack (req: superagent.SuperAgentRequest) {
             value.forEach(visit)
         }
     }
-    req.parse((res, callback) => {
-        const data = JSON.parse(res.text)
+    req.parse['application/json'] = (str) => {
+        const data = JSON.parse(str)
         visit(data)
-        callback(null, data)
-    })
+        return data
+    }
 }
 
 interface ApiRequest extends superagent.SuperAgentRequest {
