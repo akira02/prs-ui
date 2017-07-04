@@ -1,5 +1,26 @@
 import * as superagent from 'superagent'
 
+function coolIdHack (req: superagent.SuperAgentRequest) {
+    function visit (value: any) {
+        if (typeof value === 'object') {
+            for (let key in value) {
+                visit(value[key])
+            }
+            if ('_id' in value) {
+                value.id = value['_id']
+            }
+        }
+        if (Array.isArray(value)) {
+            value.forEach(visit)
+        }
+    }
+    req.parse((res, callback) => {
+        const data = JSON.parse(res.text)
+        visit(data)
+        callback(null, data)
+    })
+}
+
 interface ApiRequest extends superagent.SuperAgentRequest {
     auth (user: string, name: string): this
     auth (token: string | null): this
@@ -24,6 +45,8 @@ export const api = {
             return this
         }
 
+        request.use(coolIdHack)
+
         return request
     },
     /**
@@ -43,6 +66,8 @@ export const api = {
         }
 
         request.type('form')
+        
+        request.use(coolIdHack)
 
         return request
     }
