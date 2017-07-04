@@ -19,6 +19,9 @@ interface Props {
 export class PageSwitch extends React.Component<Props> {
     @computed get currentPage (): React.ReactNode {
         const {page} = this.props.viewStore
+
+        if (page == null) return null
+
         switch (page.name) {
             case 'login':
                 return <LoginPage key={page.name} />
