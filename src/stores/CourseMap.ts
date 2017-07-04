@@ -11,7 +11,7 @@ export class CourseMap {
 
     @observable courseStores: ObservableMap<CourseStore> = new ObservableMap<CourseStore>()
 
-    @computed has (id: string): boolean {
+    has (id: string): boolean {
         return this.courseStores.has(id)
     }
 
