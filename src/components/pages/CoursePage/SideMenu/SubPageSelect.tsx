@@ -2,10 +2,12 @@ import * as React from 'react'
 import {computed, action} from 'mobx'
 import {inject, observer} from 'mobx-react'
 
-import {List, ListItem} from 'material-ui/List'
+import {List, ListItem, makeSelectable} from 'material-ui/List'
 
 import {History} from '../../../../stores/History'
 import {CourseStore} from '../../../../stores/CourseStore'
+
+const SelectableList = makeSelectable(List)
 
 interface Props {
     selectedCourse: CourseStore
@@ -33,10 +35,10 @@ export class SubPageSelect extends React.Component<Props> {
     render () {
         const {history, selectedCourse} = this.props
 
-        return <List value={history.location.pathname} onChange={this.handlePath}>
+        return <SelectableList value={null} onChange={this.handlePath}>
             <ListItem value={`${this.prefix}/assignments`} primaryText="Assignments" />
             <ListItem value={`${this.prefix}/forms`} primaryText="Forms" />
-            <ListItem value={`${this.prefix}/assignments`} primaryText="Students" />
-        </List>
+            <ListItem value={`${this.prefix}/students`} primaryText="Students" />
+        </SelectableList>
     }
 }
