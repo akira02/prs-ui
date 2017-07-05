@@ -1,4 +1,7 @@
-import {observable, computed} from 'mobx'
+import {observable, computed, when} from 'mobx'
+
+import {Auth} from '../Auth'
+import {History} from '../History'
 import {CourseMap} from '../CourseMap'
 import {CourseStore} from '../CourseStore'
 
@@ -8,9 +11,22 @@ export type Page =
     CourseList |
     Course
 
-export interface Login {
-    name: "login"
+export class Login {
+    name: "login" = "login"
+    dispose: () => void 
+
+    constructor (auth: Auth, history: History) {
+        this.dispose = when('isLoggedIn', () => auth.isLoggedIn, () => {
+            const {goBack=false, nextPage='/'} = history.location.state || {}
+            if (goBack) {
+                history.goBack()
+            } else {
+                history.push(nextPage)
+            }
+        })
+    }
 }
+
 export interface NotFound {
     name: "notFound"
 }

@@ -8,32 +8,22 @@ import Checkbox from 'material-ui/Checkbox'
 import { Page } from '../Page'
 
 import { Auth } from '../../../stores/Auth'
-import { History } from '../../../stores/History'
 import { Message } from '../../../stores/ui/Message'
 
 import './style.css'
 
 interface Props {
     auth?: Auth
-    history?: History
     message?: Message
 }
 
-@inject('auth', 'history', 'message') @observer
+@inject('auth', 'message') @observer
 export class LoginPage extends React.Component<Props> {
     private dispose: () => void
 
     @observable username: string
     @observable password: string
 
-    constructor (props: Props) {
-        super(props)
-        const disposer = when('loggedIn', () => props.auth.isLoggedIn, this.gotoNextPage)
-        this.dispose = disposer
-    }
-    componentWillUnmount () {
-        this.dispose()
-    }
     @action.bound
     async onSubmit (event) {
         event.preventDefault()
@@ -58,16 +48,6 @@ export class LoginPage extends React.Component<Props> {
     @action.bound
     handlePassword (event, value: string) {
         this.password = value
-    }
-    @action.bound
-    gotoNextPage () {
-        const {history} = this.props
-        const {goBack=false, nextPage='/'} = history.location.state || {}
-        if (goBack) {
-            history.goBack()
-        } else {
-            history.push(nextPage)
-        }
     }
     render () {
         const {auth} = this.props

@@ -1,4 +1,4 @@
-import {observable, action} from 'mobx'
+import {observable, action, observe} from 'mobx'
 import * as PageData from './PageData'
 
 import {Auth} from '../Auth'
@@ -16,11 +16,17 @@ export class ViewStore {
         this.auth = auth
         this.history = history
         this.courseMap = courseMap
+        
+        observe(this, 'page', (change) => {
+            if (change.oldValue != null && 'dispose' in change.oldValue) {
+                change.oldValue.dispose()
+            }
+        })
     }
 
     @action
     showLogin () {
-        this.page = { name: 'login' }
+        this.page = new PageData.Login(this.auth, this.history)
     }
     
     @action
