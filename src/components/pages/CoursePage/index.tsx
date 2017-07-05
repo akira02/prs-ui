@@ -12,6 +12,8 @@ import {StudentsPage} from '../StudentsPage'
 import * as PageData from '../../../stores/ui/PageData'
 import {ViewStore} from '../../../stores/ui/ViewStore'
 
+import "./style.css"
+
 interface Props {
     viewStore?: ViewStore
 }
@@ -20,7 +22,7 @@ interface Props {
 export class CoursePage extends React.Component<Props> {
     render () {
         const page = this.props.viewStore.page as PageData.Course
-        return <Page>
+        return <Page className="course-page">
             <SideMenu />
 
             <div className="page-container">
