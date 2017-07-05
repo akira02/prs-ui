@@ -47,15 +47,15 @@ export class AssignmentInput extends React.Component<Props> {
     }
 
     @action.bound
-    handleName (text: string) {
+    handleName (event, text: string) {
         this.name = text
     }
     @action.bound
-    handleDescription (text: string) {
+    handleDescription (event, text: string) {
         this.description = text
     }
     @action.bound
-    handleDataLink (text: string) {
+    handleDataLink (event, text: string) {
         this.data_link = text
     }
 
