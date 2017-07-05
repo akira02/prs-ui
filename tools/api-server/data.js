@@ -16,6 +16,7 @@ function generateCourses () {
         result.push({
             id: `Course-ID-${i}`,
             name: `Course${i}`,
+            description: `Course ${i}, a good course`,
             semester: '105-2',
             teacher: {
                 id: `Teacher-ID-${teacher}`,
@@ -33,6 +34,8 @@ function generateAssignments (courses) {
         const course = courses[randomInt(courses.length)]
         result.push({
             id: `Assignment-ID-${i}`,
+            name: `Assignment ${i}`,
+            description: `Assignment ${i}, a good assignment`,
             assigned: date(- randomInt(ONE_MONTH)),
             due: date(+ randomInt(ONE_MONTH)),
             submitted: null,
