@@ -1,5 +1,4 @@
 import * as React from 'react'
-import {computed} from 'mobx'
 import {inject, observer} from 'mobx-react'
 
 import {SlideTransition} from '../../SlideTransition'
@@ -19,29 +18,6 @@ interface Props {
 
 @inject('viewStore') @observer
 export class CoursePage extends React.Component<Props> {
-    @computed get subPage (): React.ReactNode {
-        const page = this.props.viewStore.page as PageData.Course
-        const selectedCourse = page.selectedCourse
-
-        if (page.subPage == null || selectedCourse == null) {
-            // still loading course list
-            return null
-        }
-
-        switch (page.subPage.name) {
-            case 'assignmentList':
-                return <AssignmentsPage key={page.subPage.name} selectedCourse={selectedCourse} />
-            case 'formList':
-                // return <FormsPage key={page.subPage.name} selectedCourse={selectedCourse} />
-                return null
-            case 'studentList':
-                return <StudentsPage key={page.subPage.name} selectedCourse={selectedCourse} />
-            default:
-                // unknown subPage
-                return null
-        }   
-    }
-
     render () {
         const page = this.props.viewStore.page as PageData.Course
         return <Page>
@@ -49,9 +25,30 @@ export class CoursePage extends React.Component<Props> {
 
             <div className="page-container">
                 <SlideTransition>
-                    {this.subPage}
+                    {this.renderSubPage(page)}
                 </SlideTransition>
             </div>
         </Page>
     }
+
+    renderSubPage ({subPage, selectedCourse}: PageData.Course): React.ReactNode {
+        if (selectedCourse == null) {
+            // still loading course list
+            return null
+        }
+
+        switch (subPage.name) {
+            case 'assignmentList':
+                return <AssignmentsPage key={subPage.name} selectedCourse={selectedCourse} />
+            case 'formList':
+                // return <FormsPage key={page.subPage.name} selectedCourse={selectedCourse} />
+                return null
+            case 'studentList':
+                return <StudentsPage key={subPage.name} selectedCourse={selectedCourse} />
+            default:
+                // unknown subPage
+                return null
+        }   
+    }
+
 }

@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { computed } from 'mobx' 
 import { inject, observer } from 'mobx-react'
 
 import { LoginPage } from './pages/LoginPage'
@@ -10,6 +9,7 @@ import { NotFoundPage } from './pages/NotFoundPage'
 import { SlideTransition } from './SlideTransition'
 
 import { ViewStore } from '../stores/ui/ViewStore'
+import * as PageData from '../stores/ui/PageData'
 
 interface Props {
     viewStore?: ViewStore
@@ -17,11 +17,16 @@ interface Props {
 
 @inject('viewStore') @observer
 export class PageSwitch extends React.Component<Props> {
-    @computed get currentPage (): React.ReactNode {
+    render () {
         const {page} = this.props.viewStore
-
         if (page == null) return null
 
+        return <SlideTransition>
+            {this.renderPage(page)}
+        </SlideTransition>
+    }
+
+    renderPage (page: PageData.Page): React.ReactNode {
         switch (page.name) {
             case 'login':
                 return <LoginPage key={page.name} />
@@ -32,11 +37,5 @@ export class PageSwitch extends React.Component<Props> {
             case 'notFound':
                 return <NotFoundPage key={page.name} />
         }   
-    }
-
-    render () {
-        return <SlideTransition>
-            {this.currentPage}
-        </SlideTransition>
     }
 }
