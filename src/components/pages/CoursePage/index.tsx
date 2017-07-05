@@ -29,12 +29,12 @@ export class CoursePage extends React.Component<Props> {
         }
 
         switch (page.subPage.name) {
-            case 'assignments':
+            case 'assignmentList':
                 return <AssignmentsPage key={page.subPage.name} selectedCourse={selectedCourse} />
-            case 'forms':
+            case 'formList':
                 // return <FormsPage key={page.subPage.name} selectedCourse={selectedCourse} />
                 return null
-            case 'students':
+            case 'studentList':
                 return <StudentsPage key={page.subPage.name} selectedCourse={selectedCourse} />
             default:
                 // unknown subPage

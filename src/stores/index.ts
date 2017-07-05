@@ -11,5 +11,5 @@ export class Stores {
     readonly courseMap = new CourseMap(this.auth)
     
     readonly message = new Message()
-    readonly viewStore = new ViewStore()
+    readonly viewStore = new ViewStore(this.auth, this.history, this.courseMap)
 }

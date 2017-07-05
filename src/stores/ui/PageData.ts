@@ -1,7 +1,8 @@
-import {observable} from 'mobx'
+import {observable, computed} from 'mobx'
+import {CourseMap} from '../CourseMap'
 import {CourseStore} from '../CourseStore'
 
-export type PageData =
+export type Page =
     Login |
     NotFound |
     CourseList |
@@ -17,22 +18,34 @@ export interface CourseList {
     name: "courseList"
 }
 
-export interface Course {
-    name: "course"
-    selectedCourse: CourseStore | null
-    subPage: Course.SubPage | null
+export class Course {
+    private readonly courseMap: CourseMap
+
+    @observable name: "course" = "course"
+    @observable courseId: string
+    @observable subPage: Course.SubPage
+
+    constructor (courseMap: CourseMap, courseId: string, subPage: Course.SubPage) {
+        this.courseMap = courseMap
+        this.courseId = courseId
+        this.subPage = subPage
+    }
+
+    @computed get selectedCourse (): CourseStore | null {
+        return this.courseMap.courseStores.get(this.courseId) || null
+    }
 }
 
 export namespace Course {
-    export type SubPage = Assignments | Forms | Students
+    export type SubPage = AssignmentList | FormList | StudentList
 
-    export interface Assignments {
-        name: "assignments"
+    export interface AssignmentList {
+        name: "assignmentList"
     }
-    export interface Forms {
-        name: "forms"
+    export interface FormList {
+        name: "formList"
     }
-    export interface Students {
-        name: "students"
+    export interface StudentList {
+        name: "studentList"
     }
 }

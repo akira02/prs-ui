@@ -1,13 +1,14 @@
 import * as React from 'react'
+import { autorun } from 'mobx'
 import { Provider } from 'mobx-react'
+import Router from 'universal-router'
 import { render } from 'react-dom'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 
-import { App } from './components/App'
 
 import { Stores } from './stores'
-
-import { startRouter } from './router'
+import { routes } from './routes'
+import { App } from './components/App'
 
 import { api } from './api'
 
@@ -17,7 +18,21 @@ injectTapEventPlugin()
 // root of all MobX stores
 const stores = new Stores()
 
-startRouter(stores)
+const router = new Router(routes, {
+    context: { stores },
+    resolveRoute (context, params) {
+        if (typeof context.route.action === 'function') {
+            context.route.action(context, params)
+            // don't check action result
+            return true
+        }
+        return null
+    }
+})
+
+autorun(() => {
+    router.resolve({path: stores.history.location.pathname})
+})
 
 render(
     <Provider {...stores}>

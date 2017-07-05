@@ -33,7 +33,7 @@ export class SubPageSelect extends React.Component<Props> {
     render () {
         const {history, selectedCourse} = this.props
 
-        return <List value={page} onChange={this.handlePath}>
+        return <List value={history.location.pathname} onChange={this.handlePath}>
             <ListItem value={`${this.prefix}/assignments`} primaryText="Assignments" />
             <ListItem value={`${this.prefix}/forms`} primaryText="Forms" />
             <ListItem value={`${this.prefix}/assignments`} primaryText="Students" />

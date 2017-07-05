@@ -57,4 +57,8 @@ export class CourseStore {
             .auth(this.auth.token)
         this.students = response.body
     }
+
+    @action fetchForms () {
+        //TODO: fetch forms from server
+    }
 }
