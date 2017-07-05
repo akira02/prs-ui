@@ -39,8 +39,8 @@ export class AssignmentInput extends React.Component<Props> {
                 })
             this.clear()
             this.props.onRequestClose()
-            // update assignments but don't wait for result (no `await`)
-            this.props.selectedCourse.fetchAssignments()
+
+            await this.props.selectedCourse.fetchAssignments()
         } catch (err) {
             // TODO: show message
         }
@@ -97,7 +97,7 @@ export class AssignmentInput extends React.Component<Props> {
                 onRequestClose={this.props.onRequestClose}
                 autoScrollBodyContent={true}>
             <TextField type="text"
-                value={name}
+                value={this.name}
                 onChange={this.handleName}
                 required={true}
                 fullWidth={true}
