@@ -35,6 +35,17 @@ server.use((req, res, next) => {
     next()
 })
 
+router.render = (req, res) => {
+    const keys = ['assignments', 'courses']
+    const index = keys.map(key => '/' + key).indexOf(req.path)
+    if (req.method == 'GET' && index != -1) {
+        res.locals.data = {
+            [ keys[index] ]: res.locals.data
+        }
+    }
+    res.json(res.locals.data)
+}
+
 server.use(router)
 
 module.exports = server
