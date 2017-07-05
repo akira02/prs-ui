@@ -8,6 +8,7 @@ import {List, ListItem, makeSelectable} from 'material-ui/List'
 import {CourseSelect} from './CourseSelect'
 import {SubPageSelect} from './SubPageSelect'
 
+import {Auth} from '../../../../stores/Auth'
 import {History} from '../../../../stores/History'
 import {CourseMap} from '../../../../stores/CourseMap'
 import {ViewStore} from '../../../../stores/ui/ViewStore'
@@ -19,12 +20,13 @@ interface Props {
     [prop: string]: any
 
     // injected props
+    auth?: Auth
     courseMap?: CourseMap
     history?: History
     viewStore?: ViewStore
 }
 
-@inject('history', 'courseMap') @observer
+@inject('auth', 'history', 'courseMap', 'viewStore') @observer
 export class SideMenu extends React.Component<Props> {
     @action.bound
     handlePath (event, path: string) {
@@ -36,7 +38,7 @@ export class SideMenu extends React.Component<Props> {
     }
 
     render () {
-        const {auth, history, courseMap, ...rest} = this.props
+        const {auth, courseMap, ...rest} = this.props
         const page = this.props.viewStore.page as PageData.Course
 
         return <Drawer

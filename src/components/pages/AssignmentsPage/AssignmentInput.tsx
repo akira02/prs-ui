@@ -73,6 +73,8 @@ export class AssignmentInput extends React.Component<Props> {
     }
 
     render () {
+        const {open} = this.props
+
         const actions = [
             <FlatButton
                 label="Cancel"

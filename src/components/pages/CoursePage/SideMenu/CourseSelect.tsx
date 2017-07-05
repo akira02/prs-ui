@@ -17,7 +17,7 @@ interface Props {
     courseMap?: CourseMap
 }
 
-@inject('ui', 'courseMap') @observer
+@inject('history', 'courseMap') @observer
 export class CourseSelect extends React.Component<Props> {
     @observable open: boolean = false
 
