@@ -33,12 +33,18 @@ export class SideMenu extends React.Component<Props> {
         this.props.history.push(path)
     }
 
+    @action.bound
+    handleLogout () {
+        this.props.auth.logout()
+        this.props.history.replace('/')
+    }
+
     @computed get path (): string {
         return this.props.history.location.pathname
     }
 
     render () {
-        const {auth, courseMap, ...rest} = this.props
+        const {auth, courseMap, history, viewStore, ...rest} = this.props
         const page = this.props.viewStore.page as PageData.Course
 
         return <Drawer
@@ -56,7 +62,7 @@ export class SideMenu extends React.Component<Props> {
             }
 
             <List>
-                <ListItem primaryText="Logout" onTouchTap={auth.logout} />
+                <ListItem primaryText="Logout" onTouchTap={this.handleLogout} />
             </List>
         </Drawer>
     }
