@@ -48,7 +48,7 @@ export class AssignmentsPage extends React.Component<Props> {
         const {viewStore} = this.props
         const {selectedCourse, showSubmissions} = viewStore.page as PageStore.AssignmentList
         
-        return <Page className="assignments-page">
+        return <Page>
             <div className="assignment-card-container">
                 {
                     selectedCourse.assignmentStores.values().map(store =>
