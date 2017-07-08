@@ -54,8 +54,8 @@ function generateAssignments (courses) {
 function generateSubmissions (assignments) {
     const ONE_MONTH = 30 * 24 * 60 * 60 * 1000
     const result = []
-    for (let i = 0; i < 200; ++i) {
-        const assignment = assignments[randomInt(courses.length)]
+    for (let i = 0; i < 1000; ++i) {
+        const assignment = assignments[randomInt(assignments.length)]
         result.push({
             id: `Submission-ID-${i}`,
             assignment_id: assignment.id,
