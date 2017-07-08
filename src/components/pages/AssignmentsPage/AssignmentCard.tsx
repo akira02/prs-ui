@@ -1,15 +1,26 @@
 import * as React from 'react'
-import {observer} from 'mobx-react'
-import {Card, CardHeader, CardText} from 'material-ui/Card'
+import {action} from 'mobx'
+import {inject, observer} from 'mobx-react'
 
+import {Card, CardHeader, CardText, CardActions} from 'material-ui/Card'
+import FlatButton from 'material-ui/FlatButton'
+
+import {History} from '../../../stores/History'
 import {AssignmentStore} from '../../../stores/AssignmentStore'
 
 interface Props {
     store: AssignmentStore
+    history?: History
 }
 
-@observer
+@inject('history') @observer
 export class AssignmentCard extends React.Component<Props> {
+    @action.bound
+    openSubmissions () {
+        const {store, history} = this.props
+        history.push(`/courses/${store.assignment.course.id}/assignments/${store.assignment.id}`)
+    }
+
     render () {
         const {store} = this.props
         const assignment = store.assignment
@@ -24,6 +35,9 @@ export class AssignmentCard extends React.Component<Props> {
                 {assignment.data_link}<br />
                 {assignment.description}
             </CardText>
+            <CardActions>
+                <FlatButton label="Submissions" onTouchTap={this.openSubmissions} />
+            </CardActions>
         </Card>
     }
 }

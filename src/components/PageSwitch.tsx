@@ -5,11 +5,12 @@ import { LoginPage } from './pages/LoginPage'
 import { CourseListPage } from './pages/CourseListPage'
 import { CoursePage } from './pages/CoursePage'
 import { NotFoundPage } from './pages/NotFoundPage'
+import { EmptyPage } from './pages/EmptyPage'
 
 import { SlideTransition } from './SlideTransition'
 
 import { ViewStore } from '../stores/ui/ViewStore'
-import * as PageData from '../stores/ui/PageData'
+import * as PageStore from '../stores/ui/PageStore'
 
 interface Props {
     viewStore?: ViewStore
@@ -26,16 +27,18 @@ export class PageSwitch extends React.Component<Props> {
         </SlideTransition>
     }
 
-    renderPage (page: PageData.Page): React.ReactNode {
+    renderPage (page: PageStore.PageStore): React.ReactNode {
         switch (page.name) {
             case 'login':
-                return <LoginPage key={page.name} />
+                return <LoginPage key="login" />
             case 'courseList':
-                return <CourseListPage key={page.name} />
+                return <CourseListPage key="courseList" />
             case 'course':
-                return <CoursePage key={page.name} />
+                return <CoursePage key="course" />
             case 'notFound':
-                return <NotFoundPage key={page.name} />
+                return <NotFoundPage key="notFound" />
+            default:
+                return <EmptyPage key="empty" />
         }   
     }
 }

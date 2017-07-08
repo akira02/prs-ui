@@ -36,7 +36,7 @@ server.use((req, res, next) => {
 })
 
 router.render = (req, res) => {
-    const keys = ['assignments', 'courses']
+    const keys = ['assignments', 'courses', 'submissions']
     const index = keys.map(key => '/' + key).indexOf(req.path)
     if (req.method == 'GET' && index != -1) {
         res.locals.data = {

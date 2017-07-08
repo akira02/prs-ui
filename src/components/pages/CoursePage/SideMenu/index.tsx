@@ -12,7 +12,7 @@ import {Auth} from '../../../../stores/Auth'
 import {History} from '../../../../stores/History'
 import {CourseMap} from '../../../../stores/CourseMap'
 import {ViewStore} from '../../../../stores/ui/ViewStore'
-import * as PageData from '../../../../stores/ui/PageData'
+import * as PageStore from '../../../../stores/ui/PageStore'
 
 const SelectableList = makeSelectable(List)
 
@@ -45,7 +45,7 @@ export class SideMenu extends React.Component<Props> {
 
     render () {
         const {auth, courseMap, history, viewStore, ...rest} = this.props
-        const page = this.props.viewStore.page as PageData.Course
+        const page = this.props.viewStore.page as PageStore.Course
 
         return <Drawer
                 docked={true}

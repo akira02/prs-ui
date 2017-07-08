@@ -1,7 +1,5 @@
 import {Stores} from './stores'
 
-import * as PageData from './stores/ui/PageData'
-
 interface Context {
     params: any,
     stores: Stores
@@ -34,6 +32,11 @@ export const routes: Route[] = [
             {
                 path: '/assignments',
                 action: ({params, stores}) => stores.viewStore.showAssignmentList(params.courseId)
+            },
+            {
+                path: '/assignments/:assignmentId',
+                action: ({params, stores}) =>
+                    stores.viewStore.showAssignment(params.courseId, params.assignmentId)
             },
             {
                 path: '/forms',

@@ -8,8 +8,9 @@ import {SideMenu} from './SideMenu'
 import {AssignmentsPage} from '../AssignmentsPage'
 //import {FormsPage} from '../FormsPage'
 import {StudentsPage} from '../StudentsPage'
+import {EmptyPage} from '../EmptyPage'
 
-import * as PageData from '../../../stores/ui/PageData'
+import * as PageStore from '../../../stores/ui/PageStore'
 import {ViewStore} from '../../../stores/ui/ViewStore'
 
 import "./style.css"
@@ -21,7 +22,7 @@ interface Props {
 @inject('viewStore') @observer
 export class CoursePage extends React.Component<Props> {
     render () {
-        const page = this.props.viewStore.page as PageData.Course
+        const page = this.props.viewStore.page as PageStore.Course
         return <Page className="course-page">
             <SideMenu />
 
@@ -33,24 +34,23 @@ export class CoursePage extends React.Component<Props> {
         </Page>
     }
 
-    renderSubPage ({subPage, selectedCourse}: PageData.Course): React.ReactNode {
+    renderSubPage ({subPage, selectedCourse}: PageStore.Course): React.ReactNode {
         if (selectedCourse == null) {
             // still loading course list
-            return null
+            return <EmptyPage key="empty" />
         }
 
-        switch (subPage.name) {
+        switch (subPage) {
             case 'assignmentList':
-                return <AssignmentsPage key={subPage.name} selectedCourse={selectedCourse} />
+                return <AssignmentsPage key="assignmentList" />
             case 'formList':
-                // return <FormsPage key={page.subPage.name} selectedCourse={selectedCourse} />
-                return null
+                // return <FormsPage key="formList" selectedCourse={selectedCourse} />
+                return <EmptyPage key="formList" />
             case 'studentList':
-                return <StudentsPage key={subPage.name} selectedCourse={selectedCourse} />
+                return <StudentsPage key="studentList" selectedCourse={selectedCourse} />
             default:
                 // unknown subPage
-                return null
+                return <EmptyPage key="emptyPage" />
         }   
     }
-
 }

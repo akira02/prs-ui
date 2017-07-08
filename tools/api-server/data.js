@@ -6,8 +6,9 @@ exports.auth = {
 
 const courses = generateCourses()
 const assignments = generateAssignments(courses)
+const submissions = generateSubmissions(assignments)
 
-exports.db = { courses, assignments }
+exports.db = { courses, assignments, submissions }
 
 function generateCourses () {
     const result = []
@@ -27,6 +28,8 @@ function generateCourses () {
     return result
 }
 
+
+
 function generateAssignments (courses) {
     const ONE_MONTH = 30 * 24 * 60 * 60 * 1000
     const result = []
@@ -43,6 +46,23 @@ function generateAssignments (courses) {
                 id: course.id,
                 name: course.name
             }
+        })
+    }
+    return result
+}
+
+function generateSubmissions (assignments) {
+    const ONE_MONTH = 30 * 24 * 60 * 60 * 1000
+    const result = []
+    for (let i = 0; i < 200; ++i) {
+        const assignment = assignments[randomInt(courses.length)]
+        result.push({
+            id: `Submission-ID-${i}`,
+            assignment_id: assignment.id,
+            submitted: date(+new Date(assignment.assigned) + randomInt(ONE_MONTH)),
+            username: `smart STUDENT ${i}`,
+            link: `http://cool-submission-so-cool-so-prs.com/coolpath/${i}`,
+            description: `this is a good submission (${i}), give me an A+, please`,
         })
     }
     return result

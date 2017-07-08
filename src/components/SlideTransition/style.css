@@ -20,6 +20,6 @@
     transition: transform .5s ease-out;
 }
 
-.slide-pop-enter {
+.slide-replace-leave {
     z-index: -1;
 }
