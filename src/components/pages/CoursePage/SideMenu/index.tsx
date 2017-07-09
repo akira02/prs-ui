@@ -62,7 +62,7 @@ export class SideMenu extends React.Component<Props> {
             }
 
             <List>
-                <ListItem primaryText="Logout" onTouchTap={this.handleLogout} />
+                <ListItem primaryText="登出" onTouchTap={this.handleLogout} />
             </List>
         </Drawer>
     }
