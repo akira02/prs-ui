@@ -6,7 +6,6 @@ interface Context {
 }
 
 export interface Route {
-    name?: string
     path: string
     action?: (ctx: Context) => void
     children?: Route[]
