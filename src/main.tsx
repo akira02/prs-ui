@@ -16,7 +16,6 @@ import { api } from './api'
 // material-ui 需要這個東西
 injectTapEventPlugin()
 
-// 創造所有 store
 const stores = new Stores()
 
 const router = new Router(routes, {
@@ -45,7 +44,7 @@ const router = new Router(routes, {
 })
 
 /**
- * 當 pathname 有新的值, 自動執行 router
+ * 每當瀏覽器跑到一個新的path, 自動執行 router
  */
 autorun(() => {
     router.resolve({path: stores.history.location.pathname})
@@ -53,7 +52,6 @@ autorun(() => {
 
 /**
  * 將 stores 由 Provider 傳給各 Component
- * 並掛到 html 裡的 .root 上
  */
 render(
     <Provider {...stores}>
