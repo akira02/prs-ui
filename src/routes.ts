@@ -11,10 +11,19 @@ export interface Route {
     children?: Route[]
 }
 
+/**
+ * 讓重導向稍微好寫一點的東東
+ * @param {string} path 重導向的目標頁面
+ * @param {*} [state] 要傳給下個頁面的 state
+ * @returns 一個 action, 重導向到指定的頁面
+ */
 const redirect = (path: string, state?: any) => ({stores}: Context) => {
     stores.history.replace(path, state)
 }
 
+/**
+ * 指定瀏覽到各個 path 時, 要執行的動作, 如呼叫 viewStore 更新頁面
+ */
 export const routes: Route[] = [
     { path: '/',        action: redirect('/courses') },
     { path: '/login',   action: ({stores}) => stores.viewStore.showLogin() },
