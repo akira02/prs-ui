@@ -28,6 +28,7 @@ Source codes were written in [TypeScript].
   * `components/` - React UI components
   * `models/` - Data types
   * `stores/` - Observable stores
+    * `ui/` - Stores related to UI
 * `assets/` - Static files. Files will be recursively copied to `dist/` during build.
 * `tools/` - Development tools.
 * `dist/` - Build output. ***Changes will be discarded!***
