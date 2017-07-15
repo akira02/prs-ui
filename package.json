@@ -22,7 +22,6 @@
   "dependencies": {
     "@types/history": "^4.6.0",
     "@types/react": "^15.0.34",
-    "@types/react-addons-css-transition-group": "^15.0.3",
     "@types/react-dom": "^15.5.1",
     "@types/superagent": "^3.5.2",
     "classnames": "^2.2.5",
@@ -31,7 +30,6 @@
     "mobx": "^3.1.16",
     "mobx-react": "^4.2.2",
     "react": "^15.6.1",
-    "react-addons-css-transition-group": "^15.6.0",
     "react-dom": "^15.6.1",
     "react-tap-event-plugin": "^2.0.1",
     "react-transition-group": "1.x",
