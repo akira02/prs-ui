@@ -25,7 +25,7 @@ export class CourseCard extends React.Component<Props> {
     render () {
         const {course} = this.props.store
 
-        return <Card className="card" onTouchTap={this.handleTouchTap}>
+        return <Card className="course_card card" onTouchTap={this.handleTouchTap}>
             <CardHeader title={course.name} />
         </Card>
     }
