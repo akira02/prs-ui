@@ -96,11 +96,9 @@ export class AssignmentInput extends React.Component<Props> {
     }
 
     render () {
-        const {open} = this.props
-
         return <Dialog
                 title="新增作業"
-                actions={this.getActionList()}
+                actions={this.renderActionList()}
                 modal={false}
                 open={open}
                 onRequestClose={this.props.onRequestClose}
@@ -128,7 +126,7 @@ export class AssignmentInput extends React.Component<Props> {
         </Dialog>
     }
 
-    getActionList (): React.ReactNode[] {
+    renderActionList (): React.ReactNode[] {
         if (this.step != Steps.Finished) {
             return [
                 <FlatButton

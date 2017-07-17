@@ -1,6 +1,6 @@
 import * as React from 'react'
 import {observable, action} from 'mobx'
-import {inject, observer} from 'mobx-react'
+import {observer} from 'mobx-react'
 
 import TextField from 'material-ui/TextField'
 
