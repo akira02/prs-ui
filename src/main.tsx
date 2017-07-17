@@ -44,7 +44,7 @@ const router = new Router(routes, {
 })
 
 /**
- * 每當瀏覽器跑到一個新的path, 自動執行 router
+ * 執行一次 router, 然後每當移動到新的path, 自動重新執行
  */
 autorun(() => {
     router.resolve({path: stores.history.location.pathname})

@@ -17,6 +17,10 @@ export class AssignmentStore {
         this.assignment = assignment
     }
 
+    /**
+     * 抓取這個 assignment 的 submission 列表
+     * @memberof AssignmentStore
+     */
     async fetchSubmissions () {
         const response = await api.get('submissions')
             .query({ assignment_id: this.assignment.id })
