@@ -50,7 +50,7 @@ export class CoursePage extends React.Component<Props> {
                 return <StudentsPage key="studentList" selectedCourse={selectedCourse} />
             default:
                 // unknown subPage
-                return <EmptyPage key="emptyPage" />
+                return <EmptyPage key="empty" />
         }   
     }
 }
