@@ -16,6 +16,12 @@ interface Props {
     viewStore?: ViewStore
 }
 
+/**
+ * 根據 page.name 顯示不同頁面, 並加上滑動特效
+ * @export
+ * @class PageSwitch
+ * @extends {React.Component<Props>}
+ */
 @inject('viewStore') @observer
 export class PageSwitch extends React.Component<Props> {
     render () {

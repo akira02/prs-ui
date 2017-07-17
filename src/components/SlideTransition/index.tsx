@@ -10,6 +10,13 @@ interface Props {
     history?: History
 }
 
+/**
+ * 滑動特效
+ * 每個不同的 childern 要有不同的 key
+ * @export
+ * @class SlideTransition
+ * @extends {React.Component<Props>}
+ */
 @inject('history') @observer
 export class SlideTransition extends React.Component<Props> {
     render () {

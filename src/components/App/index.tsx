@@ -11,6 +11,13 @@ import { PageSwitch } from '../PageSwitch'
 import './main.css'
 import './style.css'
 
+/**
+ * 根 react 元件
+ * 用來注入 material-ui 的主題
+ * @export
+ * @class App
+ * @extends {React.Component}
+ */
 export class App extends React.Component {
     render () {
         return <MuiThemeProvider muiTheme={theme}>

@@ -1,2 +1,2 @@
-// Date string in ISO format
+/** Date string in ISO format */
 export type DateString = string
