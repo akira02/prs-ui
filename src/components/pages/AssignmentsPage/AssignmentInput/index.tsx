@@ -97,35 +97,10 @@ export class AssignmentInput extends React.Component<Props> {
 
     render () {
         const {open} = this.props
-        let actions = []
-
-        if (this.step != Steps.Finished) {
-            actions = [
-                <FlatButton
-                    label="取消"
-                    primary={true}
-                    onTouchTap={this.handleCancel}
-                />,
-                <FlatButton
-                    label="下一步"
-                    primary={true}
-                    keyboardFocused={true}
-                    onTouchTap={this.gotoNextStep}
-                />,
-            ]
-        } else {
-            actions = [
-                <FlatButton
-                    label="完成"
-                    primary={true}
-                    onTouchTap={this.handleFinish}
-                />
-            ]
-        }
 
         return <Dialog
                 title="新增作業"
-                actions={actions}
+                actions={this.getActionList()}
                 modal={false}
                 open={open}
                 onRequestClose={this.props.onRequestClose}
@@ -151,6 +126,32 @@ export class AssignmentInput extends React.Component<Props> {
             {this.iframeUrl != null ? this.renderIframe : null}
 
         </Dialog>
+    }
+
+    getActionList (): React.ReactNode[] {
+        if (this.step != Steps.Finished) {
+            return [
+                <FlatButton
+                    label="取消"
+                    primary={true}
+                    onTouchTap={this.handleCancel}
+                />,
+                <FlatButton
+                    label="下一步"
+                    primary={true}
+                    keyboardFocused={true}
+                    onTouchTap={this.gotoNextStep}
+                />,
+            ]
+        } else {
+            return [
+                <FlatButton
+                    label="完成"
+                    primary={true}
+                    onTouchTap={this.handleFinish}
+                />
+            ]
+        }
     }
 
     renderContent () {
