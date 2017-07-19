@@ -8,7 +8,7 @@ import * as superagent from 'superagent'
  */
 function coolIdHack (req: superagent.SuperAgentRequest) {
     function visit (value: any) {
-        if (typeof value === 'object') {
+        if (typeof value === 'object' && value != null) {
             for (let key in value) {
                 visit(value[key])
             }
