@@ -254,8 +254,8 @@ export class AssignmentInput extends React.Component<Props> {
      * @memberof AssignmentInput
      */
     renderIframe () {
-        return <Dialog open={true}>
-            <p>關閉前請確保您已經送出您的 Form</p>
+        return <Dialog open={true} onRequestClose={() => {this.iframeUrl = null}}>
+            <p>請記得在關閉前先送出您的問卷</p>
             <iframe className="assignment-input-iframe" src={this.iframeUrl}></iframe>
         </Dialog>
     }
