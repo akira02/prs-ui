@@ -1,9 +1,29 @@
 const url = require('url')
+const shortid = require('shortid')
 const jsonServer = require('json-server')
 const {auth, db} = require('./data')
 
 const server = jsonServer.create()
 const router = jsonServer.router(db)
+
+// utilities
+function _pick (obj, ...properties) {
+    if (obj == null) return null
+    const result = {}
+    for (let prop of properties) {
+        result[prop] = obj[prop]
+    }
+    return result
+}
+
+function _unpick (obj, ...properties) {
+    if (obj == null) return null
+    const result = Object.assign({}, obj)
+    for (let prop of properties) {
+        delete result[prop]
+    }
+    return result
+}
 
 server.use(jsonServer.defaults())
 server.use(jsonServer.bodyParser)
@@ -18,6 +38,28 @@ server.post('/users/login', (req, res) => {
     }
 })
 
+// handle assignment creation
+server.post('/assignments', (req, res) => {
+    const course = db.courses.filter(course => course.id === req.body.course_id)[0]
+
+    if (course == null) {
+        res.status('404').send({ success: false })
+        return
+    }
+
+    const assignment = _unpick(req.body, 'course_id')
+    assignment.id = shortid.generate()
+    assignment.course = _pick(course, 'id', 'name')
+
+    db.assignments.push(assignment)
+    res.send({ success: true, id: assignment.id })
+})
+
+// handle form creation
+server.post('/forms/create', (req, res) => {
+    res.send({ success: true, url: 'http://example.com' })
+})
+
 // handle authorization
 server.use((req, res, next) => {
     if (req.headers.authorization === auth.TOKEN) {
@@ -27,9 +69,9 @@ server.use((req, res, next) => {
     }
 })
 
-// convert filter params
+// convert id filter
 server.use((req, res, next) => {
-    if (req.query.course_id != null) {
+    if (req.method === 'GET' && req.query.course_id != null) {
         req.query['course.id'] = req.query.course_id
     }
     next()
