@@ -36,7 +36,8 @@ export class CourseSelect extends React.Component<Props> {
     }
 
     @action.bound
-    handleSelect (event, courseId: string) {
+    handleSelect (event, courseId: string | null) {
+        if (courseId == null) return
         this.props.history.push(`/courses/${courseId}`)
         this.open = false
     }
@@ -47,8 +48,9 @@ export class CourseSelect extends React.Component<Props> {
         return <SelectableList value={selectedCourse} onChange={this.handleSelect}>
             <ListItem
                 open={this.open}
+                value={null}
                 onNestedListToggle={this.handleToggle}
-                value={selectedCourse && selectedCourse.course.id}
+                onTouchTap={this.handleToggle}
                 primaryText={selectedCourse && selectedCourse.course.name}
                 nestedItems={
                     this.sortedCourses.map(store =>
