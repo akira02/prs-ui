@@ -1,10 +1,11 @@
 import * as React from 'react'
-import {action} from 'mobx'
+import {observable, action} from 'mobx'
 import {inject, observer} from 'mobx-react'
 
 import {Card, CardHeader, CardText, CardActions} from 'material-ui/Card'
 import FlatButton from 'material-ui/FlatButton'
 import {List, ListItem} from 'material-ui/List'
+import {IframeDialog} from '../../IframeDialog'
 
 import {History} from '../../../stores/History'
 import {AssignmentStore} from '../../../stores/AssignmentStore'
@@ -16,7 +17,7 @@ interface Props {
 
 @inject('history') @observer
 export class AssignmentCard extends React.Component<Props> {
-
+    @observable iframeUrl: string | null = null
 
     @action.bound
     openSubmissions () {
@@ -45,7 +46,7 @@ export class AssignmentCard extends React.Component<Props> {
                         <ListItem
                             key={form.content}
                             primaryText={form.name}
-                            onTouchTap={() => { window.open(form.content) }} />
+                            onTouchTap={() => { this.iframeUrl = form.content }} />
                     )
                 }
                 </List>
@@ -53,6 +54,10 @@ export class AssignmentCard extends React.Component<Props> {
             <CardActions>
                 <FlatButton label="Submissions" onTouchTap={this.openSubmissions} />
             </CardActions>
+            <IframeDialog
+                open={this.iframeUrl != null}
+                src={this.iframeUrl}
+                onRequestClose={() => { this.iframeUrl = null }} />
         </Card>
     }
 }
