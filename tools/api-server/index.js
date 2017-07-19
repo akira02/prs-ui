@@ -1,4 +1,5 @@
 const url = require('url')
+const _ = require('lodash')
 const shortid = require('shortid')
 const jsonServer = require('json-server')
 const {auth, db} = require('./data')
@@ -47,9 +48,9 @@ server.post('/assignments', (req, res) => {
         return
     }
 
-    const assignment = _unpick(req.body, 'course_id')
+    const assignment = _.omit(req.body, 'course_id')
     assignment.id = shortid.generate()
-    assignment.course = _pick(course, 'id', 'name')
+    assignment.course = _.pick(course, 'id', 'name')
 
     db.assignments.push(assignment)
     res.send({ success: true, id: assignment.id })
