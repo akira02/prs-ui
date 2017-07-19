@@ -2,18 +2,18 @@ import * as React from 'react'
 import {observable, computed, action} from 'mobx'
 import {inject, observer} from 'mobx-react'
 
+// 元件
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
-
 import {Stepper, Step, StepLabel} from 'material-ui/Stepper'
-
 import {CreateAssignment} from './CreateAssignment'
 
-import {api} from '../../../../api'
+// store
 import {Auth} from '../../../../stores/Auth'
 import {CourseStore} from '../../../../stores/CourseStore'
-
 import {InputStore} from './InputStore'
+
+import {api} from '../../../../api'
 
 interface Props {
     /**
