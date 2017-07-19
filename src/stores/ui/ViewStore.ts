@@ -80,7 +80,6 @@ export class ViewStore {
         this.page = new PageStore.FormList(this.courseMap, courseId)
 
         await this.courseMap.fetch()
-        await this.page.selectedCourse.fetchForms()
     }
 
     /**

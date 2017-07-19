@@ -7,6 +7,7 @@ import { AssignmentStore } from './AssignmentStore'
 import { Assignment } from '../models/Assignment'
 import { Course } from '../models/Course'
 import { User } from '../models/User'
+import { Attachment } from '../models/Attachment'
 
 /**
  * 用來儲存 course 資料, 和他的子資料 (屬於該 course 的 assignment 等等)
@@ -36,13 +37,19 @@ export class CourseStore {
      */
     @observable students: User[] = []
 
-    // TODO: add type
+
     /**
-     * 屬於該 course 的問卷列表 (課程評鑑問卷)
-     * @type {any[]}
-     * @memberof CourseStore
+     * 問卷列表
+     * @readonly
+     * @type {Attachment[]}
+     * @memberof AssignmentStore
      */
-    @observable forms: any[] = []
+    @computed
+    get forms (): Attachment[] {
+        if (this.course.attachments == null) return []
+        return this.course.attachments
+            .filter(attachment => attachment.type == 'form')
+    }
 
     constructor (auth: Auth, course: Course) {
         this.auth = auth
@@ -100,13 +107,5 @@ export class CourseStore {
             .query({ role: 'student', course_id: this.course.id })
             .auth(this.auth.token)
         this.students = response.body
-    }
-
-    /**
-     * 從 api 抓取課程評鑑列表並更新
-     * @memberof CourseStore
-     */
-    @action fetchForms () {
-        //TODO: fetch forms from server
     }
 }

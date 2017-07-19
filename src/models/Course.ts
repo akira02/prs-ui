@@ -1,3 +1,5 @@
+import {Attachment} from './Attachment'
+
 export interface Course {
     id: string
     name: string
@@ -6,4 +8,6 @@ export interface Course {
         id: string
         name: string
     }
+
+    attachments: Attachment[]
 }

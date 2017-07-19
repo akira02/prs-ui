@@ -6,7 +6,7 @@ import {Page} from '../Page'
 import {SideMenu} from './SideMenu'
 
 import {AssignmentsPage} from '../AssignmentsPage'
-//import {FormsPage} from '../FormsPage'
+import {FormsPage} from '../FormsPage'
 import {StudentsPage} from '../StudentsPage'
 import {EmptyPage} from '../EmptyPage'
 
@@ -44,8 +44,7 @@ export class CoursePage extends React.Component<Props> {
             case 'assignmentList':
                 return <AssignmentsPage key="assignmentList" />
             case 'formList':
-                // return <FormsPage key="formList" selectedCourse={selectedCourse} />
-                return <EmptyPage key="formList" />
+                return <FormsPage key="formList" selectedCourse={selectedCourse} />
             case 'studentList':
                 return <StudentsPage key="studentList" selectedCourse={selectedCourse} />
             default:

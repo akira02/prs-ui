@@ -4,6 +4,7 @@ import {inject, observer} from 'mobx-react'
 
 import {Card, CardHeader, CardText, CardActions} from 'material-ui/Card'
 import FlatButton from 'material-ui/FlatButton'
+import {List, ListItem} from 'material-ui/List'
 
 import {History} from '../../../stores/History'
 import {AssignmentStore} from '../../../stores/AssignmentStore'
@@ -15,6 +16,8 @@ interface Props {
 
 @inject('history') @observer
 export class AssignmentCard extends React.Component<Props> {
+
+
     @action.bound
     openSubmissions () {
         const {store, history} = this.props
@@ -34,6 +37,18 @@ export class AssignmentCard extends React.Component<Props> {
             <CardText expandable={true}>
                 {assignment.data_link}<br />
                 {assignment.description}
+            </CardText>
+            <CardText expandable={true}>
+                <List>
+                {
+                    store.forms.map(form => 
+                        <ListItem
+                            key={form.content}
+                            primaryText={form.name}
+                            onTouchTap={() => { window.open(form.content) }} />
+                    )
+                }
+                </List>
             </CardText>
             <CardActions>
                 <FlatButton label="Submissions" onTouchTap={this.openSubmissions} />

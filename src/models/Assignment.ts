@@ -1,4 +1,5 @@
 import {DateString} from './DateString'
+import {Attachment} from './Attachment'
 
 export interface Assignment {
     id: string
@@ -11,6 +12,8 @@ export interface Assignment {
     assigned: DateString
     due: DateString
     submitted?: DateString
+
+    attachments: Attachment[]
 
     course: {
         id: string
