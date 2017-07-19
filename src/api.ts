@@ -20,11 +20,11 @@ function coolIdHack (req: superagent.SuperAgentRequest) {
             value.forEach(visit)
         }
     }
-    req.parse['application/json'] = (str) => {
-        const data = JSON.parse(str)
+    req.parse((response) => {
+        const data = JSON.parse(response.text)
         visit(data)
         return data
-    }
+    })
 }
 
 /**
