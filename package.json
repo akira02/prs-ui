@@ -26,6 +26,7 @@
     "@types/superagent": "^3.5.2",
     "classnames": "^2.2.5",
     "history": "^4.6.3",
+    "isobject": "^3.0.1",
     "material-ui": "^0.18.5",
     "mobx": "^3.1.16",
     "mobx-react": "^4.2.2",

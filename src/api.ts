@@ -1,4 +1,5 @@
 import * as superagent from 'superagent'
+import * as isObject from 'isobject'
 
 /**
  * 酷炫 superagent plugin
@@ -8,7 +9,7 @@ import * as superagent from 'superagent'
  */
 function coolIdHack (req: superagent.SuperAgentRequest) {
     function visit (value: any) {
-        if (typeof value === 'object' && value != null) {
+        if (isObject(value)) {
             for (let key in value) {
                 visit(value[key])
             }
