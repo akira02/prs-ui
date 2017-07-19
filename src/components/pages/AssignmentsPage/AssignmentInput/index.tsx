@@ -151,7 +151,7 @@ export class AssignmentInput extends React.Component<Props> {
     @action.bound
     async createForm (type: 'reply' | 'assignment') {
         if (this.assignmentId == null) return
-        const response = await api.post('/forms/create')
+        const response = await api.post('forms/create')
             .auth(this.props.auth.token)
             .send({
                 type: 'reply',
@@ -166,12 +166,12 @@ export class AssignmentInput extends React.Component<Props> {
                 title="新增作業"
                 actions={this.renderActionList()}
                 modal={false}
-                open={open}
+                open={this.props.open}
                 onRequestClose={this.props.onRequestClose}
                 autoScrollBodyContent={true}>
             {this.renderSteps()}
             {this.renderContent()}
-            {this.iframeUrl != null ? this.renderIframe : null}
+            {this.iframeUrl != null ? this.renderIframe() : null}
         </Dialog>
     }
 
@@ -254,8 +254,8 @@ export class AssignmentInput extends React.Component<Props> {
      * @memberof AssignmentInput
      */
     renderIframe () {
-        return <Dialog>
-            關閉前請確保您已經送出您的 Form
+        return <Dialog open={true}>
+            <p>關閉前請確保您已經送出您的 Form</p>
             <iframe className="assignment-input-iframe" src={this.iframeUrl}></iframe>
         </Dialog>
     }
