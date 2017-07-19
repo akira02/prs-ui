@@ -1,7 +1,8 @@
 import {observable, action} from 'mobx'
 
-import {api} from '../../../../api'
 import {Auth} from '../../../../stores/Auth'
+
+import {api} from '../../../../api'
 
 /**
  * 送出資料後 server 回傳的 json
@@ -29,6 +30,12 @@ export class InputStore {
         this.auth = auth
     }
 
+    /**
+     * 送出表單
+     * @param {string} courseId 
+     * @returns {Promise<Result>} 
+     * @memberof InputStore
+     */
     @action.bound
     async submit (courseId: string): Promise<Result> {
         const response = await api.post('assignments')
@@ -42,6 +49,10 @@ export class InputStore {
         return response.body
     }
 
+    /**
+     * 重設表單
+     * @memberof InputStore
+     */
     @action.bound
     clear () {
         this.name = ''
