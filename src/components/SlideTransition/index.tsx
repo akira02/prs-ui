@@ -12,7 +12,7 @@ interface Props {
 
 /**
  * 滑動特效
- * 每個不同的 childern 要有不同的 key
+ * children 要有 key, 才能讓 CSSTransitionGroup 偵測到 children 的改變
  * @export
  * @class SlideTransition
  * @extends {React.Component<Props>}
