@@ -7,25 +7,6 @@ const {auth, db} = require('./data')
 const server = jsonServer.create()
 const router = jsonServer.router(db)
 
-// utilities
-function _pick (obj, ...properties) {
-    if (obj == null) return null
-    const result = {}
-    for (let prop of properties) {
-        result[prop] = obj[prop]
-    }
-    return result
-}
-
-function _unpick (obj, ...properties) {
-    if (obj == null) return null
-    const result = Object.assign({}, obj)
-    for (let prop of properties) {
-        delete result[prop]
-    }
-    return result
-}
-
 server.use(jsonServer.defaults())
 server.use(jsonServer.bodyParser)
 
