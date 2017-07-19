@@ -15,9 +15,9 @@ export class StudentsPage extends React.Component<Props> {
     render () {
         return <Page>
             {
-                this.props.selectedCourse.students.map(user => {
+                this.props.selectedCourse.students.map(user =>
                     <UserCard key={user.id} user={user}/>
-                })
+                )
             }
         </Page>
     }
