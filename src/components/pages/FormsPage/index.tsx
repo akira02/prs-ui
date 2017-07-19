@@ -16,12 +16,12 @@ export class FormsPage extends React.Component<Props> {
         return <Page>
             <List>
                 {
-                    this.props.selectedCourse.forms.map(form => {
+                    this.props.selectedCourse.forms.map(form => 
                         <ListItem
                             key={form.content}
                             primaryText={form.name}
                             onTouchTap={() => { window.open(form.content) }} />
-                    })
+                    )
                 }
             </List>
         </Page>
