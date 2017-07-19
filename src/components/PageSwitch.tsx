@@ -1,14 +1,17 @@
 import * as React from 'react'
 import { inject, observer } from 'mobx-react'
 
+// 頁面
 import { LoginPage } from './pages/LoginPage'
 import { CourseListPage } from './pages/CourseListPage'
 import { CoursePage } from './pages/CoursePage'
 import { NotFoundPage } from './pages/NotFoundPage'
 import { EmptyPage } from './pages/EmptyPage'
 
+// 特效
 import { SlideTransition } from './SlideTransition'
 
+// store
 import { ViewStore } from '../stores/ui/ViewStore'
 import * as PageStore from '../stores/ui/PageStore'
 
@@ -25,15 +28,14 @@ interface Props {
 @inject('viewStore') @observer
 export class PageSwitch extends React.Component<Props> {
     render () {
-        const {page} = this.props.viewStore
-        if (page == null) return null
-
         return <SlideTransition>
-            {this.renderPage(page)}
+            {this.renderPage(this.props.viewStore.page)}
         </SlideTransition>
     }
 
-    renderPage (page: PageStore.PageStore): React.ReactNode {
+    renderPage (page: PageStore.PageStore | null): React.ReactNode {
+        if (page == null) return this.renderEmptyPage()
+
         switch (page.name) {
             case 'login':
                 return <LoginPage key="login" />
@@ -44,7 +46,11 @@ export class PageSwitch extends React.Component<Props> {
             case 'notFound':
                 return <NotFoundPage key="notFound" />
             default:
-                return <EmptyPage key="empty" />
+                return this.renderEmptyPage()
         }   
+    }
+
+    renderEmptyPage () {
+        return <EmptyPage key="empty" />
     }
 }
