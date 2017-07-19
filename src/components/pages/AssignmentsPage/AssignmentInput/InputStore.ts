@@ -25,8 +25,6 @@ export class InputStore {
     @observable description: string = ''
     @observable data_link: string = ''
 
-    @observable result: Result | null = null
-
     constructor (auth: Auth) {
         this.auth = auth
     }
