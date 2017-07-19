@@ -37,6 +37,22 @@ server.post('/assignments', (req, res) => {
     res.send({ success: true, id: assignment.id })
 })
 
+// handle student list of course
+server.get('/users', (req, res, next) => {
+    if (req.query.course_id == null) {
+        next()
+        return
+    }
+
+    const course = db.courses.filter(course => course.id === req.query.course_id)[0]
+    if (course == null) {
+        res.send([])
+        return
+    }
+
+    res.send({ users: course.students })
+})
+
 // handle form creation
 server.post('/forms/create', (req, res) => {
     res.send({ success: true, url: 'http://example.com' })

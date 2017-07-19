@@ -1,47 +1,75 @@
+const _ = require('lodash')
+const shortid = require('shortid')
+
+const NOW = new Date().getTime()
+const ONE_MONTH = 30 * 24 * 60 * 60 * 1000
+
 exports.auth = {
     username: 'test',
     password: '123123',
     TOKEN: 'MUCH-TOKEN-WOW'
 }
 
-const courses = generateCourses()
+const students = generateUsers('student')
+const teachers = generateUsers('teacher')
+const users = students.concat(teachers)
+
+const courses = generateCourses(teachers, students)
 const assignments = generateAssignments(courses)
-const submissions = generateSubmissions(assignments)
+const submissions = generateSubmissions(assignments, students)
 
 exports.db = { courses, assignments, submissions }
 
-function generateCourses () {
+function generateUsers (role) {
     const result = []
-    for (let i = 0; i < 10; ++i) {
-        const teacher = randomInt(5)
+
+    for (let i = 0; i < 500; ++i) {
         result.push({
-            id: `Course-ID-${i}`,
+            id: shortid.generate(),
+            name: `${role} ${i}`,
+            role
+        })
+    }
+
+    return result
+}
+
+function generateCourses (teachers, students) {
+    const result = []
+
+    for (let i = 0; i < 10; ++i) {
+        const teacher = _.sample(teachers)
+        const studentSample = _.sampleSize(students, _.random(20, 200))
+
+        result.push({
+            id: shortid.generate(),
             name: `Course${i}`,
             description: `Course ${i}, a good course`,
             semester: '105-2',
             teacher: {
-                id: `Teacher-ID-${teacher}`,
-                name: `Teacher${teacher}`
+                id: teacher.id,
+                name: teacher.name,
             },
+            students: studentSample,
             attachments: generateAttachments()
         })
     }
+
     return result
 }
 
-
-
 function generateAssignments (courses) {
-    const ONE_MONTH = 30 * 24 * 60 * 60 * 1000
     const result = []
+
     for (let i = 0; i < 100; ++i) {
-        const course = courses[randomInt(courses.length)]
+        const course = _.sample(courses)
+
         result.push({
-            id: `Assignment-ID-${i}`,
+            id: shortid.generate(),
             name: `Assignment ${i}`,
             description: `Assignment ${i}, a good assignment`,
-            assigned: date(- randomInt(ONE_MONTH)),
-            due: date(+ randomInt(ONE_MONTH)),
+            assigned: date(NOW - _.random(ONE_MONTH)),
+            due: date(NOW + _.random(ONE_MONTH)),
             submitted: null,
             course: {
                 id: course.id,
@@ -50,28 +78,33 @@ function generateAssignments (courses) {
             attachments: generateAttachments()
         })
     }
+
     return result
 }
 
-function generateSubmissions (assignments) {
-    const ONE_MONTH = 30 * 24 * 60 * 60 * 1000
+function generateSubmissions (assignments, students) {
     const result = []
+
     for (let i = 0; i < 1000; ++i) {
-        const assignment = assignments[randomInt(assignments.length)]
+        const assignment = _.sample(assignments)
+        const student = _.sample(students)
+    
         result.push({
-            id: `Submission-ID-${i}`,
+            id: shortid.generate(),
             assignment_id: assignment.id,
-            submitted: date(+new Date(assignment.assigned) + randomInt(ONE_MONTH)),
-            username: `smart STUDENT ${i}`,
+            submitted: date(new Date(assignment.assigned).getTime() + _.random(ONE_MONTH)),
+            username: student.name,
             link: `http://cool-submission-so-cool-so-prs.com/coolpath/${i}`,
             description: `this is a good submission (${i}), give me an A+, please`,
         })
     }
+
     return result
 }
 
 function generateAttachments () {
     const result = []
+
     for (let i = 0; i < 5; ++i) {
         result.push({
             type: 'form',
@@ -79,13 +112,10 @@ function generateAttachments () {
             content: `http://a-good-form-very-good.com.tw/good-form-${i}`,
         })
     }
+
     return result
 }
 
-function randomInt (upper) {
-    return Math.floor(Math.random() * upper)
-}
-
-function date (delta) {
-    return new Date(+new Date() + delta).toISOString()
+function date (time) {
+    return new Date(time).toISOString()
 }
