@@ -7,6 +7,7 @@ import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 import {Stepper, Step, StepLabel} from 'material-ui/Stepper'
 import {CreateAssignment} from './CreateAssignment'
+import {IframeDialog} from '../../../IframeDialog'
 
 // store
 import {Auth} from '../../../../stores/Auth'
@@ -171,7 +172,13 @@ export class AssignmentInput extends React.Component<Props> {
                 autoScrollBodyContent={true}>
             {this.renderSteps()}
             {this.renderContent()}
-            {this.iframeUrl != null ? this.renderIframe() : null}
+    
+            <IframeDialog
+                    open={this.iframeUrl != null}
+                    src={this.iframeUrl}
+                    onRequestClose={() => this.iframeUrl = null}>
+                <p>請記得在關閉前先送出您的問卷</p>
+            </IframeDialog>
         </Dialog>
     }
 
@@ -246,17 +253,5 @@ export class AssignmentInput extends React.Component<Props> {
             default:
                 return null
         }
-    }
-
-    /**
-     * 繪製彈出式 iframe
-     * @returns 
-     * @memberof AssignmentInput
-     */
-    renderIframe () {
-        return <Dialog open={true} onRequestClose={() => {this.iframeUrl = null}}>
-            <p>請記得在關閉前先送出您的問卷</p>
-            <iframe className="assignment-input-iframe" src={this.iframeUrl}></iframe>
-        </Dialog>
     }
 }
