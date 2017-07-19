@@ -50,7 +50,7 @@ server.get('/users', (req, res, next) => {
         return
     }
 
-    res.send({ users: course.students })
+    res.send(course.students)
 })
 
 // handle form creation
