@@ -22,7 +22,8 @@ function generateCourses () {
             teacher: {
                 id: `Teacher-ID-${teacher}`,
                 name: `Teacher${teacher}`
-            }
+            },
+            attachments: generateAttachments()
         })
     }
     return result
@@ -45,7 +46,8 @@ function generateAssignments (courses) {
             course: {
                 id: course.id,
                 name: course.name
-            }
+            },
+            attachments: generateAttachments()
         })
     }
     return result
@@ -63,6 +65,18 @@ function generateSubmissions (assignments) {
             username: `smart STUDENT ${i}`,
             link: `http://cool-submission-so-cool-so-prs.com/coolpath/${i}`,
             description: `this is a good submission (${i}), give me an A+, please`,
+        })
+    }
+    return result
+}
+
+function generateAttachments () {
+    const result = []
+    for (let i = 0; i < 5; ++i) {
+        result.push({
+            type: 'form',
+            name: `Good Form ${i}`,
+            content: `http://a-good-form-very-good.com.tw/good-form-${i}`,
         })
     }
     return result
