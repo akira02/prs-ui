@@ -12,7 +12,7 @@ function coolIdHack (req: superagent.SuperAgentRequest) {
             for (let key in value) {
                 visit(value[key])
             }
-            if ('_id' in value) {
+            if ('_id' in value && !('id' in value)) {
                 value.id = value['_id']
             }
         }
