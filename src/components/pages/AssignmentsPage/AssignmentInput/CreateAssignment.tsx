@@ -10,6 +10,13 @@ interface Props {
     inputStore: InputStore
 }
 
+/**
+ * 填寫 Assignment 資料用的表單
+ * 只負責更新 inputStore 的內容, 送出由 Dialog 上的按鈕處理
+ * @export
+ * @class CreateAssignment
+ * @extends {React.Component<Props>}
+ */
 @observer
 export class CreateAssignment extends React.Component<Props> {
     @action.bound
