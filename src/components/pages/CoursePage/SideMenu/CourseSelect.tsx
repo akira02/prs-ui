@@ -21,7 +21,7 @@ export class CourseSelect extends React.Component<Props> {
     @observable open: boolean = false
 
     @computed get sortedCourses (): Course[] {
-        return this.props.courseStore.courses
+        return this.props.courseStore.courses.values()
             .sort((a, b) => a.name.localeCompare(b.name))
     }
 

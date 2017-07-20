@@ -2,13 +2,15 @@ import {types, getEnv, getRoot} from 'mobx-state-tree'
 import {RootStore} from './RootStore'
 import {CourseModel} from './Course'
 
+import {updateMap} from './update-map'
+
 /**
  * 儲存所有 Course
  */
 export const CourseStoreModel = types.model(
     'CourseStore',
     {
-        courses: types.optional(types.array(CourseModel), [])
+        courses: types.optional(types.map(CourseModel), {})
     },
     {
         async fetch () {
@@ -20,7 +22,7 @@ export const CourseStoreModel = types.model(
             this.updateCourses(response.body.courses)
         },
         updateCourses (courses: any[]) {
-            this.courses.replace(courses)
+            updateMap(this.courses, courses)
         }
     }
 )

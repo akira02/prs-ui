@@ -23,7 +23,7 @@ export class SubmissionList extends React.Component<Props> {
             {
                 selectedAssignment == null || selectedAssignment.submissions == null
                     ? 'Loading!!!'
-                    : selectedAssignment.submissions.map(submission =>
+                    : selectedAssignment.submissions.values().map(submission =>
                         <SubmissionCard key={submission.id} submission={submission} />
                     )
             }

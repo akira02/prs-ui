@@ -3,6 +3,8 @@ import { RootStore } from './RootStore'
 import { SubmissionModel, Submission } from './Submission'
 import { AttachmentModel, Attachment } from './Attachment'
 
+import {updateMap} from './update-map'
+
 export const AssignmentModel = types.model(
     'Assignment',
     {
@@ -26,7 +28,7 @@ export const AssignmentModel = types.model(
             name: types.string,
         }),
 
-        submissions: types.optional(types.array(SubmissionModel), []),
+        submissions: types.optional(types.map(SubmissionModel), {}),
     },
     {
         async fetchSubmissions () {
@@ -40,7 +42,7 @@ export const AssignmentModel = types.model(
             this.updateSubmissions(response.body.submissions)
         },
         updateSubmissions (submissions: any[]) {
-            this.submissions.replace(submissions)
+            updateMap(this.submissions, submissions)
         }
     }
 )

@@ -4,6 +4,8 @@ import {AttachmentModel, Attachment} from './Attachment'
 import {AssignmentModel} from './Assignment'
 import {UserModel, User} from './User'
 
+import {updateMap} from './update-map'
+
 export const CourseModel = types.model(
     'Course',
     {
@@ -22,7 +24,7 @@ export const CourseModel = types.model(
                 .filter(attachment => attachment.type === 'form')
         },
 
-        assignments: types.optional(types.array(AssignmentModel), []),
+        assignments: types.optional(types.map(AssignmentModel), {}),
         students: types.optional(types.array(types.reference(UserModel)), []),
     },
     {
@@ -36,7 +38,7 @@ export const CourseModel = types.model(
             this.updateAssignments(response.body.assignments)
         },
         updateAssignments (assignments: any[]) {
-            this.assignments.replace(assignments)
+            updateMap(this.assignments, assignments)
         },
         async fetchStudents () {
             const {api} = getEnv(this)
@@ -45,8 +47,8 @@ export const CourseModel = types.model(
             const studentIds = await userStore.fetch({ role: 'student', course_id: this.id })
             this.updateStudents(studentIds)
         },
-        updateStudents (students: any[]) {
-            this.students.replace(students)
+        updateStudents (studentIds: any[]) {
+            this.students.replace(studentIds)
         }
     }
 )

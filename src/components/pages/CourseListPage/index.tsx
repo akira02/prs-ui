@@ -16,7 +16,7 @@ export interface Props {
 @inject('courseStore') @observer
 export class CourseListPage extends React.Component<Props> {
     @computed get sortedCourses (): Course[] {
-        return this.props.courseStore.courses.slice()
+        return this.props.courseStore.courses.values().slice()
             .sort((a, b) => a.name.localeCompare(b.name))
     }
     render () {

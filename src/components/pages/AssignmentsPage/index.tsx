@@ -51,7 +51,7 @@ export class AssignmentsPage extends React.Component<Props> {
         return <Page>
             <div className="assignment-card-container">
                 {
-                    selectedCourse.assignments.map(assignment =>
+                    selectedCourse.assignments.values().map(assignment =>
                         <AssignmentCard key={assignment.id} assignment={assignment} />
                     )
                 }
