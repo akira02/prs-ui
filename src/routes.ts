@@ -1,13 +1,18 @@
 import {RootStore} from './stores/RootStore'
 import {PageDataModel} from './stores/ui/PageData'
 
+
 interface Context {
     params: any,
     stores: RootStore,
-    next: Function
+    next: Function,
+    redirect: {
+        push (path: string, state?: any): never
+        replace (path: string, state?: any): never
+    } 
 }
 
-type ActionResult = boolean | Partial<typeof PageDataModel.SnapshotType>
+type ActionResult = Partial<typeof PageDataModel.SnapshotType>
 type Action = (ctx: Context) => ActionResult | Promise<ActionResult>
 
 /**
@@ -39,20 +44,8 @@ export interface Route {
     children?: Route[]
 }
 
-/**
- * 讓重導向稍微好寫一點的東東
- * @param {string} path 重導向的目標頁面
- * @param {*} [state] 要傳給下個頁面的 state
- * @returns 一個 action, 重導向到指定的頁面
- */
-const redirect = (path: string, state?: any) => ({stores}: Context) => {
-    stores.history.replace(path, state)
-    // 回傳一個非 null 的值讓 router 停下來
-    return true
-}
-
 export const routes: Route[] =[
-    { path: '/',        action: redirect('/courses') },
+    { path: '/',        action: ({redirect}) => redirect.replace('/courses') },
     { path: '/login',   action: () => ({ name: 'login' }) },
     {
         path: '/courses',
@@ -64,7 +57,6 @@ export const routes: Route[] =[
         requireLogin: true,
         async action ({params, next}) {
             const child = await next()
-            if (child == true) return true
             child.name = 'course'
             child.courseId = params.courseId
             return child
@@ -72,10 +64,8 @@ export const routes: Route[] =[
         children: [
             {
                 path: '/',
-                action ({params, stores}) {
-                    stores.history.replace(`/courses/${params.courseId}/assignments`)
-                    return true
-                }
+                action: ({params, redirect}) =>
+                    redirect.replace(`/courses/${params.courseId}/assignments`)
             },
             {
                 path: '/assignments',
