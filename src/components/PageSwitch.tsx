@@ -13,7 +13,7 @@ import { SlideTransition } from './SlideTransition'
 
 // store
 import { ViewStore } from '../stores/ui/ViewStore'
-import * as PageStore from '../stores/ui/PageStore'
+import * as PageData from '../stores/ui/PageData'
 
 interface Props {
     viewStore?: ViewStore
@@ -33,7 +33,7 @@ export class PageSwitch extends React.Component<Props> {
         </SlideTransition>
     }
 
-    renderPage (page: PageStore.PageStore | null): React.ReactNode {
+    renderPage (page: PageData.PageData | null): React.ReactNode {
         if (page == null) return this.renderEmptyPage()
 
         switch (page.name) {

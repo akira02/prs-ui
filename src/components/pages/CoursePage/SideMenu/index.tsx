@@ -10,9 +10,9 @@ import {SubPageSelect} from './SubPageSelect'
 
 import {Auth} from '../../../../stores/Auth'
 import {History} from '../../../../stores/History'
-import {CourseMap} from '../../../../stores/CourseMap'
+import {CourseStore} from '../../../../stores/CourseStore'
 import {ViewStore} from '../../../../stores/ui/ViewStore'
-import * as PageStore from '../../../../stores/ui/PageStore'
+import * as PageData from '../../../../stores/ui/PageData'
 
 const SelectableList = makeSelectable(List)
 
@@ -21,12 +21,12 @@ interface Props {
 
     // injected props
     auth?: Auth
-    courseMap?: CourseMap
+    courseStore?: CourseStore
     history?: History
     viewStore?: ViewStore
 }
 
-@inject('auth', 'history', 'courseMap', 'viewStore') @observer
+@inject('auth', 'history', 'courseStore', 'viewStore') @observer
 export class SideMenu extends React.Component<Props> {
     @action.bound
     handlePath (event, path: string) {
@@ -44,8 +44,8 @@ export class SideMenu extends React.Component<Props> {
     }
 
     render () {
-        const {auth, courseMap, history, viewStore, ...rest} = this.props
-        const page = this.props.viewStore.page as PageStore.Course
+        const {auth, courses, history, viewStore, ...rest} = this.props
+        const page = this.props.viewStore.page as PageData.CoursePage
 
         return <Drawer
                 docked={true}

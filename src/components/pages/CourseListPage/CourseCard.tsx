@@ -5,10 +5,10 @@ import { inject, observer } from 'mobx-react'
 import { Card, CardHeader } from 'material-ui/Card'
 
 import { History } from '../../../stores/History'
-import { CourseStore } from '../../../stores/CourseStore'
+import { Course } from '../../../stores/Course'
 
 export interface Props {
-    store: CourseStore
+    course: Course
 
     // injected props
     history?: History
@@ -18,12 +18,12 @@ export interface Props {
 export class CourseCard extends React.Component<Props> {
     @action.bound
     handleTouchTap () {
-        const {store, history} = this.props
-        history.push(`/courses/${store.course.id}`)
+        const {course, history} = this.props
+        history.push(`/courses/${course.id}`)
     }
 
     render () {
-        const {course} = this.props.store
+        const {course} = this.props
 
         return <Card className="course_card card" onTouchTap={this.handleTouchTap}>
             <CardHeader title={course.name} />

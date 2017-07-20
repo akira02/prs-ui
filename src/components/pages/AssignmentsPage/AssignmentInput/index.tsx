@@ -11,7 +11,7 @@ import {IframeDialog} from '../../../IframeDialog'
 
 // store
 import {Auth} from '../../../../stores/Auth'
-import {CourseStore} from '../../../../stores/CourseStore'
+import {Course} from '../../../../stores/Course'
 import {InputStore} from './InputStore'
 
 import {api} from '../../../../api'
@@ -32,10 +32,10 @@ interface Props {
 
     /**
      * 要新增 Assigment 的 Course
-     * @type {CourseStore}
+     * @type {Course}
      * @memberof Props
      */
-    selectedCourse: CourseStore
+    selectedCourse: Course
 
     // injected props
     auth?: Auth
@@ -107,7 +107,7 @@ export class AssignmentInput extends React.Component<Props> {
         try {
             switch (this.step) {
                 case Steps.CreateAssignment:
-                    const result = await this.inputStore.submit(this.props.selectedCourse.course.id)
+                    const result = await this.inputStore.submit(this.props.selectedCourse.id)
                     this.assignmentId = result.id
                     this.step = Steps.CreateReplyForm
                     

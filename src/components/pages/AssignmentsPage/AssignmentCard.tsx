@@ -8,10 +8,10 @@ import {List, ListItem} from 'material-ui/List'
 import {IframeDialog} from '../../IframeDialog'
 
 import {History} from '../../../stores/History'
-import {AssignmentStore} from '../../../stores/AssignmentStore'
+import {Assignment} from '../../../stores/Assignment'
 
 interface Props {
-    store: AssignmentStore
+    assignment: Assignment
     history?: History
 }
 
@@ -21,28 +21,26 @@ export class AssignmentCard extends React.Component<Props> {
 
     @action.bound
     openSubmissions () {
-        const {store, history} = this.props
-        history.push(`/courses/${store.assignment.course.id}/assignments/${store.assignment.id}`)
+        const {assignment, history} = this.props
+        history.push(`/courses/${assignment.course.id}/assignments/${assignment.id}`)
     }
 
     render () {
-        const {store} = this.props
-        const assignment = store.assignment
+        const {assignment} = this.props
 
         return <Card className="card">
             <CardHeader 
                 title={assignment.name}
-                subtitle={assignment.created_date}
+                subtitle={assignment.assigned}
                 actAsExpander={true}
                 showExpandableButton={true} />
             <CardText expandable={true}>
-                {assignment.data_link}<br />
                 {assignment.description}
             </CardText>
             <CardText expandable={true}>
                 <List>
                 {
-                    store.forms.map(form => 
+                    assignment.forms.map(form => 
                         <ListItem
                             key={form.content}
                             primaryText={form.name}

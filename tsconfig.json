@@ -4,6 +4,7 @@
         "module": "es6",
         "moduleResolution": "node",
         "alwaysStrict": true,
+        "noImplicitThis": true,
         "experimentalDecorators": true,
         "importHelpers": true,
         "jsx": "react",

@@ -1,9 +1,14 @@
-import {Stores} from './stores'
+import {RootStore} from './stores/RootStore'
+import {PageDataModel} from './stores/ui/PageData'
 
 interface Context {
     params: any,
-    stores: Stores
+    stores: RootStore,
+    next: Function
 }
+
+type ActionResult = boolean | Partial<typeof PageDataModel.SnapshotType>
+type Action = (ctx: Context) => ActionResult | Promise<ActionResult>
 
 /**
  * 定義 route 的資料格式
@@ -11,18 +16,14 @@ interface Context {
  * @interface Route
  */
 export interface Route {
-    /**
-     * 用來跟 url 比對的字串
-     * @type {string}
-     * @memberof Route
-     */
+    /** 用來跟 url 比對的字串 */
     path: string
 
-    /**
-     * 比成功要執行的動作
-     * @memberof Route
-     */
-    action?: (ctx: Context) => void
+    /** 生成 PageData 的 function */
+    action?: Action
+
+    /** 頁面是否需要登入 (也會作用到children) */
+    requireLogin?: boolean
 
     /**
      * children 裡的 route 會用前面比對之後剩下部分繼續比對
@@ -34,8 +35,6 @@ export interface Route {
      *     }
      * }
      * 能比對到 '/aaa/bbb'
-     * @type {Route[]}
-     * @memberof Route
      */
     children?: Route[]
 }
@@ -48,45 +47,64 @@ export interface Route {
  */
 const redirect = (path: string, state?: any) => ({stores}: Context) => {
     stores.history.replace(path, state)
+    // 回傳一個非 null 的值讓 router 停下來
+    return true
 }
 
-/**
- * 指定瀏覽到各個 path 時, 要執行的動作, 如呼叫 viewStore 更新頁面
- * 前面的優先於後面的
- * 注意如果某個 route 有定義 action, router 不會執行他的 children
- * 解決方法是在他的 children 裡新增一個 path 是 '/' 的 route, 然後把他的 action 移到那裡
- */
 export const routes: Route[] =[
     { path: '/',        action: redirect('/courses') },
-    { path: '/login',   action: ({stores}) => stores.viewStore.showLogin() },
-    { path: '/courses', action: ({stores}) => stores.viewStore.showCourseList() },
+    { path: '/login',   action: () => ({ name: 'login' }) },
+    {
+        path: '/courses',
+        requireLogin: true,
+        action: () => ({ name: 'courseList' })
+    },
     {
         path: '/courses/:courseId',
+        requireLogin: true,
+        async action ({params, next}) {
+            const child = await next()
+            if (child == true) return true
+            child.name = 'course'
+            child.courseId = params.courseId
+            return child
+        },
         children: [
             {
                 path: '/',
                 action ({params, stores}) {
                     stores.history.replace(`/courses/${params.courseId}/assignments`)
+                    return true
                 }
             },
             {
                 path: '/assignments',
-                action: ({params, stores}) => stores.viewStore.showAssignmentList(params.courseId)
+                action: () => ({
+                    subPage: 'assignmentList',
+                    showSubmissions: false,
+                })
             },
             {
                 path: '/assignments/:assignmentId',
-                action: ({params, stores}) =>
-                    stores.viewStore.showAssignment(params.courseId, params.assignmentId)
+                action: ({params}) => ({
+                    subPage: 'assignmentList',
+                    showSubmissions: true,
+                    assignmentId: params.assignmentId
+                })
             },
             {
                 path: '/forms',
-                action: ({params, stores}) => stores.viewStore.showFormList(params.courseId)
+                action: () => ({
+                    subPage: 'formList',
+                })
             },
             {
                 path: '/students',
-                action: ({params, stores}) => stores.viewStore.showStudentList(params.courseId)
+                action: ({params}) => ({
+                    subPage: 'studentList'
+                })
             },
         ]
     },
-    { path: '*', action: ({stores}) => stores.viewStore.showNotFound() }
+    { path: '*', action: () => ({ name: 'notFound' }) }
 ]

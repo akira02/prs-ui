@@ -2,7 +2,7 @@ const url = require('url')
 const _ = require('lodash')
 const shortid = require('shortid')
 const jsonServer = require('json-server')
-const {auth, db} = require('./data')
+const {auth, db, courseStudentMap} = require('./data')
 
 const server = jsonServer.create()
 const router = jsonServer.router(db)
@@ -44,13 +44,7 @@ server.get('/users', (req, res, next) => {
         return
     }
 
-    const course = db.courses.filter(course => course.id === req.query.course_id)[0]
-    if (course == null) {
-        res.send([])
-        return
-    }
-
-    res.send(course.students)
+    res.send(courseStudentMap.get(req.query.course_id))
 })
 
 // handle form creation

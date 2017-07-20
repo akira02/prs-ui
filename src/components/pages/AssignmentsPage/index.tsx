@@ -14,7 +14,7 @@ import { SubmissionList } from './SubmissionList'
 
 import {History} from '../../../stores/History'
 import {ViewStore} from '../../../stores/ui/ViewStore'
-import * as PageStore from '../../../stores/ui/PageStore'
+import * as PageData from '../../../stores/ui/PageData'
 
 import './style.css'
 
@@ -40,19 +40,19 @@ export class AssignmentsPage extends React.Component<Props> {
     @action.bound
     closeSubmissionList () {
         const {history, viewStore} = this.props
-        const page = this.props.viewStore.page as PageStore.AssignmentList
-        this.props.history.push(`/courses/${page.courseId}/assignments`)
+        const page = this.props.viewStore.page as PageData.AssignmentListPage
+        this.props.history.push(`/courses/${page.selectedCourse.id}/assignments`)
     }
 
     render () {
         const {viewStore} = this.props
-        const {selectedCourse, showSubmissions} = viewStore.page as PageStore.AssignmentList
+        const {selectedCourse, showSubmissions} = viewStore.page as PageData.AssignmentListPage
         
         return <Page>
             <div className="assignment-card-container">
                 {
-                    selectedCourse.assignmentStores.values().map(store =>
-                        <AssignmentCard key={store.assignment.id} store={store} />
+                    selectedCourse.assignments.map(assignment =>
+                        <AssignmentCard key={assignment.id} assignment={assignment} />
                     )
                 }
             </div>
@@ -93,7 +93,7 @@ export class AssignmentsPage extends React.Component<Props> {
 
     renderSubmissionList () {
         const {viewStore} = this.props
-        const {selectedAssignment} = viewStore.page as PageStore.Assignment
+        const {selectedAssignment} = viewStore.page as PageData.AssignmentPage
         
         return <SubmissionList
             key="submission-list"

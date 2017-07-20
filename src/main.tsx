@@ -7,7 +7,7 @@ import { Provider } from 'mobx-react'
 
 import Router from 'universal-router'
 
-import { Stores } from './stores'
+import { RootStoreModel, RootStore } from './stores/RootStore'
 import { routes } from './routes'
 import { App } from './components/App'
 
@@ -16,38 +16,29 @@ import { api } from './api'
 // material-ui 需要這個東西
 injectTapEventPlugin()
 
-const stores = new Stores()
+const stores = RootStoreModel.create({}, { api })
 
 const router = new Router(routes, {
-    /**
-     * 將 stores 經由 context 傳給各個 route 的 action
-     */
+    /** 將 stores 經由 context 傳給各個 route 的 action */
     context: { stores },
-    
-    /**
-     * 覆寫 universal-router 預設的行為
-     */
+    /**  */
     resolveRoute (context, params) {
-        if (typeof context.route.action === 'function') {
-            context.route.action(context, params)
-
-            // 如果 route 有 action, 直接 return ture,
-            // 使 router 不再往下尋找 route
+        if (context.route.requireLogin && !stores.auth.isLoggedIn) {
+            stores.history.push('/login', { goBack: true })
             return true
-        } else {
-
-             // return null,
-             // 使 router 繼續往下尋找 route
-            return null
         }
+        return Router.resolveRoute(context, params)
     }
 })
 
 /**
  * 執行一次 router, 然後每當移動到新的path, 自動重新執行
  */
-autorun(() => {
-    router.resolve({path: stores.history.location.pathname})
+autorun(async () => {
+    const page = await router.resolve({path: stores.history.location.pathname})
+    if (page != true) {
+        stores.viewStore.setPage(page)
+    }
 })
 
 /**

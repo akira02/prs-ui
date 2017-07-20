@@ -6,12 +6,12 @@ import {inject, observer} from 'mobx-react'
 import {Page} from '../Page'
 import {SubmissionCard} from './SubmissionCard'
 
-import {AssignmentStore} from '../../../stores/AssignmentStore'
+import {Assignment} from '../../../stores/Assignment'
 
 import './style.css'
 
 export interface Props {
-    selectedAssignment: AssignmentStore | null
+    selectedAssignment: Assignment | null
 }
 
 @observer
