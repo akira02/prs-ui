@@ -1,5 +1,5 @@
 import {ObservableMap} from 'mobx'
-import * as objectAssign from 'object-assign'
+import {getSnapshot} from 'mobx-state-tree'
 
 export function updateMap (map: ObservableMap<any>, newValues: object & {id: string}[]) {
     const ids = new Set(newValues.map(value => value.id))
@@ -12,7 +12,8 @@ export function updateMap (map: ObservableMap<any>, newValues: object & {id: str
 
     for (let value of newValues) {
         if (map.has(value.id)) {
-            objectAssign(map.get(value.id), value)
+            const snapshot = getSnapshot(map.get(value.id))
+            map.set(value.id, {...snapshot, ...value})
         } else {
             map.set(value.id, value)
         }
