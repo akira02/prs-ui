@@ -1,5 +1,6 @@
 import * as React from 'react'
 import {render} from 'react-dom'
+import {AppContainer} from 'react-hot-loader'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 import {autorun} from 'mobx'
 import {Provider} from 'mobx-react'
@@ -26,14 +27,32 @@ autorun(async () => {
     await runRouter(router, { stores })
 })
 
-render(
-    // 將 api 和 stores 由 Provider 傳給各 Component
+function renderApp (Component: React.ReactType) {
+    render(
+        <AppContainer>
+            <Component />
+        </AppContainer>,
+        document.getElementById('root')
+    )
+}
+
+renderApp(() =>
     <Provider api={api} {...stores}>
         <App />
-    </Provider>,
-    document.getElementById('root')
+    </Provider>
 )
 
 // 為了 debug 方便, 把一些東西掛到 window 上
 window['stores'] = stores
 window['api'] = api
+
+if (module.hot) {
+    module.hot.accept('./components/App', () => {
+        renderApp(() =>
+            <Provider api={api} {...stores}>
+                <App />
+            </Provider>
+        )
+    })
+}
+

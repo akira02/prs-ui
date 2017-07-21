@@ -1,22 +1,15 @@
 const path = require('path')
-const {DefinePlugin, HotModuleReplacementPlugin} = require('webpack')
+const {DefinePlugin} = require('webpack')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
-const {CheckerPlugin} = require('awesome-typescript-loader')
 
 module.exports = {
-  entry: [
-    'webpack-dev-server/client?http://localhost:8080/',
-    'webpack/hot/only-dev-server',
-    'react-hot-loader/patch',
-    './src/main.tsx'
-  ],
+  entry: './src/main.tsx',
   output: {
     publicPath: '/',
     path: path.resolve(__dirname, 'dist'),
     filename: 'static/bundle.js'
   },
-  devtool: 'source-map',
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx']
   },
@@ -24,11 +17,28 @@ module.exports = {
     rules: [
       {
         test: /\.tsx?$/,
-        use: ['react-hot-loader/webpack', 'awesome-typescript-loader']
+        use: [
+          { loader: 'react-hot-loader/webpack' },
+          {
+            loader: 'awesome-typescript-loader',
+            options: {
+              transpileOnly: true,
+              useTranspileModule: true,
+            }
+          }
+        ]
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader']
+        use: [
+          { loader: 'style-loader' },
+          {
+            loader: 'css-loader',
+            options: {
+              minimize: true
+            }
+          }
+        ]
       },
     ]
   },
@@ -38,9 +48,7 @@ module.exports = {
       { from: 'assets', to: './' },
     ]),
     new DefinePlugin({
-      API_BASE: JSON.stringify('http://localhost:3000/')
+      API_BASE: JSON.stringify('http://api.prs.ggpark.net/')
     }),
-    new HotModuleReplacementPlugin(),
-    new CheckerPlugin()
   ]
 }

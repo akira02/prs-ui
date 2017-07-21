@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "build": "webpack",
-    "build-production": "cross-env NODE_ENV=production webpack -p",
+    "build-production": "webpack -p --config webpack.production.config.js",
     "start": "node ./tools/server.js",
     "predeploy": "npm run build-production",
     "deploy": "rsync -hlrcvz --delete -e ssh ./dist aki@api.prs.ggpark.net:/var/www/prs-ui"
@@ -24,6 +24,7 @@
     "@types/react": "^15.0.34",
     "@types/react-dom": "^15.5.1",
     "@types/superagent": "^3.5.2",
+    "@types/webpack-env": "^1.13.0",
     "classnames": "^2.2.5",
     "history": "^4.6.3",
     "isobject": "^3.0.1",
@@ -33,6 +34,7 @@
     "mobx-state-tree": "^0.9.2",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
+    "react-hot-loader": "3.x",
     "react-tap-event-plugin": "^2.0.1",
     "react-transition-group": "1.x",
     "superagent": "^3.5.2",
@@ -43,14 +45,13 @@
     "awesome-typescript-loader": "^3.2.1",
     "clean-webpack-plugin": "^0.1.16",
     "copy-webpack-plugin": "^4.0.1",
-    "cross-env": "^5.0.1",
     "css-loader": "^0.28.4",
     "json-server": "^0.10.3",
     "lodash": "^4.17.4",
-    "node-static": "^0.7.9",
     "shortid": "^2.2.8",
     "style-loader": "^0.18.2",
     "typescript": "^2.4.1",
-    "webpack": "^3.0.0"
+    "webpack": "^3.0.0",
+    "webpack-dev-server": "^2.5.1"
   }
 }
