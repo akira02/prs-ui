@@ -15,10 +15,13 @@ import {api} from './api'
 // material-ui 需要這個東西
 injectTapEventPlugin()
 
+// 產生所有 store
 const stores = RootStoreModel.create({}, { api })
 
+// 產生 router
 const router = createRouter(routes)
 
+// 用 autorun 讓 router 能在 url 改變時自動重新執行
 autorun(async () => {
     await runRouter(router, { stores })
 })
