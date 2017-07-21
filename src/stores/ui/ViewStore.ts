@@ -1,5 +1,5 @@
-import {types} from 'mobx-state-tree'
-import {PageDataModel, PageData} from './PageData'
+import { types } from 'mobx-state-tree'
+import { PageDataModel, PageData } from './PageData'
 
 export const ViewStoreModel = types.model(
     'ViewStore',
@@ -7,7 +7,7 @@ export const ViewStoreModel = types.model(
         page: types.maybe(PageDataModel)
     },
     {
-        setPage (page: PageData) {
+        setPage(page: PageData) {
             this.page = page
         }
     }

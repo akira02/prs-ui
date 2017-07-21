@@ -1,9 +1,9 @@
-import {types, getRoot, resolveIdentifier, addDisposer} from 'mobx-state-tree'
-import {autorun, when} from 'mobx'
+import { types, getRoot, resolveIdentifier, addDisposer } from 'mobx-state-tree'
+import { autorun, when } from 'mobx'
 
-import {RootStore} from '../RootStore'
-import {CourseModel, Course} from '../Course'
-import {AssignmentModel} from '../Assignment'
+import { RootStore } from '../RootStore'
+import { CourseModel, Course } from '../Course'
+import { AssignmentModel } from '../Assignment'
 
 /** 登入頁 */
 const LoginPageModel = types.model(
@@ -12,21 +12,29 @@ const LoginPageModel = types.model(
         name: types.literal('login')
     },
     {
-        afterCreate () {
-            const {auth, history} = getRoot<RootStore>(this)
+        afterCreate() {
+            const { auth, history } = getRoot<RootStore>(this)
 
             // 監視登入狀態, 一旦登入就執行
-            addDisposer(this, when('isLoggedIn', () => auth.isLoggedIn, () => {
-                // 從 history api 的 `state` 決定登入完要去哪裡
-                const {goBack=false, nextPage='/'} = history.location.state || {}
-                
-                if (goBack) {
-                    // 如果 state 有指定 goBack, 回到上一頁
-                    history.goBack()
-                } else {
-                    history.push(nextPage)
-                }
-            }))
+            addDisposer(
+                this,
+                when(
+                    'isLoggedIn',
+                    () => auth.isLoggedIn,
+                    () => {
+                        // 從 history api 的 `state` 決定登入完要去哪裡
+                        const { goBack = false, nextPage = '/' } =
+                            history.location.state || {}
+
+                        if (goBack) {
+                            // 如果 state 有指定 goBack, 回到上一頁
+                            history.goBack()
+                        } else {
+                            history.push(nextPage)
+                        }
+                    }
+                )
+            )
         }
     }
 )
@@ -40,8 +48,8 @@ const CourseListPageModel = types.model(
         name: types.literal('courseList')
     },
     {
-        afterCreate () {
-            const {courseStore} = getRoot<RootStore>(this)
+        afterCreate() {
+            const { courseStore } = getRoot<RootStore>(this)
             courseStore.fetch()
         }
     }
@@ -50,16 +58,13 @@ const CourseListPageModel = types.model(
 export type CourseListPage = typeof CourseListPageModel.Type
 
 /** /courses/:courseId 下的頁面的 base type */
-const CoursePageBase = types.model(
-    'CoursePageBase',
-    {
-        name: types.literal('course'),
-        courseId: types.string,
-        get selectedCourse (): Course | null {
-            return resolveIdentifier(CourseModel, this, this.courseId)
-        }
+const CoursePageBase = types.model('CoursePageBase', {
+    name: types.literal('course'),
+    courseId: types.string,
+    get selectedCourse(): Course | null {
+        return resolveIdentifier(CourseModel, this, this.courseId)
     }
-)
+})
 
 /** 學生列表頁 */
 export const StudentListPageModel = types.compose(
@@ -69,14 +74,17 @@ export const StudentListPageModel = types.compose(
         subPage: types.literal('studentList')
     },
     {
-        async afterCreate () {
-            const {courseStore} = getRoot<RootStore>(this)
+        async afterCreate() {
+            const { courseStore } = getRoot<RootStore>(this)
             await courseStore.fetch()
-            
-            addDisposer(this, autorun(() => {
-                if (this.selectedCourse == null) return
-                this.selectedCourse.fetchStudents()
-            }))
+
+            addDisposer(
+                this,
+                autorun(() => {
+                    if (this.selectedCourse == null) return
+                    this.selectedCourse.fetchStudents()
+                })
+            )
         }
     }
 )
@@ -91,9 +99,9 @@ export const FormListPageModel = types.compose(
         subPage: types.literal('formList')
     },
     {
-        afterCreate () {
-            const {courseStore} = getRoot<RootStore>(this)
-            courseStore.fetch()      
+        afterCreate() {
+            const { courseStore } = getRoot<RootStore>(this)
+            courseStore.fetch()
         }
     }
 )
@@ -106,17 +114,20 @@ export const AssignmentListPageModel = types.compose(
     CoursePageBase,
     {
         subPage: types.literal('assignmentList'),
-        showSubmissions: types.literal(false),
+        showSubmissions: types.literal(false)
     },
     {
-        async afterCreate () {
-            const {courseStore} = getRoot<RootStore>(this)
+        async afterCreate() {
+            const { courseStore } = getRoot<RootStore>(this)
             await courseStore.fetch()
 
-            addDisposer(this, autorun(() => {
-                if (this.selectedCourse == null) return
-                this.selectedCourse.fetchAssignments()
-            }))
+            addDisposer(
+                this,
+                autorun(() => {
+                    if (this.selectedCourse == null) return
+                    this.selectedCourse.fetchAssignments()
+                })
+            )
         }
     }
 )
@@ -131,37 +142,39 @@ export const AssignmentPageModel = types.compose(
         subPage: types.literal('assignmentList'),
         showSubmissions: types.literal(true),
         assignmentId: types.string,
-        get selectedAssignment () {
+        get selectedAssignment() {
             return resolveIdentifier(AssignmentModel, this, this.assignmentId)
         }
     },
     {
-        async afterCreate () {
-            const {courseStore} = getRoot<RootStore>(this)
+        async afterCreate() {
+            const { courseStore } = getRoot<RootStore>(this)
             courseStore.fetch()
-            
-            addDisposer(this, autorun(() => {
-                if (this.selectedCourse == null) return
-                this.selectedCourse.fetchAssignments()
-            }))
-            
-            addDisposer(this, autorun(() => {
-                if (this.selectedAssignment == null) return
-                this.selectedAssignment.fetchSubmissions()
-            }))
-        },
-        
+
+            addDisposer(
+                this,
+                autorun(() => {
+                    if (this.selectedCourse == null) return
+                    this.selectedCourse.fetchAssignments()
+                })
+            )
+
+            addDisposer(
+                this,
+                autorun(() => {
+                    if (this.selectedAssignment == null) return
+                    this.selectedAssignment.fetchSubmissions()
+                })
+            )
+        }
     }
 )
 
 export type AssignmentPage = typeof AssignmentPageModel.Type
 
-export const NotFoundPageModel = types.model(
-    'NotFoundPage',
-    {
-        name: types.literal('notFound')
-    }
-)
+export const NotFoundPageModel = types.model('NotFoundPage', {
+    name: types.literal('notFound')
+})
 
 export type NotFoundPage = typeof NotFoundPageModel.Type
 
@@ -178,7 +191,7 @@ export const PageDataModel = types.union(
 export type PageData = typeof PageDataModel.Type
 
 export type CoursePage =
-    AssignmentListPage |
-    StudentListPage |
-    FormListPage |
-    AssignmentPage
+    | AssignmentListPage
+    | StudentListPage
+    | FormListPage
+    | AssignmentPage

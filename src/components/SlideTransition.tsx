@@ -1,11 +1,9 @@
 import * as React from 'react'
-import {injectGlobal} from 'styled-components'
-import {inject, observer} from 'mobx-react'
-import {CSSTransitionGroup} from 'react-transition-group'
+import { injectGlobal } from 'styled-components'
+import { inject, observer } from 'mobx-react'
+import { CSSTransitionGroup } from 'react-transition-group'
 
-import {History} from '../stores/History'
-
-
+import { History } from '../stores/History'
 
 interface Props {
     history?: History
@@ -18,15 +16,19 @@ interface Props {
  * @class SlideTransition
  * @extends {React.Component<Props>}
  */
-@inject('history') @observer
+@inject('history')
+@observer
 export class SlideTransition extends React.Component<Props> {
-    render () {
-        const {history, children} = this.props
-        return <CSSTransitionGroup
-            transitionName={`slide-${history.action.toLowerCase()}`}
-            transitionEnterTimeout={500}
-            transitionLeaveTimeout={500}
-            children={children} />
+    render() {
+        const { history, children } = this.props
+        return (
+            <CSSTransitionGroup
+                transitionName={`slide-${history.action.toLowerCase()}`}
+                transitionEnterTimeout={500}
+                transitionLeaveTimeout={500}
+                children={children}
+            />
+        )
     }
 }
 

@@ -1,20 +1,20 @@
 import * as React from 'react'
-import {observable, computed, action} from 'mobx'
-import {inject, observer} from 'mobx-react'
+import { observable, computed, action } from 'mobx'
+import { inject, observer } from 'mobx-react'
 
 // 元件
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
-import {Stepper, Step, StepLabel} from 'material-ui/Stepper'
-import {CreateAssignment} from './CreateAssignment'
-import {IframeDialog} from '../../../IframeDialog'
+import { Stepper, Step, StepLabel } from 'material-ui/Stepper'
+import { CreateAssignment } from './CreateAssignment'
+import { IframeDialog } from '../../../IframeDialog'
 
 // store
-import {Auth} from '../../../../stores/Auth'
-import {Course} from '../../../../stores/Course'
-import {InputStore} from './InputStore'
+import { Auth } from '../../../../stores/Auth'
+import { Course } from '../../../../stores/Course'
+import { InputStore } from './InputStore'
 
-import {Api} from '../../../../api'
+import { Api } from '../../../../api'
 
 interface Props {
     /**
@@ -50,7 +50,7 @@ enum Steps {
     CreateAssignment = 0,
     CreateReplyForm = 1,
     CreateAssignmentForm = 2,
-    Finished = 3,
+    Finished = 3
 }
 
 /**
@@ -59,7 +59,8 @@ enum Steps {
  * @class AssignmentInput
  * @extends {React.Component<Props>}
  */
-@inject('api', 'auth') @observer
+@inject('api', 'auth')
+@observer
 export class AssignmentInput extends React.Component<Props> {
     /**
      * 用來跟第一步的表單共享資料的 store
@@ -93,7 +94,7 @@ export class AssignmentInput extends React.Component<Props> {
      * @memberof AssignmentInput
      */
     @action.bound
-    reset () {
+    reset() {
         this.step = Steps.CreateAssignment
         this.assignmentId = null
         this.inputStore.clear()
@@ -104,14 +105,16 @@ export class AssignmentInput extends React.Component<Props> {
      * @memberof AssignmentInput
      */
     @action.bound
-    async gotoNextStep () {
+    async gotoNextStep() {
         try {
             switch (this.step) {
                 case Steps.CreateAssignment:
-                    const result = await this.inputStore.submit(this.props.selectedCourse.id)
+                    const result = await this.inputStore.submit(
+                        this.props.selectedCourse.id
+                    )
                     this.assignmentId = result.id
                     this.step = Steps.CreateReplyForm
-                    
+
                     // 順便更新一下 assignment 列表
                     this.props.selectedCourse.fetchAssignments()
                     break
@@ -134,7 +137,7 @@ export class AssignmentInput extends React.Component<Props> {
      * @memberof AssignmentInput
      */
     @action.bound
-    handleCancel () {
+    handleCancel() {
         // TODO: 把第一步新增的 assignment 刪掉？
         this.reset()
         this.props.onRequestClose()
@@ -145,15 +148,16 @@ export class AssignmentInput extends React.Component<Props> {
      * @memberof AssignmentInput
      */
     @action.bound
-    handleFinish () {
+    handleFinish() {
         this.reset()
         this.props.onRequestClose()
     }
 
     @action.bound
-    async createForm (type: 'reply' | 'assignment') {
+    async createForm(type: 'reply' | 'assignment') {
         if (this.assignmentId == null) return
-        const response = await this.props.api.post('forms/create')
+        const response = await this.props.api
+            .post('forms/create')
             .auth(this.props.auth.token)
             .send({
                 type: 'reply',
@@ -163,24 +167,28 @@ export class AssignmentInput extends React.Component<Props> {
         this.iframeUrl = response.body.url
     }
 
-    render () {
-        return <Dialog
+    render() {
+        return (
+            <Dialog
                 title="新增作業"
                 actions={this.renderActionList()}
                 modal={false}
                 open={this.props.open}
                 onRequestClose={this.props.onRequestClose}
-                autoScrollBodyContent={true}>
-            {this.renderSteps()}
-            {this.renderContent()}
-    
-            <IframeDialog
+                autoScrollBodyContent={true}
+            >
+                {this.renderSteps()}
+                {this.renderContent()}
+
+                <IframeDialog
                     open={this.iframeUrl != null}
                     src={this.iframeUrl}
-                    onRequestClose={() => this.iframeUrl = null}>
-                <p>請記得在關閉前先送出您的問卷</p>
-            </IframeDialog>
-        </Dialog>
+                    onRequestClose={() => (this.iframeUrl = null)}
+                >
+                    <p>請記得在關閉前先送出您的問卷</p>
+                </IframeDialog>
+            </Dialog>
+        )
     }
 
     /**
@@ -188,7 +196,7 @@ export class AssignmentInput extends React.Component<Props> {
      * @returns {React.ReactNode[]} 
      * @memberof AssignmentInput
      */
-    renderActionList (): React.ReactNode[] {
+    renderActionList(): React.ReactNode[] {
         if (this.step != Steps.Finished) {
             return [
                 <FlatButton
@@ -201,7 +209,7 @@ export class AssignmentInput extends React.Component<Props> {
                     primary={true}
                     keyboardFocused={true}
                     onTouchTap={this.gotoNextStep}
-                />,
+                />
             ]
         } else {
             return [
@@ -219,21 +227,23 @@ export class AssignmentInput extends React.Component<Props> {
      * @returns 
      * @memberof AssignmentInput
      */
-    renderSteps () {
-        return <Stepper activeStep={this.step}>
-            <Step>
-                <StepLabel>輸入作業資訊</StepLabel>
-            </Step>
-            <Step>
-                <StepLabel>新增互評問卷</StepLabel>
-            </Step>
-            <Step>
-                <StepLabel>新增作業評鑑</StepLabel>
-            </Step>
-            <Step>
-                <StepLabel>完成！</StepLabel>
-            </Step>
-        </Stepper>
+    renderSteps() {
+        return (
+            <Stepper activeStep={this.step}>
+                <Step>
+                    <StepLabel>輸入作業資訊</StepLabel>
+                </Step>
+                <Step>
+                    <StepLabel>新增互評問卷</StepLabel>
+                </Step>
+                <Step>
+                    <StepLabel>新增作業評鑑</StepLabel>
+                </Step>
+                <Step>
+                    <StepLabel>完成！</StepLabel>
+                </Step>
+            </Stepper>
+        )
     }
 
     /**
@@ -241,14 +251,24 @@ export class AssignmentInput extends React.Component<Props> {
      * @returns 
      * @memberof AssignmentInput
      */
-    renderContent () {
+    renderContent() {
         switch (this.step) {
             case Steps.CreateAssignment:
                 return <CreateAssignment inputStore={this.inputStore} />
             case Steps.CreateReplyForm:
-                return <FlatButton onTouchTap={() => this.createForm('reply')}>點此新增互評問卷</FlatButton>
+                return (
+                    <FlatButton onTouchTap={() => this.createForm('reply')}>
+                        點此新增互評問卷
+                    </FlatButton>
+                )
             case Steps.CreateAssignmentForm:
-                return <FlatButton onTouchTap={() => this.createForm('assignment')}>點此新增作業評鑑</FlatButton>
+                return (
+                    <FlatButton
+                        onTouchTap={() => this.createForm('assignment')}
+                    >
+                        點此新增作業評鑑
+                    </FlatButton>
+                )
             case Steps.Finished:
                 return '新☆增☆大☆成☆功！！！'
             default:

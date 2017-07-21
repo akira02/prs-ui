@@ -1,5 +1,5 @@
-import {types} from 'mobx-state-tree'
-import {observable, action} from 'mobx'
+import { types } from 'mobx-state-tree'
+import { observable, action } from 'mobx'
 
 /**
  * 用來設定通知右邊的按鈕
@@ -36,7 +36,7 @@ export const MessageModel = types.model(
          * @param {string} text 通知文字
          * @param {(Action | null)} [action=null] 點下通知右邊按鈕後要執行的動作
          */
-        show (text: string, action: Action | null = null) {
+        show(text: string, action: Action | null = null) {
             this.open = true
             this.text = text
             this.isError = false
@@ -48,17 +48,16 @@ export const MessageModel = types.model(
          * @param {string} text 通知文字
          * @param {(Action | null)} [action=null] 點下通知右邊按鈕後要執行的動作
          */
-        error (text: string, action: Action | null = null) {
+        error(text: string, action: Action | null = null) {
             this.open = true
             this.text = text
             this.isError = true
             this.action = action
         },
 
-        close () {
+        close() {
             this.open = false
         }
-
     }
 )
 

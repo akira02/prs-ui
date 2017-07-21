@@ -1,9 +1,9 @@
-import { types, getEnv, getRoot } from 'mobx-state-tree' 
+import { types, getEnv, getRoot } from 'mobx-state-tree'
 import { RootStore } from './RootStore'
 import { SubmissionModel, Submission } from './Submission'
 import { AttachmentModel, Attachment } from './Attachment'
 
-import {updateMap} from './update-map'
+import { updateMap } from './update-map'
 
 export const AssignmentModel = types.model(
     'Assignment',
@@ -18,30 +18,32 @@ export const AssignmentModel = types.model(
 
         attachments: types.array(AttachmentModel),
 
-        get forms (): Attachment[] {
-            return this.attachments
-                .filter(attachment => attachment.type === 'form')
+        get forms(): Attachment[] {
+            return this.attachments.filter(
+                attachment => attachment.type === 'form'
+            )
         },
 
         course: types.model({
             id: types.string,
-            name: types.string,
+            name: types.string
         }),
 
-        submissions: types.optional(types.map(SubmissionModel), {}),
+        submissions: types.optional(types.map(SubmissionModel), {})
     },
     {
-        async fetchSubmissions () {
-            const {api} = getEnv(this)
-            const {auth} = getRoot<RootStore>(this)
+        async fetchSubmissions() {
+            const { api } = getEnv(this)
+            const { auth } = getRoot<RootStore>(this)
 
-            const response = await api.get('submissions')
+            const response = await api
+                .get('submissions')
                 .query({ assignment_id: this.id })
                 .auth(auth.token)
 
             this.updateSubmissions(response.body.submissions)
         },
-        updateSubmissions (submissions: any[]) {
+        updateSubmissions(submissions: any[]) {
             updateMap(this.submissions, submissions)
         }
     }

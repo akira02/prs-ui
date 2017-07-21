@@ -10,14 +10,14 @@ export interface Props {
     [x: string]: any
 }
 
-const StyledIframe = styled.iframe`
-    /* TODO: add some css here */
-`
+const StyledIframe = styled.iframe`/* TODO: add some css here */`
 
 export const IframeDialog = (props: Props) => {
-    const {src, children, ...rest} = props
-    return <Dialog {...rest}>
-        {children}
-        {props.open ? <StyledIframe src={src}></StyledIframe> : null}
-    </Dialog>
+    const { src, children, ...rest } = props
+    return (
+        <Dialog {...rest}>
+            {children}
+            {props.open ? <StyledIframe src={src} /> : null}
+        </Dialog>
+    )
 }

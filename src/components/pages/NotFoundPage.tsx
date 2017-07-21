@@ -1,6 +1,6 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import {Page} from './Page'
+import { Page } from './Page'
 
 export const NotFoundPage = styled(Page)`
     background-color: black !important;

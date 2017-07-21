@@ -28,17 +28,20 @@ interface Props {
  * @class PageSwitch
  * @extends {React.Component<Props>}
  */
-@inject('viewStore') @observer
+@inject('viewStore')
+@observer
 export class PageSwitch extends React.Component<Props> {
-    render () {
-        return <PageContainer>
-            <SlideTransition>
-                {this.renderPage(this.props.viewStore.page)}
-            </SlideTransition>
-        </PageContainer>
+    render() {
+        return (
+            <PageContainer>
+                <SlideTransition>
+                    {this.renderPage(this.props.viewStore.page)}
+                </SlideTransition>
+            </PageContainer>
+        )
     }
 
-    renderPage (page: PageData.PageData | null): React.ReactNode {
+    renderPage(page: PageData.PageData | null): React.ReactNode {
         if (page == null) return this.renderEmptyPage()
 
         switch (page.name) {
@@ -52,10 +55,10 @@ export class PageSwitch extends React.Component<Props> {
                 return <NotFoundPage key="notFound" />
             default:
                 return this.renderEmptyPage()
-        }   
+        }
     }
 
-    renderEmptyPage () {
+    renderEmptyPage() {
         return <EmptyPage key="empty" />
     }
 }

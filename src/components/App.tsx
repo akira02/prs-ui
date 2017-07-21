@@ -1,5 +1,5 @@
 import * as React from 'react'
-import styled, {injectGlobal} from 'styled-components'
+import styled, { injectGlobal } from 'styled-components'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { theme } from '../theme'
 
@@ -31,12 +31,14 @@ const AppWrapper = styled.div`
  * @extends {React.Component}
  */
 export class App extends React.Component {
-    render () {
-        return <MuiThemeProvider muiTheme={theme}>
-            <AppWrapper>
-                <PageSwitch />
-                <MessageBar />
-            </AppWrapper>
-        </MuiThemeProvider>
+    render() {
+        return (
+            <MuiThemeProvider muiTheme={theme}>
+                <AppWrapper>
+                    <PageSwitch />
+                    <MessageBar />
+                </AppWrapper>
+            </MuiThemeProvider>
+        )
     }
 }

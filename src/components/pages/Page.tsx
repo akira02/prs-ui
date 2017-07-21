@@ -1,6 +1,6 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import {defaultProps} from 'recompose'
+import { defaultProps } from 'recompose'
 import Paper from 'material-ui/Paper'
 
 const StyledPaper = styled<any>(Paper)`
@@ -14,8 +14,5 @@ const StyledPaper = styled<any>(Paper)`
     -webkit-overflow-scrolling: touch;
 `
 
-export const Page = (props) => 
-    <StyledPaper
-        transitionEnabled={false}
-        rounded={true}
-        {...props} />
+export const Page = props =>
+    <StyledPaper transitionEnabled={false} rounded={true} {...props} />

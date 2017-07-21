@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {injectGlobal} from 'styled-components'
+import { injectGlobal } from 'styled-components'
 import { observable, action } from 'mobx'
 import { inject, observer } from 'mobx-react'
 
@@ -15,8 +15,8 @@ import { AssignmentInput } from './AssignmentInput'
 import { SubmissionList } from './SubmissionList'
 import { SubmissionListBackground } from './SubmissionListBackground'
 
-import {History} from '../../../stores/History'
-import {ViewStore} from '../../../stores/ui/ViewStore'
+import { History } from '../../../stores/History'
+import { ViewStore } from '../../../stores/ui/ViewStore'
 import * as PageData from '../../../stores/ui/PageData'
 
 export interface Props {
@@ -24,80 +24,100 @@ export interface Props {
     viewStore?: ViewStore
 }
 
-@inject('history', 'viewStore') @observer
+@inject('history', 'viewStore')
+@observer
 export class AssignmentsPage extends React.Component<Props> {
     @observable dialogOpen = false
 
     @action.bound
-    openDialog () {
+    openDialog() {
         this.dialogOpen = true
     }
 
     @action.bound
-    closeDialog () {
+    closeDialog() {
         this.dialogOpen = false
     }
 
     @action.bound
-    closeSubmissionList () {
-        const {history, viewStore} = this.props
+    closeSubmissionList() {
+        const { history, viewStore } = this.props
         const page = this.props.viewStore.page as PageData.AssignmentListPage
-        this.props.history.push(`/courses/${page.selectedCourse.id}/assignments`)
+        this.props.history.push(
+            `/courses/${page.selectedCourse.id}/assignments`
+        )
     }
 
-    render () {
-        const {viewStore} = this.props
-        const {selectedCourse, showSubmissions} = viewStore.page as PageData.AssignmentListPage
-        
-        return <Page>
-            <AssignmentCardContainer>
-                {
-                    selectedCourse.assignments.values().map(assignment =>
-                        <AssignmentCard key={assignment.id} assignment={assignment} />
-                    )
-                }
-            </AssignmentCardContainer>
+    render() {
+        const { viewStore } = this.props
+        const {
+            selectedCourse,
+            showSubmissions
+        } = viewStore.page as PageData.AssignmentListPage
 
-            <CSSTransitionGroup
-                transitionName="submission-list-background"
-                transitionEnterTimeout={500}
-                transitionLeaveTimeout={500} >
+        return (
+            <Page>
+                <AssignmentCardContainer>
+                    {selectedCourse.assignments
+                        .values()
+                        .map(assignment =>
+                            <AssignmentCard
+                                key={assignment.id}
+                                assignment={assignment}
+                            />
+                        )}
+                </AssignmentCardContainer>
 
-                {showSubmissions ? this.renderSubmissionListBackground() : null}
-            </CSSTransitionGroup>
-            
-            <CSSTransitionGroup
-                transitionName="submission-list"
-                transitionEnterTimeout={500}
-                transitionLeaveTimeout={500} >
+                <CSSTransitionGroup
+                    transitionName="submission-list-background"
+                    transitionEnterTimeout={500}
+                    transitionLeaveTimeout={500}
+                >
+                    {showSubmissions
+                        ? this.renderSubmissionListBackground()
+                        : null}
+                </CSSTransitionGroup>
 
-                {showSubmissions ? this.renderSubmissionList() : null}
-            </CSSTransitionGroup>
+                <CSSTransitionGroup
+                    transitionName="submission-list"
+                    transitionEnterTimeout={500}
+                    transitionLeaveTimeout={500}
+                >
+                    {showSubmissions ? this.renderSubmissionList() : null}
+                </CSSTransitionGroup>
 
-            <FixedButton onTouchTap={this.openDialog}>
-                <ContentAdd />
-            </FixedButton>
+                <FixedButton onTouchTap={this.openDialog}>
+                    <ContentAdd />
+                </FixedButton>
 
-            <AssignmentInput
-                selectedCourse={selectedCourse}
-                open={this.dialogOpen}
-                onRequestClose={this.closeDialog} />
-        </Page>
+                <AssignmentInput
+                    selectedCourse={selectedCourse}
+                    open={this.dialogOpen}
+                    onRequestClose={this.closeDialog}
+                />
+            </Page>
+        )
     }
 
-    renderSubmissionListBackground () {
-        return <SubmissionListBackground
-            key="submission-list-background"
-            onClick={this.closeSubmissionList} />
+    renderSubmissionListBackground() {
+        return (
+            <SubmissionListBackground
+                key="submission-list-background"
+                onClick={this.closeSubmissionList}
+            />
+        )
     }
 
-    renderSubmissionList () {
-        const {viewStore} = this.props
-        const {selectedAssignment} = viewStore.page as PageData.AssignmentPage
-        
-        return <SubmissionList
-            key="submission-list"
-            selectedAssignment={selectedAssignment} />
+    renderSubmissionList() {
+        const { viewStore } = this.props
+        const { selectedAssignment } = viewStore.page as PageData.AssignmentPage
+
+        return (
+            <SubmissionList
+                key="submission-list"
+                selectedAssignment={selectedAssignment}
+            />
+        )
     }
 }
 

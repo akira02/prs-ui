@@ -1,8 +1,8 @@
-import {types, getEnv, getRoot} from 'mobx-state-tree'
-import {RootStore} from './RootStore'
-import {CourseModel} from './Course'
+import { types, getEnv, getRoot } from 'mobx-state-tree'
+import { RootStore } from './RootStore'
+import { CourseModel } from './Course'
 
-import {updateMap} from './update-map'
+import { updateMap } from './update-map'
 
 /**
  * 儲存所有 Course
@@ -13,15 +13,14 @@ export const CourseStoreModel = types.model(
         courses: types.optional(types.map(CourseModel), {})
     },
     {
-        async fetch () {
-            const {api} = getEnv(this)
-            const {auth} = getRoot<RootStore>(this)
+        async fetch() {
+            const { api } = getEnv(this)
+            const { auth } = getRoot<RootStore>(this)
 
-            const response = await api.get('courses')
-                .auth(auth.token)
+            const response = await api.get('courses').auth(auth.token)
             this.updateCourses(response.body.courses)
         },
-        updateCourses (courses: any[]) {
+        updateCourses(courses: any[]) {
             updateMap(this.courses, courses)
         }
     }
