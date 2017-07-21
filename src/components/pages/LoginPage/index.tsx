@@ -21,8 +21,8 @@ interface Props {
 export class LoginPage extends React.Component<Props> {
     private dispose: () => void
 
-    @observable username: string
-    @observable password: string
+    @observable username: string = ''
+    @observable password: string = ''
 
     @action.bound
     async onSubmit (event) {

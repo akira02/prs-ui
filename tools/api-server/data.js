@@ -20,6 +20,8 @@ const submissions = generateSubmissions(assignments, students)
 
 exports.db = { courses, assignments, submissions }
 
+exports.courseStudentMap = generateCourseStudentMap(courses, students)
+
 function generateUsers (role) {
     const result = []
 
@@ -39,7 +41,6 @@ function generateCourses (teachers, students) {
 
     for (let i = 0; i < 10; ++i) {
         const teacher = _.sample(teachers)
-        const studentSample = _.sampleSize(students, _.random(20, 200))
 
         result.push({
             id: shortid.generate(),
@@ -50,11 +51,19 @@ function generateCourses (teachers, students) {
                 id: teacher.id,
                 name: teacher.name,
             },
-            students: studentSample,
             attachments: generateAttachments()
         })
     }
 
+    return result
+}
+
+function generateCourseStudentMap (courses, students) {
+    const result = new Map()
+    for (let {id} of courses) {
+        const studentSample = _.sampleSize(students, _.random(20, 200))
+        result.set(id, studentSample)
+    }
     return result
 }
 

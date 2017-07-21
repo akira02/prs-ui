@@ -4,10 +4,10 @@ import {observer} from 'mobx-react'
 import {Page} from '../Page'
 import {UserCard} from './UserCard'
 
-import {CourseStore} from '../../../stores/CourseStore'
+import {Course} from '../../../stores/Course'
 
 export interface Props {
-    selectedCourse: CourseStore
+    selectedCourse: Course
 }
 
 @observer

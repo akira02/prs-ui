@@ -6,12 +6,12 @@ import {inject, observer} from 'mobx-react'
 import {Page} from '../Page'
 import {SubmissionCard} from './SubmissionCard'
 
-import {AssignmentStore} from '../../../stores/AssignmentStore'
+import {Assignment} from '../../../stores/Assignment'
 
 import './style.css'
 
 export interface Props {
-    selectedAssignment: AssignmentStore | null
+    selectedAssignment: Assignment | null
 }
 
 @observer
@@ -23,7 +23,7 @@ export class SubmissionList extends React.Component<Props> {
             {
                 selectedAssignment == null || selectedAssignment.submissions == null
                     ? 'Loading!!!'
-                    : selectedAssignment.submissions.map(submission =>
+                    : selectedAssignment.submissions.values().map(submission =>
                         <SubmissionCard key={submission.id} submission={submission} />
                     )
             }

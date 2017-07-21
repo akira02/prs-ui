@@ -5,25 +5,25 @@ import {inject, observer} from 'mobx-react'
 import {Page} from '../Page'
 import {CourseCard} from './CourseCard'
 
-import {CourseMap} from '../../../stores/CourseMap'
 import {CourseStore} from '../../../stores/CourseStore'
+import {Course} from '../../../stores/Course'
 import './style.css'
 
 export interface Props {
-    courseMap?: CourseMap
+    courseStore?: CourseStore
 }
 
-@inject('courseMap') @observer
+@inject('courseStore') @observer
 export class CourseListPage extends React.Component<Props> {
-    @computed get sortedCourses (): CourseStore[] {
-        return this.props.courseMap.courseStores.values()
-            .sort((a, b) => a.course.name.localeCompare(b.course.name))
+    @computed get sortedCourses (): Course[] {
+        return this.props.courseStore.courses.values().slice()
+            .sort((a, b) => a.name.localeCompare(b.name))
     }
     render () {
         return <Page>
             {
-                this.sortedCourses.map(store =>
-                    <CourseCard key={store.course.id} store={store}/>
+                this.sortedCourses.map(course =>
+                    <CourseCard key={course.id} course={course}/>
                 )
             }
         </Page>

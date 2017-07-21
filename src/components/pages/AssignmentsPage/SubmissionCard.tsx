@@ -2,7 +2,7 @@ import * as React from 'react'
 import {observer} from 'mobx-react'
 import {Card, CardHeader, CardText} from 'material-ui/Card'
 
-import {Submission} from '../../../models/Submission'
+import {Submission} from '../../../stores/Submission'
 
 interface Props {
     submission: Submission

@@ -2,32 +2,27 @@ import * as React from 'react'
 import {observable, computed, action} from 'mobx'
 import {inject, observer} from 'mobx-react'
 
-
 import {List, ListItem, makeSelectable} from 'material-ui/List'
 
 import {History} from '../../../../stores/History'
-import {CourseMap} from '../../../../stores/CourseMap'
 import {CourseStore} from '../../../../stores/CourseStore'
+import {Course} from '../../../../stores/Course'
 
 const SelectableList = makeSelectable(List)
 
 interface Props {
-    selectedCourse: CourseStore | null
+    selectedCourse: Course | null
     history?: History
-    courseMap?: CourseMap
+    courseStore?: CourseStore
 }
 
-@inject('history', 'courseMap') @observer
+@inject('history', 'courseStore') @observer
 export class CourseSelect extends React.Component<Props> {
     @observable open: boolean = false
 
-    @computed get sortedCourses (): CourseStore[] {
-        return this.props.courseMap.courseStores.values()
-            .sort((a, b) => a.course.name.localeCompare(b.course.name))
-    }
-
-    componentDidMount () {
-        this.props.courseMap.fetch()
+    @computed get sortedCourses (): Course[] {
+        return this.props.courseStore.courses.values()
+            .sort((a, b) => a.name.localeCompare(b.name))
     }
 
     @action.bound
@@ -43,7 +38,7 @@ export class CourseSelect extends React.Component<Props> {
     }
 
     render () {
-        const {selectedCourse, courseMap} = this.props
+        const {selectedCourse, courseStore} = this.props
 
         return <SelectableList value={selectedCourse} onChange={this.handleSelect}>
             <ListItem
@@ -51,10 +46,13 @@ export class CourseSelect extends React.Component<Props> {
                 value={null}
                 onNestedListToggle={this.handleToggle}
                 onTouchTap={this.handleToggle}
-                primaryText={selectedCourse && selectedCourse.course.name}
+                primaryText={selectedCourse && selectedCourse.name}
                 nestedItems={
-                    this.sortedCourses.map(store =>
-                        <ListItem key={store.course.id} value={store.course.id} primaryText={store.course.name} />
+                    this.sortedCourses.map(course =>
+                        <ListItem
+                            key={course.id}
+                            value={course.id}
+                            primaryText={course.name} />
                     )
                 } />
         </SelectableList>

@@ -5,12 +5,12 @@ import {inject, observer} from 'mobx-react'
 import {List, ListItem, makeSelectable} from 'material-ui/List'
 
 import {History} from '../../../../stores/History'
-import {CourseStore} from '../../../../stores/CourseStore'
+import {Course} from '../../../../stores/Course'
 
 const SelectableList = makeSelectable(List)
 
 interface Props {
-    selectedCourse: CourseStore
+    selectedCourse: Course
 
     // injected props
     history?: History
@@ -28,7 +28,7 @@ export class SubPageSelect extends React.Component<Props> {
     }
 
     @computed get prefix (): string {
-        const courseId = this.props.selectedCourse.course.id
+        const courseId = this.props.selectedCourse.id
         return `/courses/${courseId}`
     }
 

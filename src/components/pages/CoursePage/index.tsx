@@ -10,7 +10,7 @@ import {FormsPage} from '../FormsPage'
 import {StudentsPage} from '../StudentsPage'
 import {EmptyPage} from '../EmptyPage'
 
-import * as PageStore from '../../../stores/ui/PageStore'
+import * as PageData from '../../../stores/ui/PageData'
 import {ViewStore} from '../../../stores/ui/ViewStore'
 
 import "./style.css"
@@ -22,7 +22,7 @@ interface Props {
 @inject('viewStore') @observer
 export class CoursePage extends React.Component<Props> {
     render () {
-        const page = this.props.viewStore.page as PageStore.Course
+        const page = this.props.viewStore.page as PageData.CoursePage
         return <Page className="course-page">
             <SideMenu />
 
@@ -34,7 +34,7 @@ export class CoursePage extends React.Component<Props> {
         </Page>
     }
 
-    renderSubPage ({subPage, selectedCourse}: PageStore.Course): React.ReactNode {
+    renderSubPage ({subPage, selectedCourse}: PageData.CoursePage): React.ReactNode {
         if (selectedCourse == null) {
             // still loading course list
             return <EmptyPage key="empty" />

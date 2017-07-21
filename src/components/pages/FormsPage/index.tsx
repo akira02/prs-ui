@@ -5,10 +5,10 @@ import {observer} from 'mobx-react'
 import {Page} from '../Page'
 import {List, ListItem} from 'material-ui/List'
 import {IframeDialog} from '../../IframeDialog'
-import {CourseStore} from '../../../stores/CourseStore'
+import {Course} from '../../../stores/Course'
 
 export interface Props {
-    selectedCourse: CourseStore
+    selectedCourse: Course
 }
 
 @observer
