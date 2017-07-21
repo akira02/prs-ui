@@ -1,21 +1,32 @@
 import {ObservableMap} from 'mobx'
-import {getSnapshot} from 'mobx-state-tree'
+import {getSnapshot, applySnapshot} from 'mobx-state-tree'
 
-export function updateMap (map: ObservableMap<any>, newValues: object & {id: string}[]) {
-    const ids = new Set(newValues.map(value => value.id))
+/**
+ * 用新的項目列表更新 map 中的值
+ * 刪除不見的項目, 新增新的項目, 更新原有項目的值
+ * @param {ObservableMap<any>} target 要更新的 map
+ * @param {(object & {id: string}[])} newValues 新的項目列表 
+ */
+export function updateMap (target: ObservableMap<any>, newValues: object & {id: string}[]) {
+    const newIds = new Set(newValues.map(value => value.id))
 
-    for (let key of map.keys()) {
-        if (!ids.has(key)) {
-            map.delete(key)
+    // 刪除新列表中沒有的項目
+    for (let id of target.keys()) {
+        if (!newIds.has(id)) {
+            target.delete(id)
         }
     }
 
     for (let value of newValues) {
-        if (map.has(value.id)) {
-            const snapshot = getSnapshot(map.get(value.id))
-            map.set(value.id, {...snapshot, ...value})
+        const currentValue = target.get(value.id)
+        if (currentValue != null) {
+            const currentSnpshot = getSnapshot(currentValue)
+            applySnapshot(currentValue, {
+                ...currentSnpshot,
+                ...value
+            })
         } else {
-            map.set(value.id, value)
+            target.set(value.id, value)
         }
     }
 }
