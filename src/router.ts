@@ -1,6 +1,10 @@
 import Router from 'universal-router'
 import {RootStore} from './stores/RootStore'
 
+/**
+ * 用來指示 router 重導向的 class
+ * 以 throw 傳遞給 router
+ */
 export class Redirect {
     constructor (
         public action: 'push' | 'replace',
@@ -9,6 +13,7 @@ export class Redirect {
     ) {}
 }
 
+/** 創造一個 router */
 export function createRouter (routes: Route[]): Router {
     return new Router(routes, {
         context: {
@@ -30,6 +35,7 @@ export function createRouter (routes: Route[]): Router {
     })
 }
 
+/** 執行 router */
 export async function runRouter (router: Router, context: Partial<Context>) {
     const {stores} = context
     try {
@@ -59,15 +65,30 @@ function handleRedirect (redirect: Redirect, stores: RootStore) {
 }
 
 interface Context {
-    params: any,
     stores: RootStore,
-    next: Function,
+
+    /**
+     * universal-router 提供的東西
+     * 從 url 比對來的各個變數
+     */
+    params: any,
+
+    /**
+     * universal-router 提供的東西
+     * 在 action 中呼叫可以讓 router 繼續往下比對 route, 並返回結果
+     */
+    next: (resume?: boolean) => Promise<any>,
+
+    /**
+     * 方便寫重導向用的 helper, 產生一個 Redirect 並 throw 出去
+     */
     redirect: {
         push (path: string, state?: any): never
         replace (path: string, state?: any): never
     }
 }
 
+/** 比對到 route 之後要執行的動作 */
 type Action = (ctx: Context) => Promise<any> | any
 
 /**
