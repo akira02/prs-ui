@@ -8,7 +8,14 @@ export const routes: Route[] = [
     },
     {
         path: '/login',
-        action: () => ({ name: 'login' })
+        action ({stores}) {
+            const state = stores.history.location.state || {}
+            return {
+                name: 'login',
+                goBack: state.goBack,
+                nextPage: state.nextPage
+            }
+        }
     },
     {
         path: '/courses',

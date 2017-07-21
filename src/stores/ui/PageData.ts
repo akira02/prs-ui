@@ -9,7 +9,9 @@ import { AssignmentModel } from '../Assignment'
 const LoginPageModel = types.model(
     'LoginPage',
     {
-        name: types.literal('login')
+        name: types.literal('login'),
+        goBack: false,
+        nextPage: '/'
     },
     {
         afterCreate() {
@@ -22,15 +24,10 @@ const LoginPageModel = types.model(
                     'isLoggedIn',
                     () => auth.isLoggedIn,
                     () => {
-                        // 從 history api 的 `state` 決定登入完要去哪裡
-                        const { goBack = false, nextPage = '/' } =
-                            history.location.state || {}
-
-                        if (goBack) {
-                            // 如果 state 有指定 goBack, 回到上一頁
+                        if (this.goBack) {
                             history.goBack()
                         } else {
-                            history.push(nextPage)
+                            history.push(this.nextPage)
                         }
                     }
                 )
