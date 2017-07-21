@@ -34,8 +34,6 @@ render(
     document.getElementById('root')
 )
 
-/**
- * 為了 debug 方便, 把一些東西掛到 window 上
- */
+// 為了 debug 方便, 把一些東西掛到 window 上
 window['stores'] = stores
 window['api'] = api
