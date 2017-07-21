@@ -1,5 +1,5 @@
 import { types } from 'mobx-state-tree'
-import { observable, action } from 'mobx'
+import { observable, action, IObservableValue } from 'mobx'
 
 /**
  * 用來設定通知右邊的按鈕
@@ -12,7 +12,7 @@ export interface Action {
      * @type {string}
      * @memberof Action
      */
-    name: string
+    readonly name: string
 
     /**
      * 被點之後要執行的動作
@@ -25,12 +25,21 @@ export interface Action {
 export const MessageModel = types.model(
     'Message',
     {
-        action: types.optional(types.frozen, null),
         text: '',
         isError: false,
-        open: false
+        open: false,
+        get action (): Action {
+            return this.actionBox.get()
+        }
     },
     {
+        actionBox: null as IObservableValue<Action | null>
+    },
+    {
+        afterCreate () {
+            this.actionBox = observable.shallowBox(null)
+        },
+
         /**
          * 顯示一般通知
          * @param {string} text 通知文字
@@ -40,7 +49,7 @@ export const MessageModel = types.model(
             this.open = true
             this.text = text
             this.isError = false
-            this.action = action
+            this.actionBox.set(action)
         },
 
         /**
@@ -52,7 +61,7 @@ export const MessageModel = types.model(
             this.open = true
             this.text = text
             this.isError = true
-            this.action = action
+            this.actionBox.set(action)
         },
 
         close() {
