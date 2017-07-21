@@ -1,10 +1,10 @@
-import {Route} from './router'
+import { Route } from './router'
 
 /** 定義所有路徑 */
-export const routes: Route[] =[
+export const routes: Route[] = [
     {
         path: '/',
-        action: ({redirect}) => redirect.replace('/courses')
+        action: ({ redirect }) => redirect.replace('/courses')
     },
     {
         path: '/login',
@@ -18,7 +18,7 @@ export const routes: Route[] =[
     {
         path: '/courses/:courseId',
         requireLogin: true,
-        async action ({params, next}) {
+        async action({ params, next }) {
             const child = await next()
             return {
                 name: 'course',
@@ -29,19 +29,19 @@ export const routes: Route[] =[
         children: [
             {
                 path: '/',
-                action: ({params, redirect}) =>
+                action: ({ params, redirect }) =>
                     redirect.replace(`/courses/${params.courseId}/assignments`)
             },
             {
                 path: '/assignments',
                 action: () => ({
                     subPage: 'assignmentList',
-                    showSubmissions: false,
+                    showSubmissions: false
                 })
             },
             {
                 path: '/assignments/:assignmentId',
-                action: ({params}) => ({
+                action: ({ params }) => ({
                     subPage: 'assignmentList',
                     showSubmissions: true,
                     assignmentId: params.assignmentId
@@ -50,15 +50,15 @@ export const routes: Route[] =[
             {
                 path: '/forms',
                 action: () => ({
-                    subPage: 'formList',
+                    subPage: 'formList'
                 })
             },
             {
                 path: '/students',
-                action: ({params}) => ({
+                action: ({ params }) => ({
                     subPage: 'studentList'
                 })
-            },
+            }
         ]
     },
     {

@@ -7,8 +7,8 @@ import * as isObject from 'isobject'
  * 因為 server 回傳的 json 裡目前只有 _id 沒有 id 所以需要這個
  * @param {superagent.SuperAgentRequest} req 
  */
-function coolIdHack (req: superagent.SuperAgentRequest) {
-    function visit (value: any) {
+function coolIdHack(req: superagent.SuperAgentRequest) {
+    function visit(value: any) {
         if (isObject(value)) {
             for (let key in value) {
                 visit(value[key])
@@ -21,7 +21,7 @@ function coolIdHack (req: superagent.SuperAgentRequest) {
             value.forEach(visit)
         }
     }
-    req.parse((response) => {
+    req.parse(response => {
         const data = JSON.parse(response.text)
         visit(data)
         return data
@@ -40,7 +40,7 @@ interface ApiRequest extends superagent.SuperAgentRequest {
      * @returns {this} 
      * @memberof ApiRequest
      */
-    auth (token: string | null): this
+    auth(token: string | null): this
 
     /**
      * superagent 原本的 auth 方法
@@ -49,7 +49,7 @@ interface ApiRequest extends superagent.SuperAgentRequest {
      * @returns {this} 
      * @memberof ApiRequest
      */
-    auth (user: string, name: string): this
+    auth(user: string, name: string): this
 }
 
 /**
@@ -61,10 +61,10 @@ export const api = {
      * @param pathname
      * @returns A superagent Request object with custom auth method
      */
-    get (pathname: string): ApiRequest {
+    get(pathname: string): ApiRequest {
         const request = superagent.get(API_BASE + pathname) as ApiRequest
 
-        request.auth = function (token: string | null) {
+        request.auth = function(token: string | null) {
             if (token != null) {
                 this.set('Authorization', token)
             }
@@ -81,10 +81,10 @@ export const api = {
      * @param pathname
      * @returns A superagent Request object with custom auth method
      */
-    post (pathname: string) {
+    post(pathname: string) {
         const request = superagent.post(API_BASE + pathname) as ApiRequest
 
-        request.auth = function (token: string | null) {
+        request.auth = function(token: string | null) {
             if (token != null) {
                 this.set('Authorization', token)
             }
@@ -92,7 +92,7 @@ export const api = {
         }
 
         request.type('form')
-        
+
         request.use(coolIdHack)
 
         return request

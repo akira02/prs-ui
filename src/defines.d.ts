@@ -5,4 +5,3 @@
  * 由 webpack.config.js 注入
  */
 declare const API_BASE: string
-

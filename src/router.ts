@@ -1,12 +1,12 @@
 import Router from 'universal-router'
-import {RootStore} from './stores/RootStore'
+import { RootStore } from './stores/RootStore'
 
 /**
  * 用來指示 router 重導向的 class
  * 以 throw 傳遞給 router
  */
 export class Redirect {
-    constructor (
+    constructor(
         public action: 'push' | 'replace',
         public path: string,
         public state?: any
@@ -14,19 +14,19 @@ export class Redirect {
 }
 
 /** 創造一個 router */
-export function createRouter (routes: Route[]): Router {
+export function createRouter(routes: Route[]): Router {
     return new Router(routes, {
         context: {
             redirect: {
-                push (path: string, state?: any): never {
+                push(path: string, state?: any): never {
                     throw new Redirect('push', path, state)
                 },
-                replace (path: string, state?: any): never {
+                replace(path: string, state?: any): never {
                     throw new Redirect('replace', path, state)
-                },
+                }
             }
         },
-        resolveRoute (context, params) {
+        resolveRoute(context, params) {
             if (context.route.requireLogin && !context.stores.auth.isLoggedIn) {
                 context.redirect.push('/login', { goBack: true })
             }
@@ -36,8 +36,8 @@ export function createRouter (routes: Route[]): Router {
 }
 
 /** 執行 router */
-export async function runRouter (router: Router, context: Partial<Context>) {
-    const {stores} = context
+export async function runRouter(router: Router, context: Partial<Context>) {
+    const { stores } = context
     try {
         const page = await router.resolve({
             path: stores.history.location.pathname,
@@ -53,7 +53,7 @@ export async function runRouter (router: Router, context: Partial<Context>) {
     }
 }
 
-function handleRedirect (redirect: Redirect, stores: RootStore) {
+function handleRedirect(redirect: Redirect, stores: RootStore) {
     switch (redirect.action) {
         case 'push':
             stores.history.push(redirect.path, redirect.state)
@@ -65,26 +65,26 @@ function handleRedirect (redirect: Redirect, stores: RootStore) {
 }
 
 interface Context {
-    stores: RootStore,
+    stores: RootStore
 
     /**
      * universal-router 提供的東西
      * 從 url 比對來的各個變數
      */
-    params: any,
+    params: any
 
     /**
      * universal-router 提供的東西
      * 在 action 中呼叫可以讓 router 繼續往下比對 route, 並返回結果
      */
-    next: (resume?: boolean) => Promise<any>,
+    next: (resume?: boolean) => Promise<any>
 
     /**
      * 方便寫重導向用的 helper, 產生一個 Redirect 並 throw 出去
      */
     redirect: {
-        push (path: string, state?: any): never
-        replace (path: string, state?: any): never
+        push(path: string, state?: any): never
+        replace(path: string, state?: any): never
     }
 }
 
@@ -119,4 +119,3 @@ export interface Route {
      */
     children?: Route[]
 }
-

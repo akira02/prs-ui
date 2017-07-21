@@ -8,6 +8,5 @@ import {} from 'material-ui/styles/colors'
  * http://www.material-ui.com/#/customization/themes
  */
 export const theme = getMuiTheme({
-    palette: {
-    }
+    palette: {}
 })

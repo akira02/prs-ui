@@ -1,4 +1,4 @@
-const apiServer = require('./api-server') 
+const apiServer = require('./api-server')
 const devServer = require('./dev-server')
 
 devServer.listen(8080)

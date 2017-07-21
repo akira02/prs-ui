@@ -2,7 +2,7 @@ const url = require('url')
 const _ = require('lodash')
 const shortid = require('shortid')
 const jsonServer = require('json-server')
-const {auth, db, courseStudentMap} = require('./data')
+const { auth, db, courseStudentMap } = require('./data')
 
 const server = jsonServer.create()
 const router = jsonServer.router(db)
@@ -12,7 +12,7 @@ server.use(jsonServer.bodyParser)
 
 // handle login request
 server.post('/users/login', (req, res) => {
-    const {name, password} = req.body
+    const { name, password } = req.body
     if (name === auth.username && password === auth.password) {
         res.send({ token: auth.TOKEN })
     } else {
@@ -22,7 +22,9 @@ server.post('/users/login', (req, res) => {
 
 // handle assignment creation
 server.post('/assignments', (req, res) => {
-    const course = db.courses.filter(course => course.id === req.body.course_id)[0]
+    const course = db.courses.filter(
+        course => course.id === req.body.course_id
+    )[0]
 
     if (course == null) {
         res.status('404').send({ success: false })
@@ -74,7 +76,7 @@ router.render = (req, res) => {
     const index = keys.map(key => '/' + key).indexOf(req.path)
     if (req.method == 'GET' && index != -1) {
         res.locals.data = {
-            [ keys[index] ]: res.locals.data
+            [keys[index]]: res.locals.data
         }
     }
     res.json(res.locals.data)

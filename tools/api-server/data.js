@@ -22,7 +22,7 @@ exports.db = { courses, assignments, submissions }
 
 exports.courseStudentMap = generateCourseStudentMap(courses, students)
 
-function generateUsers (role) {
+function generateUsers(role) {
     const result = []
 
     for (let i = 0; i < 500; ++i) {
@@ -36,7 +36,7 @@ function generateUsers (role) {
     return result
 }
 
-function generateCourses (teachers, students) {
+function generateCourses(teachers, students) {
     const result = []
 
     for (let i = 0; i < 10; ++i) {
@@ -49,7 +49,7 @@ function generateCourses (teachers, students) {
             semester: '105-2',
             teacher: {
                 id: teacher.id,
-                name: teacher.name,
+                name: teacher.name
             },
             attachments: generateAttachments()
         })
@@ -58,16 +58,16 @@ function generateCourses (teachers, students) {
     return result
 }
 
-function generateCourseStudentMap (courses, students) {
+function generateCourseStudentMap(courses, students) {
     const result = new Map()
-    for (let {id} of courses) {
+    for (let { id } of courses) {
         const studentSample = _.sampleSize(students, _.random(20, 200))
         result.set(id, studentSample)
     }
     return result
 }
 
-function generateAssignments (courses) {
+function generateAssignments(courses) {
     const result = []
 
     for (let i = 0; i < 100; ++i) {
@@ -91,40 +91,42 @@ function generateAssignments (courses) {
     return result
 }
 
-function generateSubmissions (assignments, students) {
+function generateSubmissions(assignments, students) {
     const result = []
 
     for (let i = 0; i < 1000; ++i) {
         const assignment = _.sample(assignments)
         const student = _.sample(students)
-    
+
         result.push({
             id: shortid.generate(),
             assignment_id: assignment.id,
-            submitted: date(new Date(assignment.assigned).getTime() + _.random(ONE_MONTH)),
+            submitted: date(
+                new Date(assignment.assigned).getTime() + _.random(ONE_MONTH)
+            ),
             username: student.name,
             link: `http://cool-submission-so-cool-so-prs.com/coolpath/${i}`,
-            description: `this is a good submission (${i}), give me an A+, please`,
+            description: `this is a good submission (${i}), give me an A+, please`
         })
     }
 
     return result
 }
 
-function generateAttachments () {
+function generateAttachments() {
     const result = []
 
     for (let i = 0; i < 5; ++i) {
         result.push({
             type: 'form',
             name: `Good Form ${i}`,
-            content: `http://a-good-form-very-good.com.tw/good-form-${i}`,
+            content: `http://a-good-form-very-good.com.tw/good-form-${i}`
         })
     }
 
     return result
 }
 
-function date (time) {
+function date(time) {
     return new Date(time).toISOString()
 }

@@ -1,17 +1,17 @@
 import * as React from 'react'
-import {render} from 'react-dom'
-import {AppContainer} from 'react-hot-loader'
+import { render } from 'react-dom'
+import { AppContainer } from 'react-hot-loader'
 import injectTapEventPlugin from 'react-tap-event-plugin'
-import {autorun} from 'mobx'
-import {Provider} from 'mobx-react'
+import { autorun } from 'mobx'
+import { Provider } from 'mobx-react'
 
-import {RootStoreModel} from './stores/RootStore'
+import { RootStoreModel } from './stores/RootStore'
 
-import {createRouter, runRouter} from './router'
-import {routes} from './routes'
-import {App} from './components/App'
+import { createRouter, runRouter } from './router'
+import { routes } from './routes'
+import { App } from './components/App'
 
-import {api} from './api'
+import { api } from './api'
 
 // material-ui 需要這個東西
 injectTapEventPlugin()
@@ -27,7 +27,7 @@ autorun(async () => {
     await runRouter(router, { stores })
 })
 
-function renderApp (Component: React.ReactType) {
+function renderApp(Component: React.ReactType) {
     render(
         <AppContainer>
             <Provider api={api} {...stores}>
@@ -49,4 +49,3 @@ if (module.hot) {
         renderApp(App)
     })
 }
-
