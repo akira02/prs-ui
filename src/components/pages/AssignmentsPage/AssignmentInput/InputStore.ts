@@ -2,7 +2,7 @@ import {observable, action} from 'mobx'
 
 import {Auth} from '../../../../stores/Auth'
 
-import {api} from '../../../../api'
+import {Api} from '../../../../api'
 
 /**
  * 送出資料後 server 回傳的 json
@@ -20,13 +20,15 @@ export interface Result {
  * @class InputStore
  */
 export class InputStore {
+    private readonly api: Api
     private readonly auth: Auth
 
     @observable name: string = ''
     @observable description: string = ''
     @observable data_link: string = ''
 
-    constructor (auth: Auth) {
+    constructor (api: Api, auth: Auth) {
+        this.api = api
         this.auth = auth
     }
 
@@ -38,7 +40,7 @@ export class InputStore {
      */
     @action.bound
     async submit (courseId: string): Promise<Result> {
-        const response = await api.post('assignments')
+        const response = await this.api.post('assignments')
             .auth(this.auth.token)
             .send({
                 name: this.name,

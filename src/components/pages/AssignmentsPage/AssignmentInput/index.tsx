@@ -14,7 +14,7 @@ import {Auth} from '../../../../stores/Auth'
 import {Course} from '../../../../stores/Course'
 import {InputStore} from './InputStore'
 
-import {api} from '../../../../api'
+import {Api} from '../../../../api'
 
 interface Props {
     /**
@@ -38,6 +38,7 @@ interface Props {
     selectedCourse: Course
 
     // injected props
+    api?: Api
     auth?: Auth
 }
 
@@ -58,13 +59,13 @@ enum Steps {
  * @class AssignmentInput
  * @extends {React.Component<Props>}
  */
-@inject('auth') @observer
+@inject('api', 'auth') @observer
 export class AssignmentInput extends React.Component<Props> {
     /**
      * 用來跟第一步的表單共享資料的 store
      * @memberof AssignmentInput
      */
-    readonly inputStore = new InputStore(this.props.auth)
+    readonly inputStore = new InputStore(this.props.api, this.props.auth)
 
     /**
      * 目前執行到的步驟
@@ -152,7 +153,7 @@ export class AssignmentInput extends React.Component<Props> {
     @action.bound
     async createForm (type: 'reply' | 'assignment') {
         if (this.assignmentId == null) return
-        const response = await api.post('forms/create')
+        const response = await this.props.api.post('forms/create')
             .auth(this.props.auth.token)
             .send({
                 type: 'reply',

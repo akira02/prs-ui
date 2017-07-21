@@ -98,3 +98,5 @@ export const api = {
         return request
     }
 }
+
+export type Api = typeof api

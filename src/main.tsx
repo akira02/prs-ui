@@ -23,11 +23,9 @@ autorun(async () => {
     await runRouter(router, { stores })
 })
 
-/**
- * 將 stores 由 Provider 傳給各 Component
- */
 render(
-    <Provider {...stores}>
+    // 將 api 和 stores 由 Provider 傳給各 Component
+    <Provider api={api} {...stores}>
         <App />
     </Provider>,
     document.getElementById('root')
