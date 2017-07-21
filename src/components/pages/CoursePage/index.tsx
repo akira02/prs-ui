@@ -1,10 +1,14 @@
 import * as React from 'react'
 import {inject, observer} from 'mobx-react'
+import styled from 'styled-components'
 
-import {SlideTransition} from '../../SlideTransition'
+// 元件
 import {Page} from '../Page'
+import {PageContainer} from '../../PageContainer'
 import {SideMenu} from './SideMenu'
+import {SlideTransition} from '../../SlideTransition'
 
+// 子頁面
 import {AssignmentsPage} from '../AssignmentsPage'
 import {FormsPage} from '../FormsPage'
 import {StudentsPage} from '../StudentsPage'
@@ -13,25 +17,27 @@ import {EmptyPage} from '../EmptyPage'
 import * as PageData from '../../../stores/ui/PageData'
 import {ViewStore} from '../../../stores/ui/ViewStore'
 
-import "./style.css"
-
 interface Props {
     viewStore?: ViewStore
 }
+
+const FlexPage = styled(Page)`
+    display: flex;
+`
 
 @inject('viewStore') @observer
 export class CoursePage extends React.Component<Props> {
     render () {
         const page = this.props.viewStore.page as PageData.CoursePage
-        return <Page className="course-page">
+        return <FlexPage>
             <SideMenu />
 
-            <div className="page-container">
+            <PageContainer>
                 <SlideTransition>
                     {this.renderSubPage(page)}
                 </SlideTransition>
-            </div>
-        </Page>
+            </PageContainer>
+        </FlexPage>
     }
 
     renderSubPage ({subPage, selectedCourse}: PageData.CoursePage): React.ReactNode {

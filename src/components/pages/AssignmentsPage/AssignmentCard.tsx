@@ -2,10 +2,12 @@ import * as React from 'react'
 import {observable, action} from 'mobx'
 import {inject, observer} from 'mobx-react'
 
-import {Card, CardHeader, CardText, CardActions} from 'material-ui/Card'
+import {CardHeader, CardText, CardActions} from 'material-ui/Card'
 import FlatButton from 'material-ui/FlatButton'
 import {List, ListItem} from 'material-ui/List'
+
 import {IframeDialog} from '../../IframeDialog'
+import {MarginCard} from '../../MarginCard'
 
 import {History} from '../../../stores/History'
 import {Assignment} from '../../../stores/Assignment'
@@ -28,7 +30,7 @@ export class AssignmentCard extends React.Component<Props> {
     render () {
         const {assignment} = this.props
 
-        return <Card className="card">
+        return <MarginCard>
             <CardHeader 
                 title={assignment.name}
                 subtitle={assignment.assigned}
@@ -56,6 +58,6 @@ export class AssignmentCard extends React.Component<Props> {
                 open={this.iframeUrl != null}
                 src={this.iframeUrl}
                 onRequestClose={() => { this.iframeUrl = null }} />
-        </Card>
+        </MarginCard>
     }
 }

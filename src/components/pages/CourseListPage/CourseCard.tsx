@@ -1,11 +1,20 @@
 import * as React from 'react'
+import styled from 'styled-components'
+
 import { action } from 'mobx'
 import { inject, observer } from 'mobx-react' 
 
-import { Card, CardHeader } from 'material-ui/Card'
+import { CardHeader } from 'material-ui/Card'
+import { MarginCard } from '../../MarginCard'
 
 import { History } from '../../../stores/History'
 import { Course } from '../../../stores/Course'
+
+const StyledCard =  styled<any>(MarginCard)`
+    &:hover {    
+        background-color: rgba(153, 153, 153, 0.2) !important;
+    }
+`
 
 export interface Props {
     course: Course
@@ -25,8 +34,8 @@ export class CourseCard extends React.Component<Props> {
     render () {
         const {course} = this.props
 
-        return <Card className="course_card card" onTouchTap={this.handleTouchTap}>
+        return <StyledCard onTouchTap={this.handleTouchTap}>
             <CardHeader title={course.name} />
-        </Card>
+        </StyledCard>
     }
 }

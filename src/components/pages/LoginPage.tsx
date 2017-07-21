@@ -1,21 +1,26 @@
 import * as React from 'react'
-import { observable, action, when } from 'mobx'
+import styled from 'styled-components'
+import { observable, action } from 'mobx'
 import { observer, inject } from 'mobx-react'
 
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import Checkbox from 'material-ui/Checkbox'
-import { Page } from '../Page'
+import { Page } from './Page'
 
-import { Auth } from '../../../stores/Auth'
-import { Message } from '../../../stores/ui/Message'
-
-import './style.css'
+import { Auth } from '../../stores/Auth'
+import { Message } from '../../stores/ui/Message'
 
 interface Props {
     auth?: Auth
     message?: Message
 }
+
+const StyledPage = styled(Page)`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`
 
 @inject('auth', 'message') @observer
 export class LoginPage extends React.Component<Props> {
@@ -51,8 +56,8 @@ export class LoginPage extends React.Component<Props> {
     }
     render () {
         const {auth} = this.props
-        return <Page id="login-wrapper">
-            <form id="login" onSubmit={this.onSubmit}>
+        return <StyledPage>
+            <form onSubmit={this.onSubmit}>
                 <TextField type="text"
                     value={this.username}
                     onChange={this.handleUserame}
@@ -70,6 +75,6 @@ export class LoginPage extends React.Component<Props> {
                 <Checkbox label="Remember Me" checked={auth.remember} onCheck={this.onCheck} />
                 <RaisedButton type="submit">Login</RaisedButton>
             </form>
-        </Page>
+        </StyledPage>
     }
 }

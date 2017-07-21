@@ -1,6 +1,9 @@
 import * as React from 'react'
 import { inject, observer } from 'mobx-react'
 
+// 元件
+import { PageContainer } from './PageContainer'
+
 // 頁面
 import { LoginPage } from './pages/LoginPage'
 import { CourseListPage } from './pages/CourseListPage'
@@ -28,9 +31,11 @@ interface Props {
 @inject('viewStore') @observer
 export class PageSwitch extends React.Component<Props> {
     render () {
-        return <SlideTransition>
-            {this.renderPage(this.props.viewStore.page)}
-        </SlideTransition>
+        return <PageContainer>
+            <SlideTransition>
+                {this.renderPage(this.props.viewStore.page)}
+            </SlideTransition>
+        </PageContainer>
     }
 
     renderPage (page: PageData.PageData | null): React.ReactNode {

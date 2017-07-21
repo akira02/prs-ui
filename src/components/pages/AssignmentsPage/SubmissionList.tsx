@@ -1,4 +1,5 @@
 import * as React from 'react'
+import styled from 'styled-components'
 import {computed, action} from 'mobx'
 import {inject, observer} from 'mobx-react'
 
@@ -8,18 +9,25 @@ import {SubmissionCard} from './SubmissionCard'
 
 import {Assignment} from '../../../stores/Assignment'
 
-import './style.css'
+
 
 export interface Props {
     selectedAssignment: Assignment | null
 }
+
+const StyledPage = styled(Page)`
+    top: 0;
+    left: 50%;
+    width: 50%;
+    z-index: 3;
+`
 
 @observer
 export class SubmissionList extends React.Component<Props> {
     render () {
         const {selectedAssignment} = this.props
         
-        return <Page className="submission-list">
+        return <StyledPage>
             {
                 selectedAssignment == null || selectedAssignment.submissions == null
                     ? 'Loading!!!'
@@ -27,6 +35,6 @@ export class SubmissionList extends React.Component<Props> {
                         <SubmissionCard key={submission.id} submission={submission} />
                     )
             }
-        </Page>
+        </StyledPage>
     }
 }

@@ -1,6 +1,8 @@
 import * as React from 'react'
 import {observer} from 'mobx-react'
-import {Card, CardHeader, CardText} from 'material-ui/Card'
+import {CardHeader, CardText} from 'material-ui/Card'
+
+import {MarginCard} from '../../MarginCard'
 
 import {Submission} from '../../../stores/Submission'
 
@@ -13,9 +15,9 @@ export class SubmissionCard extends React.Component<Props> {
     render () {
         const {submission} = this.props
 
-        return <Card className="card">
+        return <MarginCard>
             <CardHeader title={submission.username} />
             <CardText>{submission.link}</CardText>
-        </Card>
+        </MarginCard>
     }
 }

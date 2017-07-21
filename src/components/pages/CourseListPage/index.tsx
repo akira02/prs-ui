@@ -7,7 +7,6 @@ import {CourseCard} from './CourseCard'
 
 import {CourseStore} from '../../../stores/CourseStore'
 import {Course} from '../../../stores/Course'
-import './style.css'
 
 export interface Props {
     courseStore?: CourseStore

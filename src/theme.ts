@@ -3,5 +3,8 @@ import {} from 'material-ui/styles/colors'
 
 export const theme = getMuiTheme({
     palette: {
+    },
+    card: {
+        margin: 8
     }
 })

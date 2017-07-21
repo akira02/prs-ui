@@ -1,22 +1,23 @@
 import * as React from 'react'
+import {injectGlobal} from 'styled-components'
 import { observable, action } from 'mobx'
 import { inject, observer } from 'mobx-react'
 
-import FloatingActionButton from 'material-ui/FloatingActionButton'
 import ContentAdd from 'material-ui/svg-icons/content/add'
 
 import { CSSTransitionGroup } from 'react-transition-group'
 
 import { Page } from '../Page'
+import { FixedButton } from '../../FixedButton'
 import { AssignmentCard } from './AssignmentCard'
+import { AssignmentCardContainer } from './AssignmentCardContainer'
 import { AssignmentInput } from './AssignmentInput'
 import { SubmissionList } from './SubmissionList'
+import { SubmissionListBackground } from './SubmissionListBackground'
 
 import {History} from '../../../stores/History'
 import {ViewStore} from '../../../stores/ui/ViewStore'
 import * as PageData from '../../../stores/ui/PageData'
-
-import './style.css'
 
 export interface Props {
     history?: History
@@ -49,13 +50,13 @@ export class AssignmentsPage extends React.Component<Props> {
         const {selectedCourse, showSubmissions} = viewStore.page as PageData.AssignmentListPage
         
         return <Page>
-            <div className="assignment-card-container">
+            <AssignmentCardContainer>
                 {
                     selectedCourse.assignments.values().map(assignment =>
                         <AssignmentCard key={assignment.id} assignment={assignment} />
                     )
                 }
-            </div>
+            </AssignmentCardContainer>
 
             <CSSTransitionGroup
                 transitionName="submission-list-background"
@@ -73,9 +74,9 @@ export class AssignmentsPage extends React.Component<Props> {
                 {showSubmissions ? this.renderSubmissionList() : null}
             </CSSTransitionGroup>
 
-            <FloatingActionButton className="button-fixed" onTouchTap={this.openDialog}>
+            <FixedButton onTouchTap={this.openDialog}>
                 <ContentAdd />
-            </FloatingActionButton>
+            </FixedButton>
 
             <AssignmentInput
                 selectedCourse={selectedCourse}
@@ -85,9 +86,8 @@ export class AssignmentsPage extends React.Component<Props> {
     }
 
     renderSubmissionListBackground () {
-        return <div
+        return <SubmissionListBackground
             key="submission-list-background"
-            className="submission-list-background"
             onClick={this.closeSubmissionList} />
     }
 
@@ -100,3 +100,37 @@ export class AssignmentsPage extends React.Component<Props> {
             selectedAssignment={selectedAssignment} />
     }
 }
+
+injectGlobal`
+.submission-list-enter {
+    transform: translateX(100%);
+}
+.submission-list-enter.submission-list-enter-active {
+    transform: translateX(0);
+    transition: transform .5s ease-out;
+}
+.submission-list-leave {
+    transform: translateX(0);
+}
+.submission-list-leave.submission-list-leave-active {
+    transform: translateX(100%);
+    transition: transform .5s ease-out;
+}
+`
+
+injectGlobal`
+.submission-list-background-enter {
+    opacity: 0;
+}
+.submission-list-background-enter.submission-list-background-enter-active {
+    opacity: 1;
+    transition: opacity .5s ease-out;
+}
+.submission-list-background-leave {
+    opacity: 1;
+}
+.submission-list-background-leave.submission-list-background-leave-active {
+    opacity: 0;
+    transition: opacity .5s ease-out;
+}
+`
