@@ -12,7 +12,7 @@ const LoginPageModel = types.model(
         name: types.literal('login')
     },
     {
-        afterAttach () {
+        afterCreate () {
             const {auth, history} = getRoot<RootStore>(this)
 
             // 監視登入狀態, 一旦登入就執行
@@ -33,8 +33,6 @@ const LoginPageModel = types.model(
 
 export type LoginPage = typeof LoginPageModel.Type
 
-
-
 /** 課程列表頁 */
 const CourseListPageModel = types.model(
     'CourseListPage',
@@ -42,20 +40,14 @@ const CourseListPageModel = types.model(
         name: types.literal('courseList')
     },
     {
-        afterAttach () {
+        afterCreate () {
             const {courseStore} = getRoot<RootStore>(this)
             courseStore.fetch()
-        },
+        }
     }
 )
 
 export type CourseListPage = typeof CourseListPageModel.Type
-
-export interface CoursePage {
-    name: 'course'
-    subPage: string
-    selectedCourse: Course
-}
 
 /** /courses/:courseId 下的頁面的 base type */
 const CoursePageBase = types.model(
@@ -77,7 +69,7 @@ export const StudentListPageModel = types.compose(
         subPage: types.literal('studentList')
     },
     {
-        async afterAttach () {
+        async afterCreate () {
             const {courseStore} = getRoot<RootStore>(this)
             await courseStore.fetch()
             
@@ -99,7 +91,7 @@ export const FormListPageModel = types.compose(
         subPage: types.literal('formList')
     },
     {
-        afterAttach () {
+        afterCreate () {
             const {courseStore} = getRoot<RootStore>(this)
             courseStore.fetch()      
         }
@@ -117,7 +109,7 @@ export const AssignmentListPageModel = types.compose(
         showSubmissions: types.literal(false),
     },
     {
-        async afterAttach () {
+        async afterCreate () {
             const {courseStore} = getRoot<RootStore>(this)
             await courseStore.fetch()
 
@@ -144,7 +136,7 @@ export const AssignmentPageModel = types.compose(
         }
     },
     {
-        async afterAttach () {
+        async afterCreate () {
             const {courseStore} = getRoot<RootStore>(this)
             courseStore.fetch()
             
@@ -184,3 +176,9 @@ export const PageDataModel = types.union(
 )
 
 export type PageData = typeof PageDataModel.Type
+
+export type CoursePage =
+    AssignmentListPage |
+    StudentListPage |
+    FormListPage |
+    AssignmentPage
