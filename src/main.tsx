@@ -30,17 +30,15 @@ autorun(async () => {
 function renderApp (Component: React.ReactType) {
     render(
         <AppContainer>
-            <Component />
+            <Provider api={api} {...stores}>
+                <Component />
+            </Provider>
         </AppContainer>,
         document.getElementById('root')
     )
 }
 
-renderApp(() =>
-    <Provider api={api} {...stores}>
-        <App />
-    </Provider>
-)
+renderApp(App)
 
 // 為了 debug 方便, 把一些東西掛到 window 上
 window['stores'] = stores
@@ -48,11 +46,7 @@ window['api'] = api
 
 if (module.hot) {
     module.hot.accept('./components/App', () => {
-        renderApp(() =>
-            <Provider api={api} {...stores}>
-                <App />
-            </Provider>
-        )
+        renderApp(App)
     })
 }
 
