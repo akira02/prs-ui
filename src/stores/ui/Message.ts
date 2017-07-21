@@ -28,7 +28,7 @@ export const MessageModel = types.model(
         text: '',
         isError: false,
         open: false,
-        get action (): Action {
+        get action (): Action | null {
             return this.actionBox.get()
         }
     },
