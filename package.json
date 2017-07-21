@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "build": "webpack",
+    "build": "webpack --config webpack.dev.config.js",
     "build-production": "webpack -p --config webpack.production.config.js",
     "start": "node ./tools/server.js",
     "predeploy": "npm run build-production",
