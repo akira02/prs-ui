@@ -20,9 +20,11 @@ export const routes: Route[] =[
         requireLogin: true,
         async action ({params, next}) {
             const child = await next()
-            child.name = 'course'
-            child.courseId = params.courseId
-            return child
+            return {
+                name: 'course',
+                courseId: params.courseId,
+                ...child
+            }
         },
         children: [
             {
