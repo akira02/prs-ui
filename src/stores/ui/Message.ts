@@ -53,7 +53,12 @@ export const MessageModel = types.model(
             this.text = text
             this.isError = true
             this.action = action
+        },
+
+        close () {
+            this.open = false
         }
+
     }
 )
 

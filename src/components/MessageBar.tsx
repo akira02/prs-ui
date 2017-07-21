@@ -21,11 +21,11 @@ interface Props {
 export class MessageBar extends React.Component<Props> {
     @action.bound
     handleClose () {
-        this.props.message.open = false
+        this.props.message.close()
     }
     @action.bound
     handleActionTouchTap () {
-        this.props.message.open = false
+        this.props.message.close()
         this.props.message.action.run()
     }
     render () {
