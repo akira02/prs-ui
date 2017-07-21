@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "target": "es6",
+        "target": "es5",
         "module": "es6",
         "moduleResolution": "node",
         "alwaysStrict": true,
@@ -8,7 +8,12 @@
         "experimentalDecorators": true,
         "importHelpers": true,
         "jsx": "react",
-        "lib": ["es6", "dom"]
+        "lib": [
+            "es5",
+            "dom",
+            "es2015.promise",
+            "es2015.collection"
+        ]
     },
     "include": [
         "src/**/*.ts",
