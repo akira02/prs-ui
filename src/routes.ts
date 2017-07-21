@@ -1,6 +1,4 @@
 import {Route} from './router'
-import {RootStore} from './stores/RootStore'
-import {PageDataModel} from './stores/ui/PageData'
 
 /** 定義所有路徑 */
 export const routes: Route[] =[
