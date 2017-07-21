@@ -7,7 +7,7 @@ import { UserStoreModel } from './UserStore'
 import { MessageModel } from './ui/Message'
 import { ViewStoreModel } from './ui/ViewStore'
 
-export const RootStoreModel = types.model('Stores', {
+export const RootStoreModel = types.model('RootStore', {
     auth: types.optional(AuthModel, {}),
     history: types.optional(HistoryModel, {}),
     courseStore: types.optional(CourseStoreModel, {}),
