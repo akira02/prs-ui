@@ -14,7 +14,6 @@ Table of Contents
   * [Running Local Development Web Servers](#running-local-development-web-servers)
   * [Deploy](#deploy)
 
-
 Dev Guide
 ---------
 
@@ -49,24 +48,25 @@ cd prs-ui
 yarn
 ```
 
-### Build
-* **debug build**
-  * `npm run build`
-  * or `Ctrl+Shift+B` in vscode
-
-* **production build**
-  * `npm run build-production`
-
 ### Running Local Development Web Servers
 
-`npm start`
+`$ npm start` (or `Ctrl+Shift+B` in vscode)
 
 * **site server** `http://localhost:8080/`
-
+  * Supports React Hot Loading (Live-editing React app without refresh)
 * **fake api server** `http://localhost:3000/`
 
+### Build
+* **debug build**
+  * `$ npm run build`
+
+* **production build**
+  * `$ npm run build-production`
+
+
+
 ### Deploy
-`npm run deploy` - runs `build-production` and uploads `dist/`.
+`$ npm run deploy` - runs `build-production` and uploads `dist/`.
 
 [React]: https://facebook.github.io/react/
 [MobX]: https://mobx.js.org
