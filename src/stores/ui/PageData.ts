@@ -1,13 +1,26 @@
-import { types, getRoot, resolveIdentifier, addDisposer } from 'mobx-state-tree'
+import { types, getRoot, resolveIdentifier } from 'mobx-state-tree'
 import { autorun, when } from 'mobx'
 
 import { RootStore } from '../RootStore'
 import { CourseModel, Course } from '../Course'
 import { AssignmentModel } from '../Assignment'
 
+const PageBase = types.model(
+    'PageBase',
+    {
+        hasLeft: false
+    },
+    {
+        leave() {
+            this.hasLeft = true
+        }
+    }
+)
+
 /** 登入頁 */
-const LoginPageModel = types.model(
+const LoginPageModel = types.compose(
     'LoginPage',
+    PageBase,
     {
         name: types.literal('login'),
         goBack: false,
@@ -18,20 +31,19 @@ const LoginPageModel = types.model(
             const { auth, history } = getRoot<RootStore>(this)
 
             // 監視登入狀態, 一旦登入就執行
-            addDisposer(
-                this,
-                when(
-                    'isLoggedIn',
-                    () => auth.isLoggedIn,
-                    () => {
-                        if (this.goBack) {
-                            history.goBack()
-                        } else {
-                            history.push(this.nextPage)
-                        }
+            const dispose = when(
+                'isLoggedIn',
+                () => auth.isLoggedIn,
+                () => {
+                    if (this.goBack) {
+                        history.goBack()
+                    } else {
+                        history.push(this.nextPage)
                     }
-                )
+                }
             )
+
+            when(() => this.hasLeft, dispose)
         }
     }
 )
@@ -39,8 +51,9 @@ const LoginPageModel = types.model(
 export type LoginPage = typeof LoginPageModel.Type
 
 /** 課程列表頁 */
-const CourseListPageModel = types.model(
+const CourseListPageModel = types.compose(
     'CourseListPage',
+    PageBase,
     {
         name: types.literal('courseList')
     },
@@ -55,7 +68,7 @@ const CourseListPageModel = types.model(
 export type CourseListPage = typeof CourseListPageModel.Type
 
 /** /courses/:courseId 下的頁面的 base type */
-const CoursePageBase = types.model('CoursePageBase', {
+const CoursePageBase = types.compose('CoursePageBase', PageBase, {
     name: types.literal('course'),
     courseId: types.string,
     get selectedCourse(): Course | null {
@@ -75,13 +88,11 @@ export const StudentListPageModel = types.compose(
             const { courseStore } = getRoot<RootStore>(this)
             await courseStore.fetch()
 
-            addDisposer(
-                this,
-                autorun(() => {
-                    if (this.selectedCourse == null) return
-                    this.selectedCourse.fetchStudents()
-                })
-            )
+            const dispose = autorun(() => {
+                if (this.selectedCourse == null) return
+                this.selectedCourse.fetchStudents()
+            })
+            when(() => this.hasLeft, dispose)
         }
     }
 )
@@ -118,13 +129,11 @@ export const AssignmentListPageModel = types.compose(
             const { courseStore } = getRoot<RootStore>(this)
             await courseStore.fetch()
 
-            addDisposer(
-                this,
-                autorun(() => {
-                    if (this.selectedCourse == null) return
-                    this.selectedCourse.fetchAssignments()
-                })
-            )
+            const dispose = autorun(() => {
+                if (this.selectedCourse == null) return
+                this.selectedCourse.fetchAssignments()
+            })
+            when(() => this.hasLeft, dispose)
         }
     }
 )
@@ -148,28 +157,28 @@ export const AssignmentPageModel = types.compose(
             const { courseStore } = getRoot<RootStore>(this)
             courseStore.fetch()
 
-            addDisposer(
-                this,
-                autorun(() => {
+            {
+                const dispose = autorun(() => {
                     if (this.selectedCourse == null) return
                     this.selectedCourse.fetchAssignments()
                 })
-            )
+                when(() => this.hasLeft, dispose)
+            }
 
-            addDisposer(
-                this,
-                autorun(() => {
+            {
+                const dispose = autorun(() => {
                     if (this.selectedAssignment == null) return
                     this.selectedAssignment.fetchSubmissions()
                 })
-            )
+                when(() => this.hasLeft, dispose)
+            }
         }
     }
 )
 
 export type AssignmentPage = typeof AssignmentPageModel.Type
 
-export const NotFoundPageModel = types.model('NotFoundPage', {
+export const NotFoundPageModel = types.compose('NotFoundPage', PageBase, {
     name: types.literal('notFound')
 })
 

@@ -8,7 +8,7 @@ export const ViewStoreModel = types.model(
     {
         pageMap: types.optional(types.map(PageDataModel), {}),
         pageKey: types.maybe(types.string),
-        get page (): PageData | null {
+        get page(): PageData | null {
             if (this.pageKey == null) return null
             return this.pageMap.get(this.pageKey)
         }
@@ -16,6 +16,7 @@ export const ViewStoreModel = types.model(
     {
         setPage(page: PageData) {
             if (this.pageKey != null) {
+                this.pageMap.get(this.pageKey).leave()
                 this.sechduleDelete(this.pageKey)
             }
 
@@ -23,12 +24,12 @@ export const ViewStoreModel = types.model(
             this.pageMap.set(newKey, page)
             this.pageKey = newKey
         },
-        sechduleDelete (key: string) {
+        sechduleDelete(key: string) {
             setTimeout(() => {
                 this.deletePage(key)
             }, 1000)
         },
-        deletePage (key: string) {
+        deletePage(key: string) {
             this.pageMap.delete(key)
         }
     }
