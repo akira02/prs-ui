@@ -1,4 +1,4 @@
-import { types } from 'mobx-state-tree'
+import { types, detach, destroy } from 'mobx-state-tree'
 import { PageDataModel, PageData } from './PageData'
 
 export const ViewStoreModel = types.model(
@@ -7,8 +7,17 @@ export const ViewStoreModel = types.model(
         page: types.maybe(PageDataModel)
     },
     {
-        setPage(page: PageData) {
-            this.page = page
+        setPage(nextPage: PageData) {
+            // 直接 destroy 掉的話, 跑過場動畫時會抓不到資料 , 所以過一秒再 destroy
+            // 爛 hack QQ
+            if (this.page != null) {
+                const oldPage = detach(this.page)
+                setTimeout(() => {
+                    destroy(oldPage)
+                }, 1000)
+            }
+
+            this.page = nextPage
         }
     }
 )
