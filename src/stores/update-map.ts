@@ -1,15 +1,20 @@
 import { ObservableMap } from 'mobx'
-import { getSnapshot, applySnapshot } from 'mobx-state-tree'
+import { ISnapshottable, getSnapshot, applySnapshot } from 'mobx-state-tree'
+
+/** 有 id 的東西 */
+export interface Keyed {
+    id: string
+}
 
 /**
  * 用新的項目列表更新 map 中的值
  * 刪除不見的項目, 新增新的項目, 更新原有項目的值
- * @param {ObservableMap<any>} target 要更新的 map
- * @param {(object & {id: string}[])} newValues 新的項目列表 
+ * @param {ObservableMap<ISnapshottable<Keyed>>} target 要更新的 map
+ * @param {Keyed[])} newValues 新的項目列表 
  */
 export function updateMap(
-    target: ObservableMap<any>,
-    newValues: object & { id: string }[]
+    target: ObservableMap<ISnapshottable<Keyed>>,
+    newValues: Keyed[]
 ) {
     const newIds = new Set(newValues.map(value => value.id))
 
