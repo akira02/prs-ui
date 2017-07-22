@@ -8,7 +8,7 @@ export const routes: Route[] = [
     },
     {
         path: '/login',
-        action ({stores}) {
+        action({ stores }) {
             const state = stores.history.location.state || {}
             return {
                 name: 'login',
