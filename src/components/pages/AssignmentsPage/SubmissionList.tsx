@@ -1,17 +1,15 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import { computed, action } from 'mobx'
-import { inject, observer } from 'mobx-react'
+import { observer } from 'mobx-react'
 
 import { Page } from '../Page'
 import { SubmissionCard } from './SubmissionCard'
 
-import { ViewStore } from '../../../stores/ui/ViewStore'
 import * as PageData from '../../../stores/ui/PageData'
 import { Assignment } from '../../../stores/Assignment'
 
 export interface Props {
-    viewStore?: ViewStore
+    page: PageData.AssignmentPage
 }
 
 /** 顯示在右半邊的 page */
@@ -22,12 +20,10 @@ const StyledPage = styled(Page)`
     z-index: 3;
 `
 
-@inject('viewStore')
 @observer
 export class SubmissionList extends React.Component<Props> {
     render() {
-        const page = this.props.viewStore.page as PageData.AssignmentPage
-        const selectedAssignment = page.selectedAssignment
+        const { selectedAssignment } = this.props.page
 
         return (
             <StyledPage>

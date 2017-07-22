@@ -1,13 +1,20 @@
 import * as React from 'react'
+import { action } from 'mobx'
+import { inject, observer } from 'mobx-react'
+
 import styled, { injectGlobal } from 'styled-components'
 import { CSSTransitionGroup } from 'react-transition-group'
 
 import { SubmissionList } from './SubmissionList'
 import { SubmissionListBackground as Background } from './SubmissionListBackground'
 
+import { History } from '../../../stores/History'
+import * as PageData from '../../../stores/ui/PageData'
+
 export interface Props {
-    open: boolean
-    onRequestClose: () => void
+    page: PageData.AssignmentPage | PageData.AssignmentListPage
+
+    history?: History
 }
 
 const Wrapper = styled.div`
@@ -18,26 +25,50 @@ const Wrapper = styled.div`
     left: 0;
 `
 
-export const SubmissionListController = ({ open, onRequestClose }: Props) =>
-    <Wrapper>
-        <CSSTransitionGroup
-            transitionName="submission-list-background"
-            transitionEnterTimeout={500}
-            transitionLeaveTimeout={500}
-        >
-            {open
-                ? <Background key="background" onClick={onRequestClose} />
-                : null}
-        </CSSTransitionGroup>
+@inject('history')
+@observer
+export class SubmissionListController extends React.Component<Props> {
+    @action.bound
+    closeSubmissionList() {
+        const { page, history } = this.props
+        this.props.history.push(
+            `/courses/${page.selectedCourse.id}/assignments`
+        )
+    }
 
-        <CSSTransitionGroup
-            transitionName="submission-list"
-            transitionEnterTimeout={500}
-            transitionLeaveTimeout={500}
-        >
-            {open ? <SubmissionList key="submission-list" /> : null}
-        </CSSTransitionGroup>
-    </Wrapper>
+    render() {
+        const { page } = this.props
+        return (
+            <Wrapper>
+                <CSSTransitionGroup
+                    transitionName="submission-list-background"
+                    transitionEnterTimeout={500}
+                    transitionLeaveTimeout={500}
+                >
+                    {page.showSubmissions
+                        ? <Background
+                              key="background"
+                              onClick={this.closeSubmissionList}
+                          />
+                        : null}
+                </CSSTransitionGroup>
+
+                <CSSTransitionGroup
+                    transitionName="submission-list"
+                    transitionEnterTimeout={500}
+                    transitionLeaveTimeout={500}
+                >
+                    {page.showSubmissions
+                        ? <SubmissionList
+                              key="submission-list"
+                              page={page as PageData.AssignmentPage}
+                          />
+                        : null}
+                </CSSTransitionGroup>
+            </Wrapper>
+        )
+    }
+}
 
 injectGlobal`
 .submission-list-enter {

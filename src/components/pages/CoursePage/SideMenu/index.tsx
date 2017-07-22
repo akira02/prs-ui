@@ -10,23 +10,19 @@ import { SubPageSelect } from './SubPageSelect'
 
 import { Auth } from '../../../../stores/Auth'
 import { History } from '../../../../stores/History'
-import { CourseStore } from '../../../../stores/CourseStore'
-import { ViewStore } from '../../../../stores/ui/ViewStore'
 import * as PageData from '../../../../stores/ui/PageData'
 
 const SelectableList = makeSelectable(List)
 
 interface Props {
-    [prop: string]: any
+    page: PageData.CoursePage
 
     // injected props
     auth?: Auth
-    courseStore?: CourseStore
     history?: History
-    viewStore?: ViewStore
 }
 
-@inject('auth', 'history', 'courseStore', 'viewStore')
+@inject('auth', 'history')
 @observer
 export class SideMenu extends React.Component<Props> {
     @action.bound
@@ -46,8 +42,7 @@ export class SideMenu extends React.Component<Props> {
     }
 
     render() {
-        const { auth, courses, history, viewStore, ...rest } = this.props
-        const page = this.props.viewStore.page as PageData.CoursePage
+        const { auth, history, page, ...rest } = this.props
 
         return (
             <Drawer

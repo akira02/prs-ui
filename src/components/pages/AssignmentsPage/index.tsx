@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { observable, computed, action } from 'mobx'
-import { inject, observer } from 'mobx-react'
+import { observer } from 'mobx-react'
 
 import ContentAdd from 'material-ui/svg-icons/content/add'
 
@@ -11,25 +11,16 @@ import { AssignmentCardContainer } from './AssignmentCardContainer'
 import { AssignmentInput } from './AssignmentInput'
 import { SubmissionListController } from './SubmissionListController'
 
-import { History } from '../../../stores/History'
-import { ViewStore } from '../../../stores/ui/ViewStore'
 import * as PageData from '../../../stores/ui/PageData'
 
 export interface Props {
+    page: PageData.AssignmentListPage | PageData.AssignmentPage
     history?: History
-    viewStore?: ViewStore
 }
 
-@inject('history', 'viewStore')
 @observer
 export class AssignmentsPage extends React.Component<Props> {
     @observable dialogOpen = false
-
-    @computed
-    get pageData(): PageData.AssignmentListPage | PageData.AssignmentPage {
-        const pageData = this.props.viewStore.page
-        return pageData as PageData.AssignmentListPage | PageData.AssignmentPage
-    }
 
     @action.bound
     openDialog() {
@@ -41,17 +32,8 @@ export class AssignmentsPage extends React.Component<Props> {
         this.dialogOpen = false
     }
 
-    @action.bound
-    closeSubmissionList() {
-        const { history, viewStore } = this.props
-        const page = this.props.viewStore.page as PageData.AssignmentListPage
-        this.props.history.push(
-            `/courses/${page.selectedCourse.id}/assignments`
-        )
-    }
-
     render() {
-        const { selectedCourse, showSubmissions } = this.pageData
+        const { selectedCourse, showSubmissions } = this.props.page
 
         return (
             <Page>
@@ -66,10 +48,7 @@ export class AssignmentsPage extends React.Component<Props> {
                         )}
                 </AssignmentCardContainer>
 
-                <SubmissionListController
-                    open={showSubmissions}
-                    onRequestClose={this.closeSubmissionList}
-                />
+                <SubmissionListController page={this.props.page} />
 
                 <FixedButton onTouchTap={this.openDialog}>
                     <ContentAdd />

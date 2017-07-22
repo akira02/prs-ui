@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { inject, observer } from 'mobx-react'
+import { observer } from 'mobx-react'
 import styled from 'styled-components'
 
 // 元件
@@ -15,38 +15,35 @@ import { StudentsPage } from '../StudentsPage'
 import { EmptyPage } from '../EmptyPage'
 
 import * as PageData from '../../../stores/ui/PageData'
-import { ViewStore } from '../../../stores/ui/ViewStore'
 
 interface Props {
-    viewStore?: ViewStore
+    page: PageData.CoursePage
 }
 
 const FlexPage = styled(Page)`
     display: flex;
 `
 
-@inject('viewStore')
 @observer
 export class CoursePage extends React.Component<Props> {
     render() {
-        const page = this.props.viewStore.page as PageData.CoursePage
         return (
             <FlexPage>
-                <SideMenu />
+                <SideMenu page={this.props.page} />
 
                 <PageContainer>
                     <SlideTransition>
-                        {this.renderSubPage(page)}
+                        {this.renderSubPage()}
                     </SlideTransition>
                 </PageContainer>
             </FlexPage>
         )
     }
 
-    renderSubPage({
-        subPage,
-        selectedCourse
-    }: PageData.CoursePage): React.ReactNode {
+    renderSubPage(): React.ReactNode {
+        const { page } = this.props
+        const { subPage, selectedCourse } = page
+
         if (selectedCourse == null) {
             // still loading course list
             return <EmptyPage key="empty" />
@@ -54,7 +51,16 @@ export class CoursePage extends React.Component<Props> {
 
         switch (subPage) {
             case 'assignmentList':
-                return <AssignmentsPage key="assignmentList" />
+                return (
+                    <AssignmentsPage
+                        key="assignmentList"
+                        page={
+                            page as
+                                | PageData.AssignmentListPage
+                                | PageData.AssignmentPage
+                        }
+                    />
+                )
             case 'formList':
                 return (
                     <FormsPage key="formList" selectedCourse={selectedCourse} />

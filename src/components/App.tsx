@@ -7,9 +7,10 @@ import { theme } from '../theme'
 import { MessageBar } from './MessageBar'
 import { PageSwitch } from './PageSwitch'
 
-const DevTools = process.env.NODE_ENV != 'production'
-    ? require('mobx-react-devtools').default
-    : null
+const DevTools =
+    process.env.NODE_ENV != 'production'
+        ? require('mobx-react-devtools').default
+        : null
 
 injectGlobal`
     body {
@@ -41,7 +42,7 @@ export class App extends React.Component {
                 <AppWrapper>
                     <PageSwitch />
                     <MessageBar />
-                    { process.env.NODE_ENV != 'production' ? <DevTools /> : null }
+                    {process.env.NODE_ENV != 'production' ? <DevTools /> : null}
                 </AppWrapper>
             </MuiThemeProvider>
         )

@@ -50,7 +50,12 @@ export class PageSwitch extends React.Component<Props> {
             case 'courseList':
                 return <CourseListPage key="courseList" />
             case 'course':
-                return <CoursePage key="course" />
+                return (
+                    <CoursePage
+                        key="course"
+                        page={page as PageData.CoursePage}
+                    />
+                )
             case 'notFound':
                 return <NotFoundPage key="notFound" />
             default:
