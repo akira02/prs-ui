@@ -28,7 +28,7 @@ export const MessageModel = types.model(
         text: '',
         isError: false,
         open: false,
-        get action (): Action | null {
+        get action(): Action | null {
             return this.actionBox.get()
         }
     },
@@ -36,7 +36,7 @@ export const MessageModel = types.model(
         actionBox: null as IObservableValue<Action | null>
     },
     {
-        afterCreate () {
+        afterCreate() {
             this.actionBox = observable.shallowBox(null)
         },
 
