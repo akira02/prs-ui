@@ -15,4 +15,4 @@ const StyledPaper = styled<any>(Paper)`
 `
 
 export const Page = props =>
-    <StyledPaper transitionEnabled={false} rounded={true} {...props} />
+    <StyledPaper transitionEnabled={false} rounded={false} {...props} />
