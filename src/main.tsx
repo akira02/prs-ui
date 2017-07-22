@@ -44,6 +44,7 @@ renderApp(App)
 window['stores'] = stores
 window['api'] = api
 
+// 支援 webpack 的 hot reload
 if (module.hot) {
     module.hot.accept('./components/App', () => {
         renderApp(App)
