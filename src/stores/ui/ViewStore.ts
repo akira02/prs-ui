@@ -23,6 +23,7 @@ export const ViewStoreModel = types.model(
             const newKey = shortId.generate()
             this.pageMap.set(newKey, page)
             this.pageKey = newKey
+            this.pageMap.get(newKey).enter()
         },
         sechduleDelete(key: string) {
             setTimeout(() => {

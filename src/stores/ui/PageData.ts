@@ -8,11 +8,24 @@ import { AssignmentModel } from '../Assignment'
 const PageBase = types.model(
     'PageBase',
     {
+        hasEntered: false,
         hasLeft: false
     },
     {
+        enter() {
+            this.hasEntered = true
+        },
+        onEnter(listener: () => void) {
+            this.disposeOnLeave(when(() => this.hasEntered, listener))
+        },
         leave() {
             this.hasLeft = true
+        },
+        onLeave(listener: () => void) {
+            when(() => this.hasLeft, listener)
+        },
+        disposeOnLeave(dispose: () => void) {
+            this.onLeave(dispose)
         }
     }
 )
@@ -31,19 +44,18 @@ const LoginPageModel = types.compose(
             const { auth, history } = getRoot<RootStore>(this)
 
             // 監視登入狀態, 一旦登入就執行
-            const dispose = when(
-                'isLoggedIn',
-                () => auth.isLoggedIn,
-                () => {
-                    if (this.goBack) {
-                        history.goBack()
-                    } else {
-                        history.push(this.nextPage)
+            this.disposeOnLeave(
+                when(
+                    () => this.hasEntered && auth.isLoggedIn,
+                    () => {
+                        if (this.goBack) {
+                            history.goBack()
+                        } else {
+                            history.push(this.nextPage)
+                        }
                     }
-                }
+                )
             )
-
-            when(() => this.hasLeft, dispose)
         }
     }
 )
@@ -84,15 +96,17 @@ export const StudentListPageModel = types.compose(
         subPage: types.literal('studentList')
     },
     {
-        async afterCreate() {
+        afterCreate() {
             const { courseStore } = getRoot<RootStore>(this)
-            await courseStore.fetch()
 
-            const dispose = autorun(() => {
-                if (this.selectedCourse == null) return
-                this.selectedCourse.fetchStudents()
-            })
-            when(() => this.hasLeft, dispose)
+            this.onEnter(courseStore.fetch)
+
+            this.disposeOnLeave(
+                autorun(() => {
+                    if (this.selectedCourse == null) return
+                    this.selectedCourse.fetchStudents()
+                })
+            )
         }
     }
 )
@@ -127,13 +141,14 @@ export const AssignmentListPageModel = types.compose(
     {
         async afterCreate() {
             const { courseStore } = getRoot<RootStore>(this)
-            await courseStore.fetch()
+            this.onEnter(courseStore.fetch)
 
-            const dispose = autorun(() => {
-                if (this.selectedCourse == null) return
-                this.selectedCourse.fetchAssignments()
-            })
-            when(() => this.hasLeft, dispose)
+            this.disposeOnLeave(
+                autorun(() => {
+                    if (this.selectedCourse == null) return
+                    this.selectedCourse.fetchAssignments()
+                })
+            )
         }
     }
 )
@@ -157,21 +172,19 @@ export const AssignmentPageModel = types.compose(
             const { courseStore } = getRoot<RootStore>(this)
             courseStore.fetch()
 
-            {
-                const dispose = autorun(() => {
+            this.disposeOnLeave(
+                autorun(() => {
                     if (this.selectedCourse == null) return
                     this.selectedCourse.fetchAssignments()
                 })
-                when(() => this.hasLeft, dispose)
-            }
+            )
 
-            {
-                const dispose = autorun(() => {
+            this.disposeOnLeave(
+                autorun(() => {
                     if (this.selectedAssignment == null) return
                     this.selectedAssignment.fetchSubmissions()
                 })
-                when(() => this.hasLeft, dispose)
-            }
+            )
         }
     }
 )
