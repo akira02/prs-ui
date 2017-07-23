@@ -10,9 +10,6 @@ interface Props {
     message?: Message
 }
 
-
-
-
 /**
  * 底部通知條
  * @export
