@@ -10,6 +10,7 @@ export interface Props extends __MaterialUI.DialogProps {
 
 const StyledIframe = styled.iframe`
     width:100%;
+    height:80vh;
 `
 
 export const IframeDialog = (props: Props) => {
