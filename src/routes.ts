@@ -8,7 +8,7 @@ export const routes: Route[] = [
     },
     {
         path: '/login',
-        action({ stores }) {
+        action: ({ stores }) => {
             const state = stores.history.location.state || {}
             return {
                 name: 'login',
@@ -25,13 +25,11 @@ export const routes: Route[] = [
     {
         path: '/courses/:courseId',
         requireLogin: true,
-        async action({ params, next }) {
-            return {
-                name: 'course',
-                courseId: params.courseId,
-                subPage: await next()
-            }
-        },
+        action: async ({ params, next }) => ({
+            name: 'course',
+            courseId: params.courseId,
+            subPage: await next()
+        }),
         children: [
             {
                 path: '/',
@@ -55,15 +53,11 @@ export const routes: Route[] = [
             },
             {
                 path: '/forms',
-                action: () => ({
-                    name: 'formList'
-                })
+                action: () => ({ name: 'formList' })
             },
             {
                 path: '/students',
-                action: () => ({
-                    name: 'studentList'
-                })
+                action: () => ({ name: 'studentList' })
             }
         ]
     },
