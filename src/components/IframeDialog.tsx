@@ -2,12 +2,10 @@ import * as React from 'react'
 import styled from 'styled-components'
 import Dialog from 'material-ui/Dialog'
 
-export interface Props {
+export interface Props extends __MaterialUI.DialogProps {
     src: string
     open: boolean
     children?: React.ReactNode
-
-    [x: string]: any
 }
 
 const StyledIframe = styled.iframe`
