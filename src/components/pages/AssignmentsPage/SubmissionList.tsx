@@ -23,7 +23,7 @@ const StyledPage = styled(Page)`
 @observer
 export class SubmissionList extends React.Component<Props> {
     render() {
-        const { selectedAssignment } = this.props.page.subPage 
+        const { selectedAssignment } = this.props.page.subPage
 
         return (
             <StyledPage>

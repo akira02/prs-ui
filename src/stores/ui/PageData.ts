@@ -173,7 +173,7 @@ const CoursePageModel = types.compose(
 
 type CoursePageType = typeof CoursePageModel.Type
 
-export type CoursePage<T=CoursePageType['subPage']> = CoursePageType & {
+export type CoursePage<T = CoursePageType['subPage']> = CoursePageType & {
     subPage: T
 }
 
