@@ -29,7 +29,7 @@ export class CourseCard extends React.Component<Props> {
     @action.bound
     handleTouchTap() {
         const { course, history } = this.props
-        history.push(`/courses/${course.id}`)
+        history.push(`/courses/${course.id}/assignments`)
     }
 
     render() {
