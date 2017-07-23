@@ -75,7 +75,7 @@ interface Context {
 
     /**
      * universal-router 提供的東西
-     * 在 action 中呼叫可以讓 router 繼續往下比對 route, 並返回結果
+     * 在 action 中呼叫可以讓 router 繼續往下比對 route, 並返回下個 route 的結果
      */
     next: (resume?: boolean) => Promise<any>
 
