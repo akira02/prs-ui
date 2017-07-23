@@ -171,7 +171,11 @@ const CoursePageModel = types.compose(
     }
 )
 
-export type CoursePage = typeof CoursePageModel.Type
+type CoursePageType = typeof CoursePageModel.Type
+
+export type CoursePage<T=CoursePageType['subPage']> = CoursePageType & {
+    subPage: T
+}
 
 export const NotFoundPageModel = types.compose('NotFoundPage', LifeCycleModel, {
     name: types.literal('notFound')

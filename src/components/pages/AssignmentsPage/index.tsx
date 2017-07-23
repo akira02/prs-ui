@@ -14,7 +14,7 @@ import { SubmissionListController } from './SubmissionListController'
 import * as PageData from '../../../stores/ui/PageData'
 
 export interface Props {
-    page: PageData.CoursePage
+    page: PageData.CoursePage<PageData.AssignmentListPage>
     history?: History
 }
 
