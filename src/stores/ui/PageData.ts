@@ -5,8 +5,8 @@ import { RootStore } from '../RootStore'
 import { CourseModel, Course } from '../Course'
 import { AssignmentModel } from '../Assignment'
 
-const PageBase = types.model(
-    'PageBase',
+const LifeCycleModel = types.model(
+    'LifeCycle',
     {
         hasEntered: false,
         hasLeft: false
@@ -33,7 +33,7 @@ const PageBase = types.model(
 /** 登入頁 */
 const LoginPageModel = types.compose(
     'LoginPage',
-    PageBase,
+    LifeCycleModel,
     {
         name: types.literal('login'),
         goBack: false,
@@ -65,7 +65,7 @@ export type LoginPage = typeof LoginPageModel.Type
 /** 課程列表頁 */
 const CourseListPageModel = types.compose(
     'CourseListPage',
-    PageBase,
+    LifeCycleModel,
     {
         name: types.literal('courseList')
     },
@@ -80,7 +80,7 @@ const CourseListPageModel = types.compose(
 export type CourseListPage = typeof CourseListPageModel.Type
 
 /** /courses/:courseId 下的頁面的 base type */
-const CoursePageBase = types.compose('CoursePageBase', PageBase, {
+const CoursePageBase = types.compose('CoursePageBase', LifeCycleModel, {
     name: types.literal('course'),
     courseId: types.string,
     get selectedCourse(): Course | null {
@@ -191,7 +191,7 @@ export const AssignmentPageModel = types.compose(
 
 export type AssignmentPage = typeof AssignmentPageModel.Type
 
-export const NotFoundPageModel = types.compose('NotFoundPage', PageBase, {
+export const NotFoundPageModel = types.compose('NotFoundPage', LifeCycleModel, {
     name: types.literal('notFound')
 })
 
