@@ -191,12 +191,8 @@ export class AssignmentInput extends React.Component<Props> {
         )
     }
 
-    /**
-     * 繪製 Dialog 的按鈕列表
-     * @returns {React.ReactNode[]} 
-     * @memberof AssignmentInput
-     */
-    renderActionList(): React.ReactNode[] {
+    /** 繪製 Dialog 的按鈕列表 */
+    renderActionList(): React.ReactElement<any>[] {
         if (this.step != Steps.Finished) {
             return [
                 <FlatButton

@@ -6,9 +6,22 @@
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/@types/history/-/history-4.6.0.tgz#093d67ed780d889c9543f6dca24ebee0b6b9fc45"
 
+"@types/material-ui@^0.17.17":
+  version "0.17.17"
+  resolved "https://registry.yarnpkg.com/@types/material-ui/-/material-ui-0.17.17.tgz#48ac3d082dec113350f0637601e73df6e0679aac"
+  dependencies:
+    "@types/react" "*"
+    "@types/react-addons-linked-state-mixin" "*"
+
 "@types/node@*":
   version "8.0.14"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.14.tgz#4a19dc6bb61d16c01cbadc7b30ac23518fff176b"
+
+"@types/react-addons-linked-state-mixin@*":
+  version "0.14.18"
+  resolved "https://registry.yarnpkg.com/@types/react-addons-linked-state-mixin/-/react-addons-linked-state-mixin-0.14.18.tgz#6977ae59e19aa0ce3a5d7a9e057961aaf1afe959"
+  dependencies:
+    "@types/react" "*"
 
 "@types/react-dom@^15.5.1":
   version "15.5.1"

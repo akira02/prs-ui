@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { defaultProps } from 'recompose'
 import Paper from 'material-ui/Paper'
 
-const StyledPaper = styled<any>(Paper)`
+const StyledPaper = styled(Paper)`
     position: absolute;
 
     width: 100%;
@@ -14,5 +14,5 @@ const StyledPaper = styled<any>(Paper)`
     -webkit-overflow-scrolling: touch;
 `
 
-export const Page = props =>
+export const Page = (props: __MaterialUI.PaperProps) =>
     <StyledPaper transitionEnabled={false} rounded={false} {...props} />

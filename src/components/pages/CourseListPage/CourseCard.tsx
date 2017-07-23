@@ -10,7 +10,7 @@ import { MarginCard } from '../../MarginCard'
 import { History } from '../../../stores/History'
 import { Course } from '../../../stores/Course'
 
-const StyledCard = styled<any>(MarginCard)`
+const StyledCard = styled(MarginCard)`
     &:hover {    
         background-color: rgba(153, 153, 153, 0.2) !important;
     }
