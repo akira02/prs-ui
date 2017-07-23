@@ -31,28 +31,40 @@ export class SlideTransition extends React.Component<Props> {
 
 injectGlobal`
     .slide-push-leave {
-        z-index: -1;
+        z-index: 0;
     }
-
     .slide-push-enter {
+        z-index: 1;
+        will-change: transform;
         transform: translateX(100%);
     }
-
     .slide-push-enter.slide-push-enter-active {
         transform: translateX(0);
         transition: transform .5s ease-out;
     }
+`
 
+injectGlobal`
+    .slide-pop-enter {
+        z-index: 0;
+    }
     .slide-pop-leave {
+        z-index: 1;
+        will-change: transform;
         transform: translateX(0);
     }
-
     .slide-pop-leave.slide-pop-leave-active {
         transform: translateX(100%);
         transition: transform .5s ease-out;
     }
+`
 
+injectGlobal`
     .slide-replace-leave {
-        z-index: -1;
+        z-index: 0;
+    }
+    .slide-replace-enter {
+        z-index: 1;
     }
 `
+
