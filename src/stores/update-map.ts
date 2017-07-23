@@ -9,8 +9,8 @@ export interface Keyed {
 /**
  * 用新的項目列表更新 map 中的值
  * 刪除不見的項目, 新增新的項目, 更新原有項目的值
- * @param {ObservableMap<ISnapshottable<Keyed>>} target 要更新的 map
- * @param {Keyed[])} newValues 新的項目列表 
+ * @param target     要更新的 map
+ * @param newValues  新的項目列表
  */
 export function updateMap(
     target: ObservableMap<ISnapshottable<Keyed>>,

@@ -4,21 +4,13 @@ import { Auth } from '../../../../stores/Auth'
 
 import { Api } from '../../../../api'
 
-/**
- * 送出資料後 server 回傳的 json
- * @export
- * @interface Result
- */
+/** 送出資料後 server 回傳的 json */
 export interface Result {
     success: boolean
     id: string
 }
 
-/**
- * 用來在元件間分享輸入的資料和送出資料的功能
- * @export
- * @class InputStore
- */
+/** 負責處理新增 Assignment 的表單 */
 export class InputStore {
     private readonly api: Api
     private readonly auth: Auth
@@ -34,9 +26,8 @@ export class InputStore {
 
     /**
      * 送出表單
-     * @param {string} courseId 
-     * @returns {Promise<Result>} 
-     * @memberof InputStore
+     * @param courseId  要新增 assignment 的 course
+     * @returns         api 回傳的結果
      */
     @action.bound
     async submit(courseId: string): Promise<Result> {
@@ -52,10 +43,7 @@ export class InputStore {
         return response.body
     }
 
-    /**
-     * 重設表單
-     * @memberof InputStore
-     */
+    /** 重設表單 */
     @action.bound
     clear() {
         this.name = ''

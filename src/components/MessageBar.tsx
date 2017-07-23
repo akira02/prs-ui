@@ -10,12 +10,7 @@ interface Props {
     message?: Message
 }
 
-/**
- * 底部通知條
- * @export
- * @class MessageBar
- * @extends {React.Component<Props>}
- */
+/** 底部通知條 */
 @inject('message')
 @observer
 export class MessageBar extends React.Component<Props> {

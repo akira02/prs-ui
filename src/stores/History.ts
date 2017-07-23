@@ -2,9 +2,7 @@ import { types, addDisposer } from 'mobx-state-tree'
 import { History, Location, UnregisterCallback } from 'history'
 import createHistory from 'history/createBrowserHistory'
 
-/**
- * Observable wrapper for Location
- */
+/** Observable wrapper for Location */
 export const LocationModel = types.model('Location', {
     pathname: types.string,
     hash: types.string,
@@ -15,9 +13,7 @@ export const LocationModel = types.model('Location', {
 
 type ObservableLocation = typeof LocationModel.Type
 
-/**
- * Observable wrapper for History
- */
+/** Observable wrapper for History */
 export const HistoryModel = types.model(
     'History',
     {
@@ -54,11 +50,7 @@ type ObservableHistory = typeof HistoryModel.Type
 
 export { ObservableLocation as Location, ObservableHistory as History }
 
-/**
- * Convert Location to plain object
- * @param {Location} location 
- * @returns 
- */
+/** 將 Location 轉換成 plain object */
 function convertLocation(location: Location) {
     return {
         pathname: location.pathname,

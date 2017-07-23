@@ -91,11 +91,7 @@ interface Context {
 /** 比對到 route 之後要執行的動作 */
 type Action = (ctx: Context) => Promise<any> | any
 
-/**
- * 定義 route 的資料格式
- * @export
- * @interface Route
- */
+/** 定義 route 的資料格式 */
 export interface Route {
     /** 用來跟 url 比對的字串 */
     path: string
