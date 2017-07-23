@@ -14,5 +14,5 @@ const StyledPaper = styled(Paper)`
     -webkit-overflow-scrolling: touch;
 `
 
-export const Page = (props: __MaterialUI.PaperProps) =>
+export const Page = (props: Paper['props']) =>
     <StyledPaper transitionEnabled={false} rounded={false} {...props} />
