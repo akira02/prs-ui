@@ -170,7 +170,8 @@ export const AssignmentPageModel = types.compose(
     {
         async afterCreate() {
             const { courseStore } = getRoot<RootStore>(this)
-            courseStore.fetch()
+
+            this.onEnter(courseStore.fetch)
 
             this.disposeOnLeave(
                 autorun(() => {
