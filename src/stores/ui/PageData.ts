@@ -5,27 +5,40 @@ import { RootStore } from '../RootStore'
 import { CourseModel, Course } from '../Course'
 import { AssignmentModel } from '../Assignment'
 
+const LifeCycleStateModel = types.union(
+    types.literal('created'),
+    types.literal('entered'),
+    types.literal('exited')
+)
+
 const LifeCycleModel = types.model(
     'LifeCycle',
     {
-        hasEntered: false,
-        hasExited: false
+        lifeCycleState: types.optional(LifeCycleStateModel, 'created')
     },
     {
         enter() {
-            this.hasEntered = true
-        },
-        onEnter(listener: () => void) {
-            this.disposeOnExit(when(() => this.hasEntered, listener))
+            if (this.lifeCycleState === 'created') {
+                this.lifeCycleState = 'entered'
+            }
         },
         exit() {
-            this.hasExited = true
+            if (this.lifeCycleState === 'created' || this.lifeCycleState === 'entered') {
+                this.lifeCycleState = 'exited'
+            }
         },
-        onExit(listener: () => void) {
-            when(() => this.hasExited, listener)
+        onEnter(): Promise<void> {
+            return new Promise(resolve => {
+                this.disposeOnExit(when(() => this.lifeCycleState === 'entered', resolve))
+            })
+        },
+        onExit(): Promise<void> {
+            return new Promise(resolve => {
+                when(() => this.lifeCycleState === 'exited', resolve)
+            })
         },
         disposeOnExit(dispose: () => void) {
-            this.onExit(dispose)
+            this.onExit().then(dispose)
         }
     }
 )
@@ -40,21 +53,19 @@ const LoginPageModel = types.compose(
         nextPage: '/'
     },
     {
-        afterCreate() {
-            this.onEnter(() => {
-                const { auth, history } = getRoot<RootStore>(this)
-                const disposer = when(
-                    () => auth.isLoggedIn,
-                    () => {
-                        if (this.goBack) {
-                            history.goBack()
-                        } else {
-                            history.push(this.nextPage)
-                        }
+        async afterCreate() {
+            await this.onEnter()
+            const { auth, history } = getRoot<RootStore>(this)
+            const disposer = when(
+                () => auth.isLoggedIn,
+                () => {
+                    if (this.goBack) {
+                        history.goBack()
+                    } else {
+                        history.push(this.nextPage)
                     }
-                )
-                this.disposeOnExit(disposer)
-            })
+                }
+            )
         }
     }
 )
@@ -69,11 +80,10 @@ const CourseListPageModel = types.compose(
         name: types.literal('courseList')
     },
     {
-        afterCreate() {
-            this.onEnter(() => {
-                const { courseStore } = getRoot<RootStore>(this)
-                courseStore.fetch()
-            })
+        async afterCreate() {
+            await this.onEnter()
+            const { courseStore } = getRoot<RootStore>(this)
+            courseStore.fetch()
         }
     }
 )
@@ -88,7 +98,8 @@ export const StudentListPageModel = types.compose(
         name: types.literal('studentList')
     },
     {
-        afterCreate() {
+        async afterCreate() {
+            await this.onEnter()
             this.disposeOnExit(
                 autorun(() => {
                     const parent = getParent<CoursePage>(this)
@@ -124,6 +135,8 @@ export const AssignmentListPageModel = types.compose(
     },
     {
         async afterCreate() {
+            await this.onEnter()
+
             this.disposeOnExit(
                 autorun(() => {
                     const parent = getParent<CoursePage>(this)
@@ -162,12 +175,13 @@ const CoursePageModel = types.compose(
         }
     },
     {
-        afterCreate() {
-            this.onEnter(() => {
-                getRoot<RootStore>(this).courseStore.fetch()
-            })
-            this.onEnter(this.subPage.enter)
-            this.onExit(this.subPage.exit)
+        async afterCreate() {
+            await this.onEnter()
+            getRoot<RootStore>(this).courseStore.fetch()
+            this.subPage.enter()
+
+            await this.onExit()
+            this.subPage.exit()
         }
     }
 )
