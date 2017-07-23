@@ -2,7 +2,7 @@ import * as React from 'react'
 import { action } from 'mobx'
 import { inject, observer } from 'mobx-react'
 
-import styled, { injectGlobal } from 'styled-components'
+import { injectGlobal } from 'styled-components'
 import { CSSTransitionGroup } from 'react-transition-group'
 
 import { SubmissionList } from './SubmissionList'
@@ -16,14 +16,6 @@ export interface Props {
 
     history?: History
 }
-
-const Wrapper = styled.div`
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-`
 
 @inject('history')
 @observer
@@ -40,7 +32,7 @@ export class SubmissionListController extends React.Component<Props> {
         const { page } = this.props
         const subPage = page.subPage as PageData.AssignmentListPage
         return (
-            <Wrapper>
+            <div>
                 <CSSTransitionGroup
                     transitionName="submission-list-background"
                     transitionEnterTimeout={500}
@@ -63,7 +55,7 @@ export class SubmissionListController extends React.Component<Props> {
                         ? <SubmissionList key="submission-list" page={page} />
                         : null}
                 </CSSTransitionGroup>
-            </Wrapper>
+            </div>
         )
     }
 }
