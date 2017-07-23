@@ -123,7 +123,7 @@ export const FormListPageModel = types.compose(
     {
         afterCreate() {
             const { courseStore } = getRoot<RootStore>(this)
-            courseStore.fetch()
+            this.onEnter(courseStore.fetch)
         }
     }
 )
