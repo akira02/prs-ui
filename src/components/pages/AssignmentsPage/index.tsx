@@ -14,7 +14,7 @@ import { SubmissionListController } from './SubmissionListController'
 import * as PageData from '../../../stores/ui/PageData'
 
 export interface Props {
-    page: PageData.AssignmentListPage | PageData.AssignmentPage
+    page: PageData.CoursePage
     history?: History
 }
 
@@ -33,7 +33,7 @@ export class AssignmentsPage extends React.Component<Props> {
     }
 
     render() {
-        const { selectedCourse, showSubmissions } = this.props.page
+        const { selectedCourse, subPage } = this.props.page
 
         return (
             <Page>

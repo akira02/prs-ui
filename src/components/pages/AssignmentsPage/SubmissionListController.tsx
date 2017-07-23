@@ -12,7 +12,7 @@ import { History } from '../../../stores/History'
 import * as PageData from '../../../stores/ui/PageData'
 
 export interface Props {
-    page: PageData.AssignmentPage | PageData.AssignmentListPage
+    page: PageData.CoursePage
 
     history?: History
 }
@@ -38,6 +38,7 @@ export class SubmissionListController extends React.Component<Props> {
 
     render() {
         const { page } = this.props
+        const subPage = page.subPage as PageData.AssignmentListPage
         return (
             <Wrapper>
                 <CSSTransitionGroup
@@ -45,7 +46,7 @@ export class SubmissionListController extends React.Component<Props> {
                     transitionEnterTimeout={500}
                     transitionLeaveTimeout={500}
                 >
-                    {page.showSubmissions
+                    {subPage.showSubmissions
                         ? <Background
                               key="background"
                               onClick={this.closeSubmissionList}
@@ -58,11 +59,8 @@ export class SubmissionListController extends React.Component<Props> {
                     transitionEnterTimeout={500}
                     transitionLeaveTimeout={500}
                 >
-                    {page.showSubmissions
-                        ? <SubmissionList
-                              key="submission-list"
-                              page={page as PageData.AssignmentPage}
-                          />
+                    {subPage.showSubmissions
+                        ? <SubmissionList key="submission-list" page={page} />
                         : null}
                 </CSSTransitionGroup>
             </Wrapper>

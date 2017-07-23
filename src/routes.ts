@@ -26,11 +26,10 @@ export const routes: Route[] = [
         path: '/courses/:courseId',
         requireLogin: true,
         async action({ params, next }) {
-            const child = await next()
             return {
                 name: 'course',
                 courseId: params.courseId,
-                ...child
+                subPage: await next()
             }
         },
         children: [
@@ -42,14 +41,14 @@ export const routes: Route[] = [
             {
                 path: '/assignments',
                 action: () => ({
-                    subPage: 'assignmentList',
+                    name: 'assignmentList',
                     showSubmissions: false
                 })
             },
             {
                 path: '/assignments/:assignmentId',
                 action: ({ params }) => ({
-                    subPage: 'assignmentList',
+                    name: 'assignmentList',
                     showSubmissions: true,
                     assignmentId: params.assignmentId
                 })
@@ -57,13 +56,13 @@ export const routes: Route[] = [
             {
                 path: '/forms',
                 action: () => ({
-                    subPage: 'formList'
+                    name: 'formList'
                 })
             },
             {
                 path: '/students',
-                action: ({ params }) => ({
-                    subPage: 'studentList'
+                action: () => ({
+                    name: 'studentList'
                 })
             }
         ]

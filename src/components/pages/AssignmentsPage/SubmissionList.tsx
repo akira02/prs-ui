@@ -9,7 +9,7 @@ import * as PageData from '../../../stores/ui/PageData'
 import { Assignment } from '../../../stores/Assignment'
 
 export interface Props {
-    page: PageData.AssignmentPage
+    page: PageData.CoursePage
 }
 
 /** 顯示在右半邊的 page */
@@ -23,7 +23,8 @@ const StyledPage = styled(Page)`
 @observer
 export class SubmissionList extends React.Component<Props> {
     render() {
-        const { selectedAssignment } = this.props.page
+        const { subPage } = this.props.page
+        const { selectedAssignment } = subPage as PageData.AssignmentListPage
 
         return (
             <StyledPage>

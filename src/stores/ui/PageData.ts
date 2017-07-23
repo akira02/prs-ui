@@ -1,4 +1,4 @@
-import { types, getRoot, resolveIdentifier } from 'mobx-state-tree'
+import { types, getRoot, getParent, resolveIdentifier } from 'mobx-state-tree'
 import { autorun, when } from 'mobx'
 
 import { RootStore } from '../RootStore'
@@ -79,32 +79,20 @@ const CourseListPageModel = types.compose(
 
 export type CourseListPage = typeof CourseListPageModel.Type
 
-/** /courses/:courseId 下的頁面的 base type */
-const CoursePageBase = types.compose('CoursePageBase', LifeCycleModel, {
-    name: types.literal('course'),
-    courseId: types.string,
-    get selectedCourse(): Course | null {
-        return resolveIdentifier(CourseModel, this, this.courseId)
-    }
-})
-
 /** 學生列表頁 */
 export const StudentListPageModel = types.compose(
     'StudentListPage',
-    CoursePageBase,
+    LifeCycleModel,
     {
-        subPage: types.literal('studentList')
+        name: types.literal('studentList')
     },
     {
         afterCreate() {
-            const { courseStore } = getRoot<RootStore>(this)
-
-            this.onEnter(courseStore.fetch)
-
             this.disposeOnLeave(
                 autorun(() => {
-                    if (this.selectedCourse == null) return
-                    this.selectedCourse.fetchStudents()
+                    const parent = getParent<CoursePage>(this)
+                    if (parent.selectedCourse == null) return
+                    parent.selectedCourse.fetchStudents()
                 })
             )
         }
@@ -114,69 +102,32 @@ export const StudentListPageModel = types.compose(
 export type StudentListPage = typeof StudentListPageModel.Type
 
 /** 課程評鑑頁 */
-export const FormListPageModel = types.compose(
-    'FormListPage',
-    CoursePageBase,
-    {
-        subPage: types.literal('formList')
-    },
-    {
-        afterCreate() {
-            const { courseStore } = getRoot<RootStore>(this)
-            this.onEnter(courseStore.fetch)
-        }
-    }
-)
+export const FormListPageModel = types.compose('FormListPage', LifeCycleModel, {
+    name: types.literal('formList')
+})
 
 export type FormListPage = typeof FormListPageModel.Type
 
 /** 作業列表頁 */
 export const AssignmentListPageModel = types.compose(
     'AssignmentListPage',
-    CoursePageBase,
+    LifeCycleModel,
     {
-        subPage: types.literal('assignmentList'),
-        showSubmissions: types.literal(false)
-    },
-    {
-        async afterCreate() {
-            const { courseStore } = getRoot<RootStore>(this)
-            this.onEnter(courseStore.fetch)
-
-            this.disposeOnLeave(
-                autorun(() => {
-                    if (this.selectedCourse == null) return
-                    this.selectedCourse.fetchAssignments()
-                })
-            )
-        }
-    }
-)
-
-export type AssignmentListPage = typeof AssignmentListPageModel.Type
-
-/** 作業(submission列表)頁 */
-export const AssignmentPageModel = types.compose(
-    'AssignmentPage',
-    CoursePageBase,
-    {
-        subPage: types.literal('assignmentList'),
-        showSubmissions: types.literal(true),
-        assignmentId: types.string,
+        name: types.literal('assignmentList'),
+        showSubmissions: false,
+        assignmentId: types.maybe(types.string),
         get selectedAssignment() {
+            if (this.assignmentId == null) return null
             return resolveIdentifier(AssignmentModel, this, this.assignmentId)
         }
     },
     {
         async afterCreate() {
-            const { courseStore } = getRoot<RootStore>(this)
-
-            this.onEnter(courseStore.fetch)
-
             this.disposeOnLeave(
                 autorun(() => {
-                    if (this.selectedCourse == null) return
-                    this.selectedCourse.fetchAssignments()
+                    const parent = getParent<CoursePage>(this)
+                    if (parent.selectedCourse == null) return
+                    parent.selectedCourse.fetchAssignments()
                 })
             )
 
@@ -190,7 +141,37 @@ export const AssignmentPageModel = types.compose(
     }
 )
 
-export type AssignmentPage = typeof AssignmentPageModel.Type
+export type AssignmentListPage = typeof AssignmentListPageModel.Type
+
+const CoursePageModel = types.compose(
+    'CoursePage',
+    LifeCycleModel,
+    {
+        name: types.literal('course'),
+        courseId: types.string,
+
+        subPage: types.union(
+            AssignmentListPageModel,
+            FormListPageModel,
+            StudentListPageModel
+        ),
+
+        get selectedCourse(): Course | null {
+            return resolveIdentifier(CourseModel, this, this.courseId)
+        }
+    },
+    {
+        afterCreate() {
+            this.onEnter(() => {
+                getRoot<RootStore>(this).courseStore.fetch()
+            })
+            this.onEnter(this.subPage.enter)
+            this.onLeave(this.subPage.leave)
+        }
+    }
+)
+
+export type CoursePage = typeof CoursePageModel.Type
 
 export const NotFoundPageModel = types.compose('NotFoundPage', LifeCycleModel, {
     name: types.literal('notFound')
@@ -201,17 +182,8 @@ export type NotFoundPage = typeof NotFoundPageModel.Type
 export const PageDataModel = types.union(
     LoginPageModel,
     CourseListPageModel,
-    AssignmentListPageModel,
-    StudentListPageModel,
-    FormListPageModel,
-    AssignmentPageModel,
+    CoursePageModel,
     NotFoundPageModel
 )
 
 export type PageData = typeof PageDataModel.Type
-
-export type CoursePage =
-    | AssignmentListPage
-    | StudentListPage
-    | FormListPage
-    | AssignmentPage

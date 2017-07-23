@@ -49,18 +49,9 @@ export class CoursePage extends React.Component<Props> {
             return <EmptyPage key="empty" />
         }
 
-        switch (subPage) {
+        switch (subPage.name) {
             case 'assignmentList':
-                return (
-                    <AssignmentsPage
-                        key="assignmentList"
-                        page={
-                            page as
-                                | PageData.AssignmentListPage
-                                | PageData.AssignmentPage
-                        }
-                    />
-                )
+                return <AssignmentsPage key="assignmentList" page={page} />
             case 'formList':
                 return (
                     <FormsPage key="formList" selectedCourse={selectedCourse} />
