@@ -25,13 +25,18 @@ export const LifeCycleModel = types.model(
             }
         },
         exit() {
-            if (this.lifeCycleState === 'created' || this.lifeCycleState === 'entered') {
+            if (
+                this.lifeCycleState === 'created' ||
+                this.lifeCycleState === 'entered'
+            ) {
                 this.lifeCycleState = 'exited'
             }
         },
         onEnter(): Promise<void> {
             return new Promise(resolve => {
-                this.disposeOnExit(when(() => this.lifeCycleState === 'entered', resolve))
+                this.disposeOnExit(
+                    when(() => this.lifeCycleState === 'entered', resolve)
+                )
             })
         },
         onExit(): Promise<void> {
