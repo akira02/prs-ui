@@ -5,13 +5,15 @@ import { RootStore } from '../RootStore'
 import { CourseModel, Course } from '../Course'
 import { AssignmentModel } from '../Assignment'
 
-const LifeCycleStateModel = types.union(
+export const LifeCycleStateModel = types.union(
     types.literal('created'),
     types.literal('entered'),
     types.literal('exited')
 )
 
-const LifeCycleModel = types.model(
+export type LifeCycleState = typeof LifeCycleStateModel.Type
+
+export const LifeCycleModel = types.model(
     'LifeCycle',
     {
         lifeCycleState: types.optional(LifeCycleStateModel, 'created')
@@ -44,7 +46,7 @@ const LifeCycleModel = types.model(
 )
 
 /** 登入頁 */
-const LoginPageModel = types.compose(
+export const LoginPageModel = types.compose(
     'LoginPage',
     LifeCycleModel,
     {
@@ -73,7 +75,7 @@ const LoginPageModel = types.compose(
 export type LoginPage = typeof LoginPageModel.Type
 
 /** 課程列表頁 */
-const CourseListPageModel = types.compose(
+export const CourseListPageModel = types.compose(
     'CourseListPage',
     LifeCycleModel,
     {
@@ -157,7 +159,7 @@ export const AssignmentListPageModel = types.compose(
 
 export type AssignmentListPage = typeof AssignmentListPageModel.Type
 
-const CoursePageModel = types.compose(
+export const CoursePageModel = types.compose(
     'CoursePage',
     LifeCycleModel,
     {
