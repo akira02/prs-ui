@@ -41,12 +41,10 @@ const LoginPageModel = types.compose(
     },
     {
         afterCreate() {
-            const { auth, history } = getRoot<RootStore>(this)
-
-            // 監視登入狀態, 一旦登入就執行
-            this.disposeOnExit(
-                when(
-                    () => this.hasEntered && auth.isLoggedIn,
+            this.onEnter(() => {
+                const { auth, history } = getRoot<RootStore>(this)
+                const disposer = when(
+                    () => auth.isLoggedIn,
                     () => {
                         if (this.goBack) {
                             history.goBack()
@@ -55,7 +53,8 @@ const LoginPageModel = types.compose(
                         }
                     }
                 )
-            )
+                this.disposeOnExit(disposer)
+            })
         }
     }
 )
@@ -71,8 +70,10 @@ const CourseListPageModel = types.compose(
     },
     {
         afterCreate() {
-            const { courseStore } = getRoot<RootStore>(this)
-            courseStore.fetch()
+            this.onEnter(() => {
+                const { courseStore } = getRoot<RootStore>(this)
+                courseStore.fetch()
+            })
         }
     }
 )
