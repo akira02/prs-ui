@@ -5,43 +5,43 @@ import { RootStore } from '../RootStore'
 import { CourseModel, Course } from '../Course'
 import { AssignmentModel } from '../Assignment'
 
-export const LifeCycleStateModel = types.union(
+export const LifecycleStateModel = types.union(
     types.literal('created'),
     types.literal('entered'),
     types.literal('exited')
 )
 
-export type LifeCycleState = typeof LifeCycleStateModel.Type
+export type LifecycleState = typeof LifecycleStateModel.Type
 
-export const LifeCycleModel = types.model(
-    'LifeCycle',
+export const LifecycleModel = types.model(
+    'Lifecycle',
     {
-        lifeCycleState: types.optional(LifeCycleStateModel, 'created')
+        lifecycleState: types.optional(LifecycleStateModel, 'created')
     },
     {
         enter() {
-            if (this.lifeCycleState === 'created') {
-                this.lifeCycleState = 'entered'
+            if (this.lifecycleState === 'created') {
+                this.lifecycleState = 'entered'
             }
         },
         exit() {
             if (
-                this.lifeCycleState === 'created' ||
-                this.lifeCycleState === 'entered'
+                this.lifecycleState === 'created' ||
+                this.lifecycleState === 'entered'
             ) {
-                this.lifeCycleState = 'exited'
+                this.lifecycleState = 'exited'
             }
         },
         onEnter(): Promise<void> {
             return new Promise(resolve => {
                 this.disposeOnExit(
-                    when(() => this.lifeCycleState === 'entered', resolve)
+                    when(() => this.lifecycleState === 'entered', resolve)
                 )
             })
         },
         onExit(): Promise<void> {
             return new Promise(resolve => {
-                when(() => this.lifeCycleState === 'exited', resolve)
+                when(() => this.lifecycleState === 'exited', resolve)
             })
         },
         disposeOnExit(dispose: () => void) {
@@ -53,7 +53,7 @@ export const LifeCycleModel = types.model(
 /** 登入頁 */
 export const LoginPageModel = types.compose(
     'LoginPage',
-    LifeCycleModel,
+    LifecycleModel,
     {
         name: types.literal('login'),
         goBack: false,
@@ -82,7 +82,7 @@ export type LoginPage = typeof LoginPageModel.Type
 /** 課程列表頁 */
 export const CourseListPageModel = types.compose(
     'CourseListPage',
-    LifeCycleModel,
+    LifecycleModel,
     {
         name: types.literal('courseList')
     },
@@ -100,7 +100,7 @@ export type CourseListPage = typeof CourseListPageModel.Type
 /** 學生列表頁 */
 export const StudentListPageModel = types.compose(
     'StudentListPage',
-    LifeCycleModel,
+    LifecycleModel,
     {
         name: types.literal('studentList')
     },
@@ -121,7 +121,7 @@ export const StudentListPageModel = types.compose(
 export type StudentListPage = typeof StudentListPageModel.Type
 
 /** 課程評鑑頁 */
-export const FormListPageModel = types.compose('FormListPage', LifeCycleModel, {
+export const FormListPageModel = types.compose('FormListPage', LifecycleModel, {
     name: types.literal('formList')
 })
 
@@ -130,7 +130,7 @@ export type FormListPage = typeof FormListPageModel.Type
 /** 作業列表頁 */
 export const AssignmentListPageModel = types.compose(
     'AssignmentListPage',
-    LifeCycleModel,
+    LifecycleModel,
     {
         name: types.literal('assignmentList'),
         showSubmissions: false,
@@ -166,7 +166,7 @@ export type AssignmentListPage = typeof AssignmentListPageModel.Type
 
 export const CoursePageModel = types.compose(
     'CoursePage',
-    LifeCycleModel,
+    LifecycleModel,
     {
         name: types.literal('course'),
         courseId: types.string,
@@ -199,7 +199,7 @@ export type CoursePage<T = CoursePageType['subPage']> = CoursePageType & {
     subPage: T
 }
 
-export const NotFoundPageModel = types.compose('NotFoundPage', LifeCycleModel, {
+export const NotFoundPageModel = types.compose('NotFoundPage', LifecycleModel, {
     name: types.literal('notFound')
 })
 
