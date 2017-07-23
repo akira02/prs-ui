@@ -25,7 +25,6 @@
     "@types/react-dom": "^15.5.1",
     "@types/superagent": "^3.5.2",
     "@types/webpack-env": "^1.13.0",
-    "classnames": "^2.2.5",
     "history": "^4.6.3",
     "isobject": "^3.0.1",
     "material-ui": "^0.18.5",

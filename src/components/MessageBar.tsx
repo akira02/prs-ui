@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { action } from 'mobx'
 import { inject, observer } from 'mobx-react'
-import classNames from 'classnames'
 
 import Snackbar from 'material-ui/Snackbar'
 
@@ -10,6 +9,9 @@ import { Message } from '../stores/ui/Message'
 interface Props {
     message?: Message
 }
+
+
+
 
 /**
  * 底部通知條
@@ -35,10 +37,6 @@ export class MessageBar extends React.Component<Props> {
 
         return (
             <Snackbar
-                className={classNames(
-                    'message',
-                    isError ? 'message-error' : null
-                )}
                 autoHideDuration={hasAction ? 4000 : 2000}
                 message={text}
                 open={open}
