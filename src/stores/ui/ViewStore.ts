@@ -16,7 +16,7 @@ export const ViewStoreModel = types.model(
     {
         setPage(page: PageData) {
             if (this.pageKey != null) {
-                this.pageMap.get(this.pageKey).leave()
+                this.pageMap.get(this.pageKey).exit()
                 this.sechduleDelete(this.pageKey)
             }
 

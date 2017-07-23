@@ -9,23 +9,23 @@ const LifeCycleModel = types.model(
     'LifeCycle',
     {
         hasEntered: false,
-        hasLeft: false
+        hasExited: false
     },
     {
         enter() {
             this.hasEntered = true
         },
         onEnter(listener: () => void) {
-            this.disposeOnLeave(when(() => this.hasEntered, listener))
+            this.disposeOnExit(when(() => this.hasEntered, listener))
         },
-        leave() {
-            this.hasLeft = true
+        exit() {
+            this.hasExited = true
         },
-        onLeave(listener: () => void) {
-            when(() => this.hasLeft, listener)
+        onExit(listener: () => void) {
+            when(() => this.hasExited, listener)
         },
-        disposeOnLeave(dispose: () => void) {
-            this.onLeave(dispose)
+        disposeOnExit(dispose: () => void) {
+            this.onExit(dispose)
         }
     }
 )
@@ -44,7 +44,7 @@ const LoginPageModel = types.compose(
             const { auth, history } = getRoot<RootStore>(this)
 
             // 監視登入狀態, 一旦登入就執行
-            this.disposeOnLeave(
+            this.disposeOnExit(
                 when(
                     () => this.hasEntered && auth.isLoggedIn,
                     () => {
@@ -88,7 +88,7 @@ export const StudentListPageModel = types.compose(
     },
     {
         afterCreate() {
-            this.disposeOnLeave(
+            this.disposeOnExit(
                 autorun(() => {
                     const parent = getParent<CoursePage>(this)
                     if (parent.selectedCourse == null) return
@@ -123,7 +123,7 @@ export const AssignmentListPageModel = types.compose(
     },
     {
         async afterCreate() {
-            this.disposeOnLeave(
+            this.disposeOnExit(
                 autorun(() => {
                     const parent = getParent<CoursePage>(this)
                     if (parent.selectedCourse == null) return
@@ -131,7 +131,7 @@ export const AssignmentListPageModel = types.compose(
                 })
             )
 
-            this.disposeOnLeave(
+            this.disposeOnExit(
                 autorun(() => {
                     if (this.selectedAssignment == null) return
                     this.selectedAssignment.fetchSubmissions()
@@ -166,7 +166,7 @@ const CoursePageModel = types.compose(
                 getRoot<RootStore>(this).courseStore.fetch()
             })
             this.onEnter(this.subPage.enter)
-            this.onLeave(this.subPage.leave)
+            this.onExit(this.subPage.exit)
         }
     }
 )
