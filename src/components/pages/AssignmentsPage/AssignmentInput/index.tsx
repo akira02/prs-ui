@@ -253,17 +253,31 @@ export class AssignmentInput extends React.Component<Props> {
                 return <CreateAssignment inputStore={this.inputStore} />
             case Steps.CreateReplyForm:
                 return (
-                    <FlatButton onTouchTap={() => this.createForm('reply')}>
-                        點此新增互評問卷
-                    </FlatButton>
+                    <div>
+                        <p>此作業是否要新增互評問卷呢？</p>
+                        <FlatButton 
+                            onTouchTap={() => this.createForm('reply')}
+                            style={{
+                                fontWeight:'normal',
+                            }}
+                            >
+                            是，新增互評問卷
+                        </FlatButton>
+                    </div>
                 )
             case Steps.CreateAssignmentForm:
                 return (
-                    <FlatButton
-                        onTouchTap={() => this.createForm('assignment')}
-                    >
-                        點此新增作業評鑑
-                    </FlatButton>
+                    <div>
+                        <p>此作業是否要新增作業評鑑呢？</p>
+                        <FlatButton
+                            onTouchTap={() => this.createForm('assignment')}
+                            style={{
+                                fontWeight:'normal',
+                            }}
+                        >
+                            是，新增作業評鑑
+                        </FlatButton>
+                    </div>
                 )
             case Steps.Finished:
                 return '新☆增☆大☆成☆功！！！'
