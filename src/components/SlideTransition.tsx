@@ -67,4 +67,3 @@ injectGlobal`
         z-index: 1;
     }
 `
-
