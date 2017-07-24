@@ -50,7 +50,7 @@ export class CreateAssignment extends React.Component<Props> {
                     required={true}
                     multiLine={true}
                     fullWidth={true}
-                    hintText="作業說明"
+                    rows={3}
                     floatingLabelText="作業說明"
                 />
                 <br />

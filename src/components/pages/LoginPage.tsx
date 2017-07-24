@@ -85,7 +85,8 @@ export class LoginPage extends React.Component<Props> {
                         checked={auth.remember}
                         onCheck={this.onCheck}
                     />
-                    <RaisedButton type="submit">Login</RaisedButton>
+                    <br />
+                    <RaisedButton type="submit">GOGO!</RaisedButton>
                 </form>
             </StyledPage>
         )

@@ -59,7 +59,7 @@ export class AssignmentCard extends React.Component<Props> {
                 </CardText>
                 <CardActions>
                     <FlatButton
-                        label="Submissions"
+                        label="繳交列表"
                         onTouchTap={this.openSubmissions}
                     />
                 </CardActions>

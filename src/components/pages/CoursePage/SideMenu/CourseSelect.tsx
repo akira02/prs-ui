@@ -1,4 +1,5 @@
 import * as React from 'react'
+import styled from 'styled-components'
 import { observable, computed, action } from 'mobx'
 import { inject, observer } from 'mobx-react'
 
@@ -7,6 +8,10 @@ import { List, ListItem, makeSelectable } from 'material-ui/List'
 import { History } from '../../../../stores/History'
 import { CourseStore } from '../../../../stores/CourseStore'
 import { Course } from '../../../../stores/Course'
+
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 const SelectableList = makeSelectable(List)
 
@@ -44,22 +49,28 @@ export class CourseSelect extends React.Component<Props> {
         const { selectedCourse, courseStore } = this.props
 
         return (
-            <SelectableList value={selectedCourse} onChange={this.handleSelect}>
-                <ListItem
-                    open={this.open}
-                    value={null}
-                    onNestedListToggle={this.handleToggle}
-                    onTouchTap={this.handleToggle}
-                    primaryText={selectedCourse && selectedCourse.name}
-                    nestedItems={this.sortedCourses.map(course =>
+             <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+                <SelectableList 
+                    value={selectedCourse} 
+                    onChange={this.handleSelect}
+                    style={{
+                        backgroundColor: 'rgb(48, 48, 48)',}}>
                         <ListItem
-                            key={course.id}
-                            value={course.id}
-                            primaryText={course.name}
+                            open={this.open}
+                            value={null}
+                            onNestedListToggle={this.handleToggle}
+                            onTouchTap={this.handleToggle}
+                            primaryText={selectedCourse && selectedCourse.name}
+                            nestedItems={this.sortedCourses.map(course =>
+                                <ListItem
+                                    key={course.id}
+                                    value={course.id}
+                                    primaryText={course.name}
+                                />
+                            )}
                         />
-                    )}
-                />
-            </SelectableList>
+                </SelectableList>
+            </MuiThemeProvider>
         )
     }
 }
