@@ -62,7 +62,7 @@ export class LoginPage extends React.Component<Props> {
     }
     @action.bound
     onCheck(event, checked: boolean) {
-        this.props.auth.remember = checked
+        this.props.auth.setRemember(checked)
     }
     @action.bound
     handleUserame(event, value: string) {
