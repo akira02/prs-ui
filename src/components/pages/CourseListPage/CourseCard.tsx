@@ -13,6 +13,8 @@ import { Course } from '../../../stores/Course'
 const StyledCard = styled(MarginCard)`
     &:hover {    
         background-color: rgba(153, 153, 153, 0.2) !important;
+        filter:brightness(1.2);
+        border: 2px #aaa solid;
     }
 `
 
@@ -36,10 +38,16 @@ export class CourseCard extends React.Component<Props> {
         const { course } = this.props
 
         return (
-            <StyledCard onTouchTap={this.handleTouchTap} styled={{
-                color:'white',
+            <StyledCard onTouchTap={this.handleTouchTap} style={{
+                backgroundImage:'url(/static/pic/course-bg-blur.jpg)',
+                backgroundAttachment:'fixed',
+                height:'70px',
+                margin:'10px 180px 10px 180px'
             }}>
-                <CardHeader title={course.name} />
+                <CardHeader title={course.name} titleStyle={{
+                color:'white',
+                fontSize:'1.3em'
+            }} />
             </StyledCard>
         )
     }
