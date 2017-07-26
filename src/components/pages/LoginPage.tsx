@@ -11,6 +11,12 @@ import { Page } from './Page'
 import { Auth } from '../../stores/Auth'
 import { Message } from '../../stores/ui/Message'
 
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+
+import {blue50} from 'material-ui/styles/colors';
+
 interface Props {
     auth?: Auth
     message?: Message
@@ -20,7 +26,16 @@ const StyledPage = styled(Page)`
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: #3ca2e0 !important;
+    color: white !important;
 `
+const muiTheme = getMuiTheme({
+  palette: {
+    textColor: blue50,
+    primary1Color: blue50,
+    disabledColor: blue50,
+  },
+});
 
 @inject('auth', 'message')
 @observer
@@ -60,8 +75,14 @@ export class LoginPage extends React.Component<Props> {
     render() {
         const { auth } = this.props
         return (
+            <MuiThemeProvider muiTheme={getMuiTheme(muiTheme)}>
             <StyledPage>
+                
                 <form onSubmit={this.onSubmit}>
+                    <img src="./static/pic/img_login.svg" style={{
+                        marginLeft:'47px'
+                    }}/>
+                    <br />
                     <TextField
                         type="text"
                         value={this.username}
@@ -69,6 +90,9 @@ export class LoginPage extends React.Component<Props> {
                         required={true}
                         hintText="測試期間預設admin"
                         floatingLabelText="帳號"
+                        style={{
+                            fontWeight: 'normal',
+                        }}
                     />
                     <br />
                     <TextField
@@ -78,6 +102,9 @@ export class LoginPage extends React.Component<Props> {
                         required={true}
                         hintText="測試期間預設123123"
                         floatingLabelText="密碼"
+                        style={{
+                            fontWeight: 'normal',
+                        }}
                     />
                     <br />
                     <Checkbox
@@ -86,9 +113,12 @@ export class LoginPage extends React.Component<Props> {
                         onCheck={this.onCheck}
                     />
                     <br />
-                    <RaisedButton type="submit">GOGO!</RaisedButton>
+                    <RaisedButton type="submit" style={{
+                        marginLeft:'80px',
+                    }}>GOGO!</RaisedButton>
                 </form>
             </StyledPage>
+            </MuiThemeProvider>
         )
     }
 }

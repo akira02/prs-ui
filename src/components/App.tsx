@@ -17,7 +17,6 @@ injectGlobal`
         margin: 0;
         font-family: 'Noto Sans TC', sans-serif !important;
         font-weight: bold;
-        font-size: 1.4em;
     }
     /*
     * Noto Sans TC (Chinese_traditional) http://www.google.com/fonts/earlyaccess
