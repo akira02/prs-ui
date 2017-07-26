@@ -38,10 +38,7 @@ export class AssignmentCard extends React.Component<Props> {
         const { assignment } = this.props
 
         return (
-            <MarginCard
-                style={{
-                    width:'60vw'
-                }}>
+            <MarginCard>
                 <CardHeader
                     title={assignment.name}
                     subtitle={'指派時間 / ' + moment(assignment.assigned).format('llll')}
