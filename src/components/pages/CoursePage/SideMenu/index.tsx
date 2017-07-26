@@ -48,7 +48,7 @@ export class SideMenu extends React.Component<Props> {
             <Drawer
                 docked={true}
                 style={{ height: '100%', backgroundColor: 'transparent' }}
-                containerStyle={{ position: 'relative' }}
+                containerStyle={{ position: 'relative', backgroundColor: 'transparent'}}
                 {...rest}
             >
                 <CourseSelect selectedCourse={page.selectedCourse} />
