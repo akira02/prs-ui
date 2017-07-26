@@ -14,7 +14,6 @@ export const AssignmentModel = types.model(
 
         assigned: types.string,
         due: types.string,
-        submitted: types.maybe(types.string),
 
         attachments: types.array(AttachmentModel),
 
