@@ -39,16 +39,25 @@ export class SubPageSelect extends React.Component<Props> {
         const { history, selectedCourse } = this.props
 
         return (
-            <SelectableList value={null} onChange={this.handlePath}>
-                <ListItem
-                    value={`${this.prefix}/assignments`}
-                    primaryText="作業"
-                />
-                <ListItem value={`${this.prefix}/forms`} primaryText="課程評鑑" />
-                <ListItem
-                    value={`${this.prefix}/students`}
-                    primaryText="學生名單"
-                />
+            <SelectableList 
+                value={null} 
+                onChange={this.handlePath}>
+                    <ListItem
+                        value={`${this.prefix}/assignments`}
+                        primaryText="作業"
+                        style={{
+                            fontSize:'1.3em'}}
+                    />
+                    <ListItem value={`${this.prefix}/forms`} 
+                        primaryText="課程評鑑" 
+                        style={{
+                            fontSize:'1.3em'}}/>
+                    <ListItem
+                        value={`${this.prefix}/students`}
+                        primaryText="學生名單"
+                        style={{
+                            fontSize:'1.3em'}}
+                    />
             </SelectableList>
         )
     }

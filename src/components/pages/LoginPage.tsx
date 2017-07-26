@@ -77,7 +77,6 @@ export class LoginPage extends React.Component<Props> {
         return (
             <MuiThemeProvider muiTheme={getMuiTheme(muiTheme)}>
             <StyledPage>
-                
                 <form onSubmit={this.onSubmit}>
                     <img src="./static/pic/img_login.svg" style={{
                         marginLeft:'47px'
@@ -113,9 +112,7 @@ export class LoginPage extends React.Component<Props> {
                         onCheck={this.onCheck}
                     />
                     <br />
-                    <RaisedButton type="submit" style={{
-                        marginLeft:'80px',
-                    }}>GOGO!</RaisedButton>
+                    <RaisedButton type="submit">GOGO!</RaisedButton>
                 </form>
             </StyledPage>
             </MuiThemeProvider>

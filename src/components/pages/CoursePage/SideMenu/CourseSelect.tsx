@@ -68,6 +68,9 @@ export class CourseSelect extends React.Component<Props> {
                                     primaryText={course.name}
                                 />
                             )}
+                            style={{
+                                fontSize:'1.3em'
+                            }}
                         />
                 </SelectableList>
             </MuiThemeProvider>
