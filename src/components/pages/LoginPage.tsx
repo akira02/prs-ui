@@ -28,6 +28,8 @@ const StyledPage = styled(Page)`
     justify-content: center;
     background-color: #3ca2e0 !important;
     color: white !important;
+    background-image: url(/static/pic/login-bg.jpg);
+    background-size: cover;
 `
 const muiTheme = getMuiTheme({
   palette: {
