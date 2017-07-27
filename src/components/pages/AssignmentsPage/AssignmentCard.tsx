@@ -25,7 +25,12 @@ moment.locale('ja')
 @observer
 export class AssignmentCard extends React.Component<Props> {
     @observable iframeUrl: string | null = null
+    @observable expanded: boolean = false
 
+    @action.bound
+    toggleExpandState() {
+        this.expanded = !this.expanded
+    }
     @action.bound
     openSubmissions() {
         const { assignment, history } = this.props
@@ -39,6 +44,7 @@ export class AssignmentCard extends React.Component<Props> {
 
         return (
             <CustomCard
+                expanded={this.expanded}
                 style={{
                     backgroundImage: 'url(/static/pic/assignment-bg-blur.jpg)',
                     backgroundSize: 'cover',
@@ -51,7 +57,7 @@ export class AssignmentCard extends React.Component<Props> {
                         '指派時間 / ' + moment(assignment.assigned).format('llll')
                     }
                     actAsExpander={true}
-                    showExpandableButton={true}
+                    showExpandableButton={false}
                     style={{
                         fontSize: '1.8em'
                     }}
@@ -80,6 +86,16 @@ export class AssignmentCard extends React.Component<Props> {
                             position: 'absolute',
                             right: '60px',
                             top: '-350%',
+                            fontWeight: 'bold'
+                        }}
+                    />
+                    <FlatButton
+                        label={`toggle ${this.expanded ? '👆' : '👇'}`}
+                        onTouchTap={this.toggleExpandState}
+                        style={{
+                            position: 'absolute',
+                            right: '60px',
+                            top: '-200%',
                             fontWeight: 'bold'
                         }}
                     />
