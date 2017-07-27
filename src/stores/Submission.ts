@@ -1,5 +1,6 @@
 import { types } from 'mobx-state-tree'
 
+/** 繳交 */
 export const SubmissionModel = types.model('Submission', {
     id: types.identifier(types.string),
     assignment_id: types.string,

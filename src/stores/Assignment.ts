@@ -5,6 +5,7 @@ import { AttachmentModel, Attachment } from './Attachment'
 
 import { updateMap } from './update-map'
 
+/** 作業 */
 export const AssignmentModel = types.model(
     'Assignment',
     {

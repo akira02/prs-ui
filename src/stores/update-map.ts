@@ -27,6 +27,8 @@ export function updateMap(
 
     for (let value of newValues) {
         const currentValue = target.get(value.id)
+
+        // 如果表中已有這個項目, 將新資料更新到項目中, 若沒有則創造一個新的項目
         if (currentValue != null) {
             const currentSnpshot = getSnapshot(currentValue)
             applySnapshot(currentValue, {

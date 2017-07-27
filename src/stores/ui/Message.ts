@@ -53,6 +53,9 @@ export const MessageModel = types.model(
             this.actionBox.set(action)
         },
 
+        /**
+         * 隱藏通知條
+         */
         close() {
             this.open = false
         }

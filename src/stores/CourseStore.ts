@@ -4,9 +4,7 @@ import { CourseModel } from './Course'
 
 import { updateMap } from './update-map'
 
-/**
- * 儲存所有 Course
- */
+/** 儲存所有 Course */
 export const CourseStoreModel = types.model(
     'CourseStore',
     {
