@@ -60,7 +60,7 @@ export class AssignmentCard extends React.Component<Props> {
                 <CardHeader
                     title={assignment.name}
                     subtitle={
-                        '指派時間 / ' + moment(assignment.assigned).format('llll')
+                        '指派時間 🕗  ' + moment(assignment.assigned).format('llll')
                     }
                     actAsExpander={true}
                     showExpandableButton={false}
@@ -86,17 +86,17 @@ export class AssignmentCard extends React.Component<Props> {
                 </CardText>
                 <CardActions>
                     <FlatButton
-                        label="繳交列表 〉"
+                        label="繳交列表 👉"
                         onTouchTap={this.openSubmissions}
                         style={{
                             position: 'absolute',
                             right: '60px',
-                            top: '-350%',
+                            top: '-400%',
                             fontWeight: 'bold'
                         }}
                     />
                     <FlatButton
-                        label={`toggle ${this.expanded ? '👆' : '👇'}`}
+                        label={`作業詳細 ${this.expanded ? '👆' : '👇'}`}
                         onTouchTap={this.toggleExpandState}
                         style={{
                             position: 'absolute',

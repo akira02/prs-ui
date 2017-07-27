@@ -196,12 +196,12 @@ export class AssignmentInput extends React.Component<Props> {
         if (this.step != Steps.Finished) {
             return [
                 <FlatButton
-                    label="取消"
+                    label="取消💦"
                     primary={true}
                     onTouchTap={this.handleCancel}
                 />,
                 <FlatButton
-                    label="下一步"
+                    label="下一步🚀"
                     primary={true}
                     keyboardFocused={true}
                     onTouchTap={this.gotoNextStep}
