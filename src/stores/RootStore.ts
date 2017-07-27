@@ -7,6 +7,10 @@ import { UserStoreModel } from './UserStore'
 import { MessageModel } from './ui/Message'
 import { ViewStoreModel } from './ui/ViewStore'
 
+/**
+ * 所有 store 的 root
+ * 在 store 中可以用 getRoot(this) 獲得
+ */
 export const RootStoreModel = types.model('RootStore', {
     auth: types.optional(AuthModel, {}),
     history: types.optional(HistoryModel, {}),

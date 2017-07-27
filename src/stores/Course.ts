@@ -6,6 +6,7 @@ import { UserModel, User } from './User'
 
 import { updateMap } from './update-map'
 
+/** 課程 */
 export const CourseModel = types.model(
     'Course',
     {
