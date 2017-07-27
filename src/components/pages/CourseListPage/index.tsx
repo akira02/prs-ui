@@ -24,9 +24,11 @@ export class CourseListPage extends React.Component<Props> {
     }
     render() {
         return (
-            <Page style={{
-                backgroundImage:'url(/static/pic/course-bg.jpg)',
-            }}>
+            <Page
+                style={{
+                    backgroundImage: 'url(/static/pic/course-bg.jpg)'
+                }}
+            >
                 {this.sortedCourses.map(course =>
                     <CourseCard key={course.id} course={course} />
                 )}

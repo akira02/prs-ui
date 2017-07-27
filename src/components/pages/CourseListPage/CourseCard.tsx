@@ -38,16 +38,22 @@ export class CourseCard extends React.Component<Props> {
         const { course } = this.props
 
         return (
-            <StyledCard onTouchTap={this.handleTouchTap} style={{
-                backgroundImage:'url(/static/pic/course-bg-blur.jpg)',
-                backgroundAttachment:'fixed',
-                height:'70px',
-                margin:'10px 180px 10px 180px'
-            }}>
-                <CardHeader title={course.name} titleStyle={{
-                color:'white',
-                fontSize:'1.3em'
-            }} />
+            <StyledCard
+                onTouchTap={this.handleTouchTap}
+                style={{
+                    backgroundImage: 'url(/static/pic/course-bg-blur.jpg)',
+                    backgroundAttachment: 'fixed',
+                    height: '70px',
+                    margin: '10px 180px 10px 180px'
+                }}
+            >
+                <CardHeader
+                    title={course.name}
+                    titleStyle={{
+                        color: 'white',
+                        fontSize: '1.3em'
+                    }}
+                />
             </StyledCard>
         )
     }

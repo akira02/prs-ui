@@ -22,7 +22,7 @@ export const AuthModel = types.model(
             this.updateToken(response.body.token)
         },
         setRemember(remember: boolean) {
-            this.remember = remember;
+            this.remember = remember
         },
         updateToken(token) {
             this.token = token

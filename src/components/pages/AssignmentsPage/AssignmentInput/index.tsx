@@ -255,12 +255,12 @@ export class AssignmentInput extends React.Component<Props> {
                 return (
                     <div>
                         <p>此作業是否要新增互評問卷呢？</p>
-                        <FlatButton 
+                        <FlatButton
                             onTouchTap={() => this.createForm('reply')}
                             style={{
-                                fontWeight:'normal',
+                                fontWeight: 'normal'
                             }}
-                            >
+                        >
                             是，新增互評問卷
                         </FlatButton>
                     </div>
@@ -272,7 +272,7 @@ export class AssignmentInput extends React.Component<Props> {
                         <FlatButton
                             onTouchTap={() => this.createForm('assignment')}
                             style={{
-                                fontWeight:'normal',
+                                fontWeight: 'normal'
                             }}
                         >
                             是，新增作業評鑑

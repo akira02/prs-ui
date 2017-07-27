@@ -48,7 +48,10 @@ export class SideMenu extends React.Component<Props> {
             <Drawer
                 docked={true}
                 style={{ height: '100%', backgroundColor: 'transparent' }}
-                containerStyle={{ position: 'relative', backgroundColor: 'transparent'}}
+                containerStyle={{
+                    position: 'relative',
+                    backgroundColor: 'transparent'
+                }}
                 {...rest}
             >
                 <CourseSelect selectedCourse={page.selectedCourse} />
@@ -60,15 +63,19 @@ export class SideMenu extends React.Component<Props> {
                 <List>
                     <ListItem primaryText="登出" onTouchTap={this.handleLogout} />
                 </List>
-                <p style={{
-                    position:'absolute',
-                    bottom:'0px',
-                    right:'15px',
-                    fontSize:'0.7em',
-                    fontWeight:'normal',
-                    textAlign:'right'
-                }}>Copyright © 2017 PRS team.<br/>
-                UI designed by 千秋</p>
+                <p
+                    style={{
+                        position: 'absolute',
+                        bottom: '0px',
+                        right: '15px',
+                        fontSize: '0.7em',
+                        fontWeight: 'normal',
+                        textAlign: 'right'
+                    }}
+                >
+                    Copyright © 2017 PRS team.<br />
+                    UI designed by 千秋
+                </p>
             </Drawer>
         )
     }

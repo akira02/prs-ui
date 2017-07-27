@@ -41,11 +41,13 @@ export class AssignmentCard extends React.Component<Props> {
             <MarginCard>
                 <CardHeader
                     title={assignment.name}
-                    subtitle={'指派時間 / ' + moment(assignment.assigned).format('llll')}
+                    subtitle={
+                        '指派時間 / ' + moment(assignment.assigned).format('llll')
+                    }
                     actAsExpander={true}
                     showExpandableButton={true}
                     style={{
-                        fontSize:'1.8em',
+                        fontSize: '1.8em'
                     }}
                 />
                 <CardText expandable={true}>
@@ -69,10 +71,10 @@ export class AssignmentCard extends React.Component<Props> {
                         label="繳交列表 〉"
                         onTouchTap={this.openSubmissions}
                         style={{
-                            position:'absolute',
-                            right:'60px',
-                            top:'-350%',
-                            fontWeight:'bold',
+                            position: 'absolute',
+                            right: '60px',
+                            top: '-350%',
+                            fontWeight: 'bold'
                         }}
                     />
                 </CardActions>

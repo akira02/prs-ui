@@ -11,11 +11,11 @@ import { Page } from './Page'
 import { Auth } from '../../stores/Auth'
 import { Message } from '../../stores/ui/Message'
 
-import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import getMuiTheme from 'material-ui/styles/getMuiTheme'
 
-import {blue50} from 'material-ui/styles/colors';
+import { blue50 } from 'material-ui/styles/colors'
 
 interface Props {
     auth?: Auth
@@ -32,12 +32,12 @@ const StyledPage = styled(Page)`
     background-size: cover;
 `
 const muiTheme = getMuiTheme({
-  palette: {
-    textColor: blue50,
-    primary1Color: blue50,
-    disabledColor: blue50,
-  },
-});
+    palette: {
+        textColor: blue50,
+        primary1Color: blue50,
+        disabledColor: blue50
+    }
+})
 
 @inject('auth', 'message')
 @observer
@@ -78,45 +78,48 @@ export class LoginPage extends React.Component<Props> {
         const { auth } = this.props
         return (
             <MuiThemeProvider muiTheme={getMuiTheme(muiTheme)}>
-            <StyledPage>
-                <form onSubmit={this.onSubmit}>
-                    <img src="./static/pic/img_login.svg" style={{
-                        marginLeft:'47px'
-                    }}/>
-                    <br />
-                    <TextField
-                        type="text"
-                        value={this.username}
-                        onChange={this.handleUserame}
-                        required={true}
-                        hintText="測試期間預設admin"
-                        floatingLabelText="帳號"
-                        style={{
-                            fontWeight: 'normal',
-                        }}
-                    />
-                    <br />
-                    <TextField
-                        type="password"
-                        value={this.password}
-                        onChange={this.handlePassword}
-                        required={true}
-                        hintText="測試期間預設123123"
-                        floatingLabelText="密碼"
-                        style={{
-                            fontWeight: 'normal',
-                        }}
-                    />
-                    <br />
-                    <Checkbox
-                        label="Remember Me"
-                        checked={auth.remember}
-                        onCheck={this.onCheck}
-                    />
-                    <br />
-                    <RaisedButton type="submit">GOGO!</RaisedButton>
-                </form>
-            </StyledPage>
+                <StyledPage>
+                    <form onSubmit={this.onSubmit}>
+                        <img
+                            src="./static/pic/img_login.svg"
+                            style={{
+                                marginLeft: '47px'
+                            }}
+                        />
+                        <br />
+                        <TextField
+                            type="text"
+                            value={this.username}
+                            onChange={this.handleUserame}
+                            required={true}
+                            hintText="測試期間預設admin"
+                            floatingLabelText="帳號"
+                            style={{
+                                fontWeight: 'normal'
+                            }}
+                        />
+                        <br />
+                        <TextField
+                            type="password"
+                            value={this.password}
+                            onChange={this.handlePassword}
+                            required={true}
+                            hintText="測試期間預設123123"
+                            floatingLabelText="密碼"
+                            style={{
+                                fontWeight: 'normal'
+                            }}
+                        />
+                        <br />
+                        <Checkbox
+                            label="Remember Me"
+                            checked={auth.remember}
+                            onCheck={this.onCheck}
+                        />
+                        <br />
+                        <RaisedButton type="submit">GOGO!</RaisedButton>
+                    </form>
+                </StyledPage>
             </MuiThemeProvider>
         )
     }

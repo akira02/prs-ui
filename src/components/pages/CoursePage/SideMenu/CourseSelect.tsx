@@ -9,9 +9,9 @@ import { History } from '../../../../stores/History'
 import { CourseStore } from '../../../../stores/CourseStore'
 import { Course } from '../../../../stores/Course'
 
-import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import getMuiTheme from 'material-ui/styles/getMuiTheme'
 
 const SelectableList = makeSelectable(List)
 
@@ -49,29 +49,31 @@ export class CourseSelect extends React.Component<Props> {
         const { selectedCourse, courseStore } = this.props
 
         return (
-             <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
-                <SelectableList 
-                    value={selectedCourse} 
+            <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+                <SelectableList
+                    value={selectedCourse}
                     onChange={this.handleSelect}
                     style={{
-                        backgroundColor: 'rgb(48, 48, 48)',}}>
-                        <ListItem
-                            open={this.open}
-                            value={null}
-                            onNestedListToggle={this.handleToggle}
-                            onTouchTap={this.handleToggle}
-                            primaryText={selectedCourse && selectedCourse.name}
-                            nestedItems={this.sortedCourses.map(course =>
-                                <ListItem
-                                    key={course.id}
-                                    value={course.id}
-                                    primaryText={course.name}
-                                />
-                            )}
-                            style={{
-                                fontSize:'1.3em'
-                            }}
-                        />
+                        backgroundColor: 'rgb(48, 48, 48)'
+                    }}
+                >
+                    <ListItem
+                        open={this.open}
+                        value={null}
+                        onNestedListToggle={this.handleToggle}
+                        onTouchTap={this.handleToggle}
+                        primaryText={selectedCourse && selectedCourse.name}
+                        nestedItems={this.sortedCourses.map(course =>
+                            <ListItem
+                                key={course.id}
+                                value={course.id}
+                                primaryText={course.name}
+                            />
+                        )}
+                        style={{
+                            fontSize: '1.3em'
+                        }}
+                    />
                 </SelectableList>
             </MuiThemeProvider>
         )
