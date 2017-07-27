@@ -32,6 +32,11 @@ export class AssignmentCard extends React.Component<Props> {
         this.expanded = !this.expanded
     }
     @action.bound
+    setExpandState(expanded) {
+        this.expanded = expanded
+    }
+
+    @action.bound
     openSubmissions() {
         const { assignment, history } = this.props
         history.push(
@@ -45,6 +50,7 @@ export class AssignmentCard extends React.Component<Props> {
         return (
             <CustomCard
                 expanded={this.expanded}
+                onExpandChange={this.setExpandState}
                 style={{
                     backgroundImage: 'url(/static/pic/assignment-bg-blur.jpg)',
                     backgroundSize: 'cover',
