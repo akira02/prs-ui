@@ -27,7 +27,7 @@ export class CourseListPage extends React.Component<Props> {
             <Page
                 style={{
                     backgroundImage: 'url(/static/pic/course-bg.jpg)',
-                    padding:'50px 0px 50px 0px'
+                    padding: '50px 0px 50px 0px'
                 }}
             >
                 {this.sortedCourses.map(course =>

@@ -35,7 +35,7 @@ export class CourseCard extends React.Component<Props> {
 
     render() {
         const { course } = this.props
-        
+
         return (
             <StyledCard
                 onTouchTap={this.handleTouchTap}

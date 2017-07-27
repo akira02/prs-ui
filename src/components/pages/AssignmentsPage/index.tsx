@@ -36,11 +36,13 @@ export class AssignmentsPage extends React.Component<Props> {
         const { selectedCourse, subPage } = this.props.page
 
         return (
-            <Page style={{
-                backgroundImage:'url(/static/pic/assignment-bg.jpg)',
-                backgroundSize:'cover',
-                backgroundAttachment:'fixed',
-            }} >
+            <Page
+                style={{
+                    backgroundImage: 'url(/static/pic/assignment-bg.jpg)',
+                    backgroundSize: 'cover',
+                    backgroundAttachment: 'fixed'
+                }}
+            >
                 <AssignmentCardContainer>
                     {selectedCourse.assignments
                         .values()

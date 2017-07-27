@@ -47,13 +47,13 @@ export class SideMenu extends React.Component<Props> {
         return (
             <Drawer
                 docked={true}
-                style={{ 
-                    height: '100%', 
+                style={{
+                    height: '100%',
                     backgroundColor: 'transparent',
-                    backgroundImage:'url(/static/pic/assignment-bg-blur.jpg)',
-                    backgroundSize:'cover',
-                    backgroundAttachment:'fixed',
-                     }}
+                    backgroundImage: 'url(/static/pic/assignment-bg-blur.jpg)',
+                    backgroundSize: 'cover',
+                    backgroundAttachment: 'fixed'
+                }}
                 containerStyle={{
                     position: 'relative',
                     backgroundColor: 'transparent'

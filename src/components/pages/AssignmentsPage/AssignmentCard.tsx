@@ -38,11 +38,13 @@ export class AssignmentCard extends React.Component<Props> {
         const { assignment } = this.props
 
         return (
-            <CustomCard style={{
-                backgroundImage:'url(/static/pic/assignment-bg-blur.jpg)',
-                backgroundSize:'cover',
-                backgroundAttachment:'fixed',
-            }} >
+            <CustomCard
+                style={{
+                    backgroundImage: 'url(/static/pic/assignment-bg-blur.jpg)',
+                    backgroundSize: 'cover',
+                    backgroundAttachment: 'fixed'
+                }}
+            >
                 <CardHeader
                     title={assignment.name}
                     subtitle={

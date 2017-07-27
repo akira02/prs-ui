@@ -192,7 +192,7 @@ export const CoursePageModel = types.compose(
     LifecycleModel,
     {
         name: types.literal('course'),
-        
+
         /** 子頁 */
         subPage: types.union(
             AssignmentListPageModel,
