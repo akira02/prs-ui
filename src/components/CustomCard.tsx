@@ -9,6 +9,6 @@ interface OnTouchTapProps {
 type Props = OnTouchTapProps & __MaterialUI.Card.CardProps
 
 export const CustomCard = styled<Props>(Card)`
-    background-color: transparent !important;
+    background-color: rgba(245, 248, 251, 0.98) !important;
     margin: 8px;
 `
