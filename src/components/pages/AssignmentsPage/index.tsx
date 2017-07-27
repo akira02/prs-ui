@@ -20,16 +20,16 @@ export interface Props {
 
 @observer
 export class AssignmentsPage extends React.Component<Props> {
-    @observable dialogOpen = false
+    @observable assignmentInputOpen = false
 
     @action.bound
-    openDialog() {
-        this.dialogOpen = true
+    showAssignmentInput() {
+        this.assignmentInputOpen = true
     }
 
     @action.bound
-    closeDialog() {
-        this.dialogOpen = false
+    hideAssignmentInput() {
+        this.assignmentInputOpen = false
     }
 
     render() {
@@ -50,14 +50,14 @@ export class AssignmentsPage extends React.Component<Props> {
 
                 <SubmissionListController page={this.props.page} />
 
-                <FixedButton onTouchTap={this.openDialog}>
+                <FixedButton onTouchTap={this.showAssignmentInput}>
                     <ContentAdd />
                 </FixedButton>
 
                 <AssignmentInput
                     selectedCourse={selectedCourse}
-                    open={this.dialogOpen}
-                    onRequestClose={this.closeDialog}
+                    open={this.assignmentInputOpen}
+                    onRequestClose={this.hideAssignmentInput}
                 />
             </Page>
         )
