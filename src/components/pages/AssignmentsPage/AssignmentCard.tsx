@@ -7,7 +7,7 @@ import FlatButton from 'material-ui/FlatButton'
 import { List, ListItem } from 'material-ui/List'
 
 import { IframeDialog } from '../../IframeDialog'
-import { MarginCard } from '../../MarginCard'
+import { CustomCard } from '../../CustomCard'
 
 import { History } from '../../../stores/History'
 import { Assignment } from '../../../stores/Assignment'
@@ -38,7 +38,7 @@ export class AssignmentCard extends React.Component<Props> {
         const { assignment } = this.props
 
         return (
-            <MarginCard>
+            <CustomCard>
                 <CardHeader
                     title={assignment.name}
                     subtitle={
@@ -85,7 +85,7 @@ export class AssignmentCard extends React.Component<Props> {
                         this.iframeUrl = null
                     }}
                 />
-            </MarginCard>
+            </CustomCard>
         )
     }
 }

@@ -5,7 +5,7 @@ import { observer } from 'mobx-react'
 import { CardHeader, CardMedia } from 'material-ui/Card'
 import { List, ListItem } from 'material-ui/List'
 
-import { MarginCard } from '../../MarginCard'
+import { CustomCard } from '../../CustomCard'
 
 import { User } from '../../../stores/User'
 
@@ -14,6 +14,6 @@ export interface Props {
 }
 
 export const UserCard = ({ user }) =>
-    <MarginCard>
+    <CustomCard>
         <CardHeader title={user.name} />
-    </MarginCard>
+    </CustomCard>

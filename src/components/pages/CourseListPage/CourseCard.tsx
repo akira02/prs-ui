@@ -5,12 +5,12 @@ import { action } from 'mobx'
 import { inject, observer } from 'mobx-react'
 
 import { CardHeader } from 'material-ui/Card'
-import { MarginCard } from '../../MarginCard'
+import { CustomCard } from '../../CustomCard'
 
 import { History } from '../../../stores/History'
 import { Course } from '../../../stores/Course'
 
-const StyledCard = styled(MarginCard)`
+const StyledCard = styled(CustomCard)`
     &:hover {    
         background-color: rgba(153, 153, 153, 0.2) !important;
         filter:brightness(1.2);

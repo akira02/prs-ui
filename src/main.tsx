@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { render } from 'react-dom'
 import { AppContainer } from 'react-hot-loader'
-import injectTapEventPlugin from 'react-tap-event-plugin'
+import * as injectTapEventPlugin from 'react-tap-event-plugin'
 import { autorun } from 'mobx'
 import { Provider } from 'mobx-react'
 

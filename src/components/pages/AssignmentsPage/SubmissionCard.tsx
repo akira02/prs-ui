@@ -2,7 +2,7 @@ import * as React from 'react'
 import { observer } from 'mobx-react'
 import { CardHeader, CardText } from 'material-ui/Card'
 
-import { MarginCard } from '../../MarginCard'
+import { CustomCard } from '../../CustomCard'
 
 import { Submission } from '../../../stores/Submission'
 
@@ -16,12 +16,12 @@ export class SubmissionCard extends React.Component<Props> {
         const { submission } = this.props
 
         return (
-            <MarginCard>
+            <CustomCard>
                 <CardHeader title={submission.username} />
                 <CardText>
                     {submission.link}
                 </CardText>
-            </MarginCard>
+            </CustomCard>
         )
     }
 }
