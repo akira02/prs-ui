@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { Card } from 'material-ui/Card'
 
 interface OnTouchTapProps {
-    onTouchTap?: React.TouchEventHandler<any>
+    onTouchTap?: React.TouchEventHandler<HTMLElement>
 }
 
 type Props = OnTouchTapProps & __MaterialUI.Card.CardProps
