@@ -18,7 +18,6 @@ module.exports = {
       {
         test: /\.tsx?$/,
         use: [
-          { loader: 'react-hot-loader/webpack' },
           {
             loader: 'awesome-typescript-loader',
             options: {
