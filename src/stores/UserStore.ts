@@ -2,6 +2,7 @@ import { types, getEnv, getRoot } from 'mobx-state-tree'
 import { RootStore } from './RootStore'
 import { User, UserModel } from './User'
 
+/** 儲存所有 User */
 export const UserStoreModel = types.model(
     'UserStore',
     {
