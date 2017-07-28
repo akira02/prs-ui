@@ -30,7 +30,7 @@ export class SubmissionListController extends React.Component<Props> {
 
     render() {
         const { page } = this.props
-        const subPage = page.subPage as PageData.AssignmentListPage
+        const { showSubmissions } = page.subPage
         return (
             <div>
                 <CSSTransitionGroup
@@ -38,7 +38,7 @@ export class SubmissionListController extends React.Component<Props> {
                     transitionEnterTimeout={500}
                     transitionLeaveTimeout={500}
                 >
-                    {subPage.showSubmissions
+                    {showSubmissions
                         ? <Background
                               key="background"
                               onClick={this.closeSubmissionList}
@@ -51,7 +51,7 @@ export class SubmissionListController extends React.Component<Props> {
                     transitionEnterTimeout={500}
                     transitionLeaveTimeout={500}
                 >
-                    {subPage.showSubmissions
+                    {showSubmissions
                         ? <SubmissionList key="submission-list" page={page} />
                         : null}
                 </CSSTransitionGroup>
