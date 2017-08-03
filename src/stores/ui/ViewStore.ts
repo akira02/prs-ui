@@ -6,7 +6,11 @@ import * as shortId from 'shortid'
 export const ViewStoreModel = types.model(
     'ViewStore',
     {
-        /** 儲存所有 page 的 map */
+        /**
+         * 儲存所有 page 的 map
+         * 因為有過場動畫，不能馬上刪掉已經退出的 page
+         * 所以要弄個 map 讓他有地方放一陣子
+         */
         pageMap: types.optional(types.map(PageDataModel), {}),
         /** 目前的 page 的 key */
         pageKey: types.maybe(types.string),
@@ -45,9 +49,7 @@ export const ViewStoreModel = types.model(
                 this.deletePage(key)
             }, 1000)
         },
-        /**
-         * 刪除 page
-         */
+        /** 刪除 page */
         deletePage(key: string) {
             this.pageMap.delete(key)
         }
