@@ -39,7 +39,13 @@ export class SubPageSelect extends React.Component<Props> {
         const { history, selectedCourse } = this.props
 
         return (
-            <SelectableList value={null} onChange={this.handlePath}>
+            <SelectableList 
+                value={null} 
+                onChange={this.handlePath}
+                style = {{
+                    backgroundColor:'#DBE2EF'
+                }}
+            >
                 <ListItem
                     value={`${this.prefix}/assignments`}
                     primaryText="作業"

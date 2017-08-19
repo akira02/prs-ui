@@ -52,9 +52,13 @@ export class AssignmentCard extends React.Component<Props> {
                 expanded={this.expanded}
                 onExpandChange={this.setExpandState}
                 style={{
-                    backgroundImage: 'url(/static/pic/assignment-bg-blur.jpg)',
+                    //backgroundImage: 'url(/static/pic/assignment-bg-blur.jpg)',
                     backgroundSize: 'cover',
-                    backgroundAttachment: 'fixed'
+                    backgroundAttachment: 'local',
+                    margin: '5px',
+                    background:' linear-gradient(90deg, #3F72AF 7.5%, white 2.5%, white 90%)',
+                    'background-size':'10%',
+                    'background-repeat': 'repeat-y'
                 }}
             >
                 <CardHeader
@@ -65,7 +69,8 @@ export class AssignmentCard extends React.Component<Props> {
                     actAsExpander={true}
                     showExpandableButton={false}
                     style={{
-                        fontSize: '1.8em'
+                        fontSize: '1.8em',
+                        right: '-25px',
                     }}
                 />
                 <CardText expandable={true}>

@@ -49,14 +49,14 @@ export class SideMenu extends React.Component<Props> {
                 docked={true}
                 style={{
                     height: '100%',
-                    backgroundColor: 'transparent',
-                    backgroundImage: 'url(/static/pic/assignment-bg-blur.jpg)',
+                    backgroundColor: '#DBE2EF',
+                    //backgroundImage: 'url(/static/pic/assignment-bg-blur.jpg)',
                     backgroundSize: 'cover',
-                    backgroundAttachment: 'fixed'
+                    backgroundAttachment: 'fixed',
                 }}
                 containerStyle={{
                     position: 'relative',
-                    backgroundColor: 'transparent'
+                    backgroundColor: '#DBE2EF'
                 }}
                 {...rest}
             >
@@ -65,7 +65,16 @@ export class SideMenu extends React.Component<Props> {
                 {page.selectedCourse != null
                     ? <SubPageSelect selectedCourse={page.selectedCourse} />
                     : null}
-
+                <hr
+                    style={{
+                        display: 'block',
+                        height: '1px',
+                        border: '0',
+                        'border-top': '1px solid #ccc',
+                        margin: '1em 0',
+                        padding: '0',
+                    }}
+                />
                 <List>
                     <ListItem primaryText="登出" onTouchTap={this.handleLogout} />
                 </List>

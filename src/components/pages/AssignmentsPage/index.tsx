@@ -38,9 +38,9 @@ export class AssignmentsPage extends React.Component<Props> {
         return (
             <Page
                 style={{
-                    backgroundImage: 'url(/static/pic/assignment-bg.jpg)',
+                    //backgroundImage: 'url(/static/pic/assignment-bg.jpg)',
                     backgroundSize: 'cover',
-                    backgroundAttachment: 'fixed'
+                    backgroundAttachment: 'fixed',
                 }}
             >
                 <AssignmentCardContainer>

@@ -54,7 +54,7 @@ export class CourseSelect extends React.Component<Props> {
                     value={selectedCourse}
                     onChange={this.handleSelect}
                     style={{
-                        backgroundColor: 'rgb(48, 48, 48)'
+                        backgroundColor: '#112D4E'
                     }}
                 >
                     <ListItem
@@ -71,7 +71,8 @@ export class CourseSelect extends React.Component<Props> {
                             />
                         )}
                         style={{
-                            fontSize: '1.3em'
+                            fontSize: '1.3em',
+                            fontWeight: 'bold'
                         }}
                     />
                 </SelectableList>
