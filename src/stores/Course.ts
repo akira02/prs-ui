@@ -12,11 +12,11 @@ export const CourseModel = types.model(
     {
         id: types.identifier(types.string),
         name: types.string,
-        semester: types.string,
-        teacher: types.model({
+        semester: types.optional(types.string, ''),
+        teacher: types.optional(types.model({
             id: types.string,
             name: types.string
-        }),
+        }), {id:'', name:''}),
 
         attachments: types.array(AttachmentModel),
 
