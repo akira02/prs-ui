@@ -51,7 +51,7 @@ server.get('/users', (req, res, next) => {
 
 // handle form creation
 server.post('/forms/create', (req, res) => {
-    res.send({ success: true, url: 'http://example.com' })
+    res.send({ success: true, url: 'https://www.jotform.com/form-templates/preview/20873100377449?preview=true' })
 })
 
 // handle authorization

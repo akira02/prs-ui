@@ -120,7 +120,7 @@ function generateAttachments() {
         result.push({
             type: 'form',
             name: `Good Form ${i}`,
-            content: `http://a-good-form-very-good.com.tw/good-form-${i}`
+            content: `https://www.jotform.com/form-templates/preview/20873100377449?preview=true`
         })
     }
 
