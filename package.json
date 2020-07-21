@@ -50,7 +50,7 @@
     "clean-webpack-plugin": "^0.1.16",
     "copy-webpack-plugin": "^4.0.1",
     "json-server": "^0.10.3",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.19",
     "shortid": "^2.2.8",
     "typescript": "^2.4.1",
     "webpack": "^3.0.0",
